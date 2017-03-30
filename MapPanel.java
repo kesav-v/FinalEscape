@@ -33,9 +33,8 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
-		if (!hasFocus())
-			return;
-		drawMap(g);
+		if (hasFocus())
+			drawMap(g);
 		drawBorder(g);
 	}
 
