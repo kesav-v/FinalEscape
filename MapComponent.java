@@ -1,9 +1,10 @@
-public class MapComponent {
+public abstract class MapComponent {
 
 	private int x, y;
 	private Map map;
 
 	public MapComponent(Map map, int x, int y) {
+		this.map = map;
 		this.x = x;
 		this.y = y;
 	}
