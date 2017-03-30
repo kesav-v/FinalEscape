@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class MinimapPanel extends JPanel {
 
-	public static int BLOCK_SIZE = MapPanel.BLOCK_SIZE / 2;
+	public static int BLOCK_SIZE = MapPanel.BLOCK_SIZE / 3;
 
 	private Map map;
 	private Color[][] memory;
@@ -15,8 +15,8 @@ public class MinimapPanel extends JPanel {
 
 	public MinimapPanel(Map map) {
 		this.map = map;
-		setSize((int)Math.ceil(MapPanel.VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE * 3 / 2,
-			(int)Math.ceil(MapPanel.VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE * 3 / 2);
+		setSize((int)Math.ceil(MapPanel.VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE * 2,
+			(int)Math.ceil(MapPanel.VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE * 2);
 
 		memory = new Color[map.size()][map.size()];
 		for (Color[] row : memory)
