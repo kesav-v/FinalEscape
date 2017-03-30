@@ -27,7 +27,6 @@ public class MapGui extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		addMapPanel();
-		mapPanel.grabFocus();
 	}
 
 	private void addMapPanel() {

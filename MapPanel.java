@@ -2,11 +2,13 @@ import javax.swing.JPanel;
 
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class MapPanel extends JPanel implements KeyListener {
+public class MapPanel extends JPanel implements KeyListener, MouseListener {
 
 	public static final int BLOCK_SIZE = 25;
 	public static final double VISIBILITY_RADIUS = 4.2;
@@ -18,6 +20,7 @@ public class MapPanel extends JPanel implements KeyListener {
 		this.map = map;
 		setLayout(null);
 		addKeyListener(this);
+		addMouseListener(this);
 	}
 
 	@Override
@@ -30,6 +33,8 @@ public class MapPanel extends JPanel implements KeyListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
+		if (!hasFocus())
+			return;
 		drawMap(g);
 		drawBorder(g);
 	}
@@ -49,8 +54,10 @@ public class MapPanel extends JPanel implements KeyListener {
 			g.setColor(Color.WHITE);
 			g.fillRect(middleX + x * BLOCK_SIZE, middleY + y * BLOCK_SIZE,
 				BLOCK_SIZE, BLOCK_SIZE);
-		} else g.drawImage(component.getImage(), middleX + x * BLOCK_SIZE,
-			middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, this);
+		} else {
+			g.drawImage(component.getImage(), middleX + x * BLOCK_SIZE,
+				middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, this);
+		}
 	}
 
 	private boolean isVisible(int currx, int curry, int visx, int visy) {
@@ -99,4 +106,24 @@ public class MapPanel extends JPanel implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent event) {}
+
+	@Override
+	public void mouseExited(MouseEvent event) {}
+
+	@Override
+	public void mouseEntered(MouseEvent event) {}
+
+	@Override
+	public void mouseReleased(MouseEvent event) {}
+
+	@Override
+	public void mousePressed(MouseEvent event) {}
+
+	@Override
+	public void mouseClicked(MouseEvent event) {
+		if (!hasFocus()) {
+			grabFocus();
+			repaint();
+		}
+	}
 }
