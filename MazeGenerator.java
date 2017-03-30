@@ -97,7 +97,7 @@ public class MazeGenerator	{
 						mustGenMaze(maze, x, y-2);
 					}
 					break;
-				}	
+				}
 				case 1:	{
 					if (y + 2 >= maze[x].length - 1) continue;
 					if (maze[x][y+2] == false)	{
@@ -150,7 +150,7 @@ public class MazeGenerator	{
 	 * @param  startX the starting x location for the maze
 	 * @param  startY the starting y location for the maze
 	 * @param  startZ the starting z location for the maze
-	 * @return        a three dimensional maze 
+	 * @return        a three dimensional maze
 	 */
 	public static boolean[][][] generateMaze(int width, int height, int depth, int startX, int startY, int startZ)	{
 		boolean[][][] maze = new boolean[width+2][height+2][depth+2];
@@ -184,12 +184,12 @@ public class MazeGenerator	{
 						mustGenMaze(maze, x, y-2, z);
 					}
 					break;
-				}	
+				}
 				case 1:	{
 					if (y + 2 >= maze[x].length - 1) continue;
 					if (maze[x][y+2][z] == false)	{
 						maze[x][y+1][z] = true;
-						maze[x][y+2][z] = true;						
+						maze[x][y+2][z] = true;
 						mustGenMaze(maze, x, y+2, z);
 					}
 					break;
