@@ -5,7 +5,7 @@ public class Person extends MapComponent {
 	private Direction direction;
 
 	public Person(Map map, int x, int y) {
-		super(map, x, y, "Maze.png");
+		super(map, x, y, "Maze.png", Direction.NORTH);
 		//w = new Frisbee();
 		health = 100;
 		direction = Direction.EAST;

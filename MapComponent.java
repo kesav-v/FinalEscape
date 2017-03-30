@@ -9,11 +9,13 @@ public abstract class MapComponent {
 	private Map map;
 	private boolean solid, opaque;
 	private Image img;
+	private Direction direction;
 
-	public MapComponent(Map map, int x, int y, String imgPath) {
+	public MapComponent(Map map, int x, int y, String imgPath, Direction d) {
 		this.map = map;
 		this.x = x;
 		this.y = y;
+		direction = d;
 		map.addComponent(this);
 		solid = opaque = false;
 		try {
@@ -34,6 +36,7 @@ public abstract class MapComponent {
 	public int getY() { return y; }
 	public Map getMap() { return map; }
 	public Image getImage() { return img; }
+	public Direction getDirection() { return direction; }
 
 	public boolean isSolid() { return solid; }
 	public boolean isOpaque() { return opaque; }
