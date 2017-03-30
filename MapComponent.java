@@ -1,4 +1,4 @@
-public class MapComponent() {
+public class MapComponent {
 
 	private int x;
 	private int y;
