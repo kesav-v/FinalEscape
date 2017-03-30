@@ -43,5 +43,4 @@ public class MapGui extends JFrame {
 		setLocation((SCREEN_WIDTH - getWidth()) / 2,
 			(SCREEN_HEIGHT - getHeight()) / 2);
 	}
-
 }
