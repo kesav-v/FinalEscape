@@ -1,9 +1,12 @@
 import javax.swing.JPanel;
 
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class MapPanel extends JPanel {
+public class MapPanel extends JPanel implements KeyListener {
 
 	public static final int BLOCK_SIZE = 25;
 	public static final double VISIBILITY_RADIUS = 4.2;
@@ -14,6 +17,7 @@ public class MapPanel extends JPanel {
 	public MapPanel(Map map) {
 		this.map = map;
 		setLayout(null);
+		addKeyListener(this);
 	}
 
 	@Override
@@ -71,4 +75,28 @@ public class MapPanel extends JPanel {
 	private double distance(int x1, int y1, int x2, int y2) {
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 	}
+
+	@Override
+	public void keyReleased(KeyEvent event) {}
+
+	@Override
+	public void keyPressed(KeyEvent event) {
+		switch (event.getKeyCode()) {
+			case KeyEvent.VK_LEFT:
+				map.movePerson(-1, 0);
+				break;
+			case KeyEvent.VK_RIGHT:
+				map.movePerson(1, 0);
+				break;
+			case KeyEvent.VK_UP:
+				map.movePerson(0, -1);
+				break;
+			case KeyEvent.VK_DOWN:
+				map.movePerson(0, 1);
+				break;
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent event) {}
 }

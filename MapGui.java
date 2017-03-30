@@ -27,6 +27,7 @@ public class MapGui extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		addMapPanel();
+		mapPanel.grabFocus();
 	}
 
 	private void addMapPanel() {
@@ -35,7 +36,9 @@ public class MapGui extends JFrame {
 		add(mapPanel);
 	}
 
-	public void updateMap() {}
+	public void updateMap() {
+		mapPanel.repaint();
+	}
 
 	/**
 	 * Centers this {@code SimpleHtmlRenderer} on the screen.

@@ -42,6 +42,12 @@ public class Map {
 		updateGui();
 	}
 
+	public void movePerson(int dx, int dy) {
+		centerX += dx;
+		centerY += dy;
+		updateGui();
+	}
+
 	private void updateGui() {
 		gui.updateMap();
 	}
