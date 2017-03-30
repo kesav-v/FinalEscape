@@ -21,6 +21,8 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 		setLayout(null);
 		addKeyListener(this);
 		addMouseListener(this);
+		setSize((int)Math.ceil(VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE,
+			(int)Math.ceil(VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE);
 	}
 
 	@Override
