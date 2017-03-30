@@ -3,8 +3,8 @@ public abstract class Character extends MapComponent {
 	//private Weapon w;
 	private int health;
 
-	public Character(Map map, int x, int y, String imgPath) {
-		super(map, x, y, imgPath);
+	public Character(Map map, int x, int y, String name) {
+		super(map, x, y, name);
 		health = 100;
 		setDirection(Direction.EAST);
 	}

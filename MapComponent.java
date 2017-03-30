@@ -6,6 +6,8 @@ import java.io.File;
 import java.awt.Color;
 public abstract class MapComponent {
 
+	private final String name;
+
 	private int x, y;
 	private Map map;
 	private boolean solid, opaque;
@@ -13,26 +15,21 @@ public abstract class MapComponent {
 	private Direction direction;
 	private Color color;
 
-	public MapComponent(Map map, int x, int y, String imgPath) {
+	public MapComponent(Map map, int x, int y, String name) {
 		this.map = map;
 		this.x = x;
 		this.y = y;
+		this.name = name;
 		map.addComponent(this);
 		direction = Direction.NORTH;
 		solid = opaque = false;
 		color = Color.GRAY;
 		try {
-			img = ImageIO.read(new File(imgPath));
+			img = ImageIO.read(new File("images/" + name + ".png"));
 		} catch (IOException e) {
-			System.err.printf("Failed to load image in path: %s", imgPath);
+			System.err.printf("Failed to load image in path: %s", "images/" + name + ".png");
 			System.exit(1);
 		}
-	}
-
-	// DON'T USE EXCEPT FOR TEMP COMPONENTS!!!
-	public MapComponent(int x, int y) {
-		this.x = x;
-		this.y = y;
 	}
 
 	public final void moveTo(int x, int y) {
@@ -51,6 +48,7 @@ public abstract class MapComponent {
 	public Image getImage() { return img; }
 	public Direction getDirection() { return direction; }
 	public Color getColor() { return color; }
+	public String getName() { return name; }
 
 	public boolean isSolid() { return solid; }
 	public boolean isOpaque() { return opaque; }
