@@ -6,7 +6,7 @@ import java.awt.Color;
 public class MapPanel extends JPanel {
 
 	public static final int BLOCK_SIZE = 25;
-	public static final int VISIBILITY_RADIUS = 4;
+	public static final double VISIBILITY_RADIUS = 4.2;
 
 	private int middleX, middleY;
 	private Map map;
@@ -26,18 +26,17 @@ public class MapPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
-		drawBorder(g);
 		drawMap(g);
+		drawBorder(g);
 	}
 
 	private void drawMap(Graphics g) {
 		int centerX = map.getCenterX();
 		int centerY = map.getCenterY();
-		for (int i = -VISIBILITY_RADIUS; i <= VISIBILITY_RADIUS; i++)
-			if (i + centerX >= 0 && i + centerX < map.size())
-				for (int a = -VISIBILITY_RADIUS; a <= VISIBILITY_RADIUS; a++)
-					if (a + centerY >= 0 && a + centerY < map.size())
-						drawMapComponent(g, i, a, i + centerX, a + centerY);
+		for (int i = 0; i < map.size(); i++)
+			for (int a = 0; a < map.size(); a++)
+				if (isVisible(centerX, centerY, i, a))
+					drawMapComponent(g, i - centerX, a - centerY, i, a);
 	}
 
 	private void drawMapComponent(Graphics g, int x, int y, int mapX, int mapY) {
@@ -48,12 +47,12 @@ public class MapPanel extends JPanel {
 				BLOCK_SIZE, BLOCK_SIZE);
 		} else g.drawImage(component.getImage(), middleX + x * BLOCK_SIZE,
 			middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, this);
-		// Block size is 25 by default (arbitrary)
-		// literally everything seems to work but 25/26 o_O
-		// but the way this runs, is that how we want it
-		// what do you mean
-		// like that looks like a bunch of tiny mazes put together
-		// yeah, so we get a better image (more fitting)
+	}
+
+	private boolean isVisible(int currx, int curry, int visx, int visy) {
+		if (distance(currx, curry, visx, visy) <= VISIBILITY_RADIUS)
+			return true;
+		return false;
 	}
 
 	private void drawUnknownMist(Graphics g) {
@@ -67,5 +66,9 @@ public class MapPanel extends JPanel {
 		g.fillRect(0, getHeight() - BLOCK_SIZE, getWidth(), BLOCK_SIZE);
 		g.fillRect(0, 0, BLOCK_SIZE, getHeight());
 		g.fillRect(getWidth() - BLOCK_SIZE, 0, BLOCK_SIZE, getHeight());
+	}
+
+	private double distance(int x1, int y1, int x2, int y2) {
+		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 	}
 }
