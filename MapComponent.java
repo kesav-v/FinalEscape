@@ -33,6 +33,7 @@ public abstract class MapComponent {
 	public int getX() { return x; }
 	public int getY() { return y; }
 	public Map getMap() { return map; }
+	public Image getImage() { return img; }
 
 	public boolean isSolid() { return solid; }
 	public boolean isOpaque() { return opaque; }
