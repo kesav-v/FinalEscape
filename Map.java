@@ -1,15 +1,18 @@
 import java.util.ArrayList;
 
 public class Map {
+
 	private MapComponent[][] occupantArray;
 	private MapGui gui; // for when things changed, repaint
+	private int centerX, centerY;
+	private final int size;
 
 	public Map() {
 		this(13);
 	}
 
 	public Map(int minisize) {
-		int size = 4 * minisize - 1;
+		size = 4 * minisize - 1;
 		int randX = 2 * (int)(Math.random() * (size / 2 - 1));
 		int randY = 2 * (int)(Math.random() * (size / 2 - 1));
 		boolean[][] maze = MazeGenerator.generateMaze(size, size, randX, randY);
@@ -18,9 +21,15 @@ public class Map {
 			for (int a = 0; a < occupantArray[i].length; a++)
 				if (!maze[i][a]) // wall
 					occupantArray[i][a] = new Wall(this, i, a);
+
+		centerX = centerY = 4;
 	}
 
 	public static void main(String[] args) {
+	}
+
+	public MapComponent getComponent(int x, int y) {
+		return occupantArray[x][y];
 	}
 
 	public void addComponent(MapComponent occupant) {
@@ -40,4 +49,8 @@ public class Map {
 	public void setGui(MapGui gui) {
 		this.gui = gui;
 	}
+
+	public int getCenterX() { return centerX; }
+	public int getCenterY() { return centerY; }
+	public int size() { return size; }
 }

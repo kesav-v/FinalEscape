@@ -31,6 +31,7 @@ public class MapGui extends JFrame {
 
 	private void addMapPanel() {
 		mapPanel = new MapPanel(map);
+		mapPanel.setSize(getWidth(), getHeight());
 		add(mapPanel);
 	}
 
