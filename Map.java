@@ -4,10 +4,14 @@ public class Map {
 	//private MapComponent[][] occupantArray;
 	private boolean[][] maze;
 
+	public Map() {
+		this(13);
+	}
+
 	public Map(int s) {
 		int size = 4 * s + 1;
-		int randX = 2 * (int)(Math.random() * (size / 2 - 1)) + 1;
-		int randY = 2 * (int)(Math.random() * (size / 2 - 1)) + 1;
+		int randX = 2 * (int)(Math.random() * (size / 2 - 1));
+		int randY = 2 * (int)(Math.random() * (size / 2 - 1));
 		maze = MazeGenerator.generateMaze(size, size, randX, randY);
 		System.out.println(randX + " " + randY);
 	}
