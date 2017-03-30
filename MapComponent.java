@@ -27,7 +27,11 @@ public abstract class MapComponent {
 	}
 
 	public final void moveTo(int x, int y) {
-		map.moveComponent(this.x, this.y, x, y);
+		moveTo(x, y, true);
+	}
+
+	public final void moveTo(int x, int y, boolean updateGui) {
+		map.moveComponent(this.x, this.y, x, y, updateGui);
 		this.x = x;
 		this.y = y;
 	}

@@ -14,6 +14,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import java.util.ArrayList;
+
 public class MapPanel extends JPanel implements KeyListener, MouseListener {
 
 	public static final int BLOCK_SIZE = 25;
@@ -41,9 +43,18 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
-		if (hasFocus())
+		if (hasFocus()) {
 			drawMap(g);
+			// ArrayList<MapComponent> visibleComponents = getVisibleComponents();
+			// drawComponents(g, visibleComponents);
+		}
 		drawBorder(g);
+	}
+
+	private void drawComponents(Graphics g,
+		ArrayList<MapComponent> visibleComponents) {
+		for (MapComponent component : visibleComponents)
+			drawMapComponent(g, component);
 	}
 
 	private void drawMap(Graphics g) {
@@ -55,8 +66,16 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 					drawMapComponent(g, i - centerX, a - centerY, i, a);
 	}
 
+	private void drawMapComponent(Graphics g, MapComponent component) {
+		int mapX = component.getX();
+		int mapY = component.getY();
+		int x = mapX - map.getCenterX();
+		int y = mapY - map.getCenterY();
+		drawMapComponent(g, x, y, mapX, mapY);
+	}
+
 	private void drawMapComponent(Graphics g, int x, int y, int mapX, int mapY) {
-		MapComponent component = map.getComponent(mapX, mapY);
+		MapComponent component = map.get(mapX, mapY);
 		if (component == null) {
 			g.setColor(Color.WHITE);
 			g.fillRect(middleX + x * BLOCK_SIZE, middleY + y * BLOCK_SIZE,
@@ -64,9 +83,9 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 		} else {
 			Direction dir = component.getDirection();
 			Image img = component.getImage();
-			if (dir == Direction.NORTH)
+			if (dir.compassDirection == 0)
 				g.drawImage(img, middleX + x * BLOCK_SIZE,
-					middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, this);
+					middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, Color.WHITE, this);
 			else {
 				AffineTransform at = new AffineTransform();
 				at.rotate(Math.toRadians(dir.compassDirection),
@@ -75,9 +94,20 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 					AffineTransformOp.TYPE_BILINEAR);
 				Graphics2D g2d = (Graphics2D)g;
 				g2d.drawImage(ato.filter((BufferedImage)img, null), middleX + x * BLOCK_SIZE,
-					middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, this);
+					middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, Color.WHITE, this);
 			}
 		}
+	}
+
+	public ArrayList<MapComponent> getVisibleComponents() {
+		int centerX = map.getCenterX();
+		int centerY = map.getCenterY();
+
+		ArrayList<MapComponent> visibleComponents = new ArrayList<MapComponent>();
+
+		// hallway left
+
+		return visibleComponents;
 	}
 
 	private boolean isVisible(int currx, int curry, int visx, int visy) {
@@ -110,16 +140,16 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 	public void keyPressed(KeyEvent event) {
 		switch (event.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
-				map.movePerson(-1, 0);
+				map.moveMainCharacter(-1, 0);
 				break;
 			case KeyEvent.VK_RIGHT:
-				map.movePerson(1, 0);
+				map.moveMainCharacter(1, 0);
 				break;
 			case KeyEvent.VK_UP:
-				map.movePerson(0, -1);
+				map.moveMainCharacter(0, -1);
 				break;
 			case KeyEvent.VK_DOWN:
-				map.movePerson(0, 1);
+				map.moveMainCharacter(0, 1);
 				break;
 		}
 	}

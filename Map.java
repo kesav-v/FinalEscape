@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Map {
 
 	private MapComponent[][] occupantArray;
+	private Character mainCharacter;
 	private MapGui gui; // for when things changed, repaint
-	private int centerX, centerY;
 	private final int size;
 
 	public Map() {
@@ -23,13 +23,13 @@ public class Map {
 				if (!maze[i][a]) // wall
 					occupantArray[i][a] = new Wall(this, i, a);
 
-		centerX = centerY = 4;
+		mainCharacter = new Coder(this, randX - 1, randY - 1);
 	}
 
 	public static void main(String[] args) {
 	}
 
-	public MapComponent getComponent(int x, int y) {
+	public MapComponent get(int x, int y) {
 		return occupantArray[x][y];
 	}
 
@@ -37,15 +37,16 @@ public class Map {
 		occupantArray[occupant.getX()][occupant.getY()] = occupant;
 	}
 
-	public void moveComponent(int fromx, int fromy, int tox, int toy) {
+	public void moveComponent(int fromx, int fromy, int tox, int toy,
+		boolean updateGui) {
 		occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
-		updateGui();
+		if (updateGui)
+			updateGui();
 	}
 
-	public void movePerson(int dx, int dy) {
-		centerX += dx;
-		centerY += dy;
+	public void moveMainCharacter(int dx, int dy) {
+		mainCharacter.moveCharacter(dx, dy);
 		updateGui();
 	}
 
@@ -57,7 +58,7 @@ public class Map {
 		this.gui = gui;
 	}
 
-	public int getCenterX() { return centerX; }
-	public int getCenterY() { return centerY; }
+	public int getCenterX() { return mainCharacter.getX(); }
+	public int getCenterY() { return mainCharacter.getY(); }
 	public int size() { return size; }
 }
