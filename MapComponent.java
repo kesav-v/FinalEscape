@@ -21,7 +21,7 @@ public abstract class MapComponent {
 		try {
 			img = ImageIO.read(new File(imgPath));
 		} catch (IOException e) {
-			System.err.println("Rip");
+			System.err.printf("Failed to load image in path: %s", imgPath);
 			System.exit(1);
 		}
 	}
