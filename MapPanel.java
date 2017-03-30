@@ -5,8 +5,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 public class MapPanel extends JPanel implements KeyListener, MouseListener {
 
@@ -56,8 +62,21 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 			g.fillRect(middleX + x * BLOCK_SIZE, middleY + y * BLOCK_SIZE,
 				BLOCK_SIZE, BLOCK_SIZE);
 		} else {
-			g.drawImage(component.getImage(), middleX + x * BLOCK_SIZE,
-				middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, this);
+			Direction dir = component.getDirection();
+			Image img = component.getImage();
+			if (dir == Direction.NORTH)
+				g.drawImage(img, middleX + x * BLOCK_SIZE,
+					middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, this);
+			else {
+				AffineTransform at = new AffineTransform();
+				at.rotate(Math.toRadians(dir.compassDirection),
+					img.getWidth(this) / 2, img.getHeight(this) / 2);
+				AffineTransformOp ato = new AffineTransformOp(at,
+					AffineTransformOp.TYPE_BILINEAR);
+				Graphics2D g2d = (Graphics2D)g;
+				g2d.drawImage(ato.filter((BufferedImage)img, null), middleX + x * BLOCK_SIZE,
+					middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, this);
+			}
 		}
 	}
 

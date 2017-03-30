@@ -13,8 +13,8 @@ public class Map {
 
 	public Map(int minisize) {
 		size = 4 * minisize - 1;
-		int randX = 2 * (int)(Math.random() * (size / 2 - 1));
-		int randY = 2 * (int)(Math.random() * (size / 2 - 1));
+		int randX = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
+		int randY = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
 		boolean[][] maze = MazeGenerator.generateMaze(size, size, randX, randY);
 		MazeGenerator.removeDeadEnds(maze, 0.8);
 		occupantArray = new MapComponent[size][size];

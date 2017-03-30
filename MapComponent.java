@@ -11,12 +11,12 @@ public abstract class MapComponent {
 	private Image img;
 	private Direction direction;
 
-	public MapComponent(Map map, int x, int y, String imgPath, Direction d) {
+	public MapComponent(Map map, int x, int y, String imgPath) {
 		this.map = map;
 		this.x = x;
 		this.y = y;
-		direction = d;
 		map.addComponent(this);
+		direction = Direction.NORTH;
 		solid = opaque = false;
 		try {
 			img = ImageIO.read(new File(imgPath));
@@ -43,4 +43,5 @@ public abstract class MapComponent {
 
 	public void setSolid(boolean solid) { this.solid = solid; }
 	public void setOpaque(boolean opaque) { this.opaque = opaque; }
+	public void setDirection(Direction dir) { direction = dir; }
 }
