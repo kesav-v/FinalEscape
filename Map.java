@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Map {
 	private MapComponent[][] occupantArray;
+	private MapGui gui; // for when things changed, repaint
 
 	public Map() {
 		this(13);
@@ -29,5 +30,14 @@ public class Map {
 	public void moveComponent(int fromx, int fromy, int tox, int toy) {
 		occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
+		updateGui();
+	}
+
+	private void updateGui() {
+		gui.updateMap();
+	}
+
+	public void setGui(MapGui gui) {
+		this.gui = gui;
 	}
 }
