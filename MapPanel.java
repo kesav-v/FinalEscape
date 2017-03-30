@@ -19,8 +19,8 @@ public class MapPanel extends JPanel {
 	@Override
 	public void setSize(int width, int height) {
 		super.setSize(width, height);
-		middleX = width / 2;
-		middleY = height / 2;
+		middleX = (width - BLOCK_SIZE) / 2;
+		middleY = (height - BLOCK_SIZE) / 2;
 	}
 
 	@Override
