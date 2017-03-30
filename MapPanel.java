@@ -47,7 +47,13 @@ public class MapPanel extends JPanel {
 			g.fillRect(middleX + x * BLOCK_SIZE, middleY + y * BLOCK_SIZE,
 				BLOCK_SIZE, BLOCK_SIZE);
 		} else g.drawImage(component.getImage(), middleX + x * BLOCK_SIZE,
-			middleY + y * BLOCK_SIZE, BLOCK_SIZE + 1, BLOCK_SIZE + 1, this);
+			middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, this);
+		// Block size is 25 by default (arbitrary)
+		// literally everything seems to work but 25/26 o_O
+		// but the way this runs, is that how we want it
+		// what do you mean
+		// like that looks like a bunch of tiny mazes put together
+		// yeah, so we get a better image (more fitting)
 	}
 
 	private void drawUnknownMist(Graphics g) {
