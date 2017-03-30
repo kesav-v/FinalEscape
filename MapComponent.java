@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.File;
 
 import java.awt.Color;
+
 public abstract class MapComponent {
 
 	private final String name;

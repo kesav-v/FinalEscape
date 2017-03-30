@@ -16,7 +16,7 @@ public class Map {
 		int randX = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
 		int randY = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
 		boolean[][] maze = MazeGenerator.generateMaze(size, size, randX, randY);
-		MazeGenerator.removeDeadEnds(maze, 0.8);
+		MazeGenerator.removeDeadEnds(maze, 0.9);
 		occupantArray = new MapComponent[size][size];
 		for (int i = 0; i < occupantArray.length; i++)
 			for (int a = 0; a < occupantArray[i].length; a++)

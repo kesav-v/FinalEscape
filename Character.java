@@ -1,12 +1,13 @@
 public abstract class Character extends MapComponent {
 
-	//private Weapon w;
 	private int health;
+	private Inventory inventory;
 
-	public Character(Map map, int x, int y, String name) {
+	public Character(Map map, int x, int y, String name, int inventoryCapacity) {
 		super(map, x, y, name);
 		health = 100;
 		setDirection(Direction.EAST);
+		inventory = new Inventory(inventoryCapacity);
 	}
 
 	public boolean moveCharacter(int dx, int dy) {
@@ -41,4 +42,6 @@ public abstract class Character extends MapComponent {
 
 	public void setHealth(int health) { this.health = health; }
 	public int getHealth() { return health; }
+
+	public Inventory getInventory() { return inventory; }
 }

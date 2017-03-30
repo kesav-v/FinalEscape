@@ -7,16 +7,17 @@ import java.util.ArrayList;
 
 public class MinimapPanel extends JPanel {
 
-	public static int BLOCK_SIZE = MapPanel.BLOCK_SIZE / 3;
+	public final int BLOCK_SIZE;
 
 	private Map map;
 	private Color[][] memory;
 	private int middleX, middleY;
 
-	public MinimapPanel(Map map) {
+	public MinimapPanel(Map map, int maxWidth) {
 		this.map = map;
-		setSize((int)Math.ceil(MapPanel.VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE * 2,
-			(int)Math.ceil(MapPanel.VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE * 2);
+		setSize(maxWidth * 2 / 3, maxWidth * 2 / 3);
+		BLOCK_SIZE = getWidth() / map.size();
+		setSize(BLOCK_SIZE * map.size(), BLOCK_SIZE * map.size());
 
 		memory = new Color[map.size()][map.size()];
 		for (Color[] row : memory)
@@ -48,13 +49,11 @@ public class MinimapPanel extends JPanel {
 	}
 
 	private void drawMemory(Graphics g) {
-		int centerX = map.getCenterX();
-		int centerY = map.getCenterY();
 		for (int i = 0; i < memory.length; i++)
 			for (int a = 0; a < memory[i].length; a++) {
 				g.setColor(memory[i][a]);
-				g.fillRect(middleX + (i - centerX) * BLOCK_SIZE,
-					middleY + (a - centerY) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+				g.fillRect(i * BLOCK_SIZE,
+					a * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 			}
 	}
 

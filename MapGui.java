@@ -19,6 +19,7 @@ public class MapGui extends JFrame {
 	private Map map;
 	private MapPanel mapPanel;
 	private MinimapPanel minimapPanel;
+	private InventoryPanel inventoryPanel;
 
 	public MapGui(Map map, int width, int height) {
 		this.map = map;
@@ -41,11 +42,15 @@ public class MapGui extends JFrame {
 	}
 
 	private void addMinimapPanel() {
-		minimapPanel = new MinimapPanel(map);
 		int marginWidth = getWidth() / 2 - mapPanel.getWidth() / 2;
+		minimapPanel = new MinimapPanel(map, marginWidth);
 		int padding = marginWidth / 2 - minimapPanel.getWidth() / 2;
 		minimapPanel.setLocation(padding, padding);
 		add(minimapPanel);
+	}
+
+	private void addInventoryPanel() {
+
 	}
 
 	public void updateMap() {
