@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 public class MapGui extends JFrame {
 
@@ -17,6 +18,7 @@ public class MapGui extends JFrame {
 
 	private Map map;
 	private MapPanel mapPanel;
+	private MinimapPanel minimapPanel;
 
 	public MapGui(Map map, int width, int height) {
 		this.map = map;
@@ -28,6 +30,7 @@ public class MapGui extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		addMapPanel();
+		addMinimapPanel();
 	}
 
 	private void addMapPanel() {
@@ -37,8 +40,19 @@ public class MapGui extends JFrame {
 		add(mapPanel);
 	}
 
+	private void addMinimapPanel() {
+		minimapPanel = new MinimapPanel(map);
+		int marginWidth = getWidth() / 2 - mapPanel.getWidth() / 2;
+		int padding = marginWidth / 2 - minimapPanel.getWidth() / 2;
+		minimapPanel.setLocation(padding, padding);
+		add(minimapPanel);
+	}
+
 	public void updateMap() {
+		ArrayList<Location> visibleLocations = mapPanel.calculateVisibleLocations();
 		mapPanel.repaint();
+		minimapPanel.updateMemory(visibleLocations);
+		minimapPanel.repaint();
 	}
 
 	/**

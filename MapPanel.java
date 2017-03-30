@@ -1,4 +1,5 @@
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
@@ -23,10 +24,10 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 
 	private int middleX, middleY;
 	private Map map;
+	private ArrayList<Location> visibleLocations;
 
 	public MapPanel(Map map) {
 		this.map = map;
-		setLayout(null);
 		addKeyListener(this);
 		addMouseListener(this);
 		setSize((int)Math.ceil(VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE,
@@ -43,17 +44,15 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
-		if (hasFocus()) {
-			ArrayList<MapComponent> visibleComponents = getVisibleComponents();
-			drawComponents(g, visibleComponents);
-		}
+		if (hasFocus())
+			drawComponents(g, visibleLocations);
 		drawBorder(g);
 	}
 
 	private void drawComponents(Graphics g,
-		ArrayList<MapComponent> visibleComponents) {
-		for (MapComponent component : visibleComponents)
-			drawMapComponent(g, component);
+		ArrayList<Location> visibleLocations) {
+		for (Location loc : visibleLocations)
+			drawMapComponent(g, loc);
 	}
 
 	private void drawMap(Graphics g) {
@@ -65,9 +64,9 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 					drawMapComponent(g, i - centerX, a - centerY, i, a);
 	}
 
-	private void drawMapComponent(Graphics g, MapComponent component) {
-		int mapX = component.getX();
-		int mapY = component.getY();
+	private void drawMapComponent(Graphics g, Location loc) {
+		int mapX = loc.getX();
+		int mapY = loc.getY();
 		int x = mapX - map.getCenterX();
 		int y = mapY - map.getCenterY();
 		drawMapComponent(g, x, y, mapX, mapY);
@@ -98,7 +97,9 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 		}
 	}
 
-	public ArrayList<MapComponent> getVisibleComponents() {
+	public ArrayList<Location> getVisibleComponents() { return visibleLocations; }
+
+	public ArrayList<Location> calculateVisibleLocations() {
 		int centerX = map.getCenterX();
 		int centerY = map.getCenterY();
 
@@ -110,42 +111,40 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 
 		traverseMaze(walls, wasHere, (int)VISIBILITY_RADIUS, (int)VISIBILITY_RADIUS);
 
-		ArrayList<MapComponent> visibleComponents = new ArrayList<MapComponent>();
+		visibleLocations = new ArrayList<Location>();
 		for (int i = 0; i < wasHere.length; i++)
 			for (int a = 0; a < wasHere[i].length; a++)
 				if (wasHere[i][a]) {
 					int mapx = centerX - (int)VISIBILITY_RADIUS + i;
 					int mapy = centerY - (int)VISIBILITY_RADIUS + a;
-					MapComponent comp = map.get(mapx, mapy);
-					if (comp == null)
-						comp = new GuiTempComponent(mapx, mapy);
-					visibleComponents.add(comp);
-					addAdjacentComponents(visibleComponents, mapx, mapy);
+					Location loc = new Location(mapx, mapy);
+					visibleLocations.add(loc);
+					addAdjacentLocations(visibleLocations, mapx, mapy);
 				}
 
-		return visibleComponents;
+		return visibleLocations;
 	}
 
-	private void addAdjacentComponents(ArrayList<MapComponent> visibleComponents,
+	private void addAdjacentLocations(ArrayList<Location> visibleLocations,
 		int x, int y) {
-		addComponent(visibleComponents, x - 1, y);
-		addComponent(visibleComponents, x + 1, y);
-		addComponent(visibleComponents, x, y - 1);
-		addComponent(visibleComponents, x, y + 1);
-		addComponent(visibleComponents, x - 1, y - 1);
-		addComponent(visibleComponents, x + 1, y + 1);
-		addComponent(visibleComponents, x + 1, y - 1);
-		addComponent(visibleComponents, x - 1, y + 1);
+		addComponent(visibleLocations, x - 1, y);
+		addComponent(visibleLocations, x + 1, y);
+		addComponent(visibleLocations, x, y - 1);
+		addComponent(visibleLocations, x, y + 1);
+		addComponent(visibleLocations, x - 1, y - 1);
+		addComponent(visibleLocations, x + 1, y + 1);
+		addComponent(visibleLocations, x + 1, y - 1);
+		addComponent(visibleLocations, x - 1, y + 1);
 	}
 
-	private void addComponent(ArrayList<MapComponent> visibleComponents, int x,
+	private void addComponent(ArrayList<Location> visibleLocations, int x,
 		int y) {
 		if (x < 0 || x >= map.size() || y < 0 || y >= map.size())
 			return;
 		MapComponent comp = map.get(x, y);
 		if (comp != null && comp.isOpaque() && isVisible(x, y)
-			&& !visibleComponents.contains(comp))
-			visibleComponents.add(comp);
+			&& !visibleLocations.contains(new Location(x, y)))
+			visibleLocations.add(new Location(x, y));
 	}
 
 	private void traverseMaze(boolean[][] walls, boolean[][] wasHere, int x, int y) {
@@ -253,7 +252,7 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 	public void mouseClicked(MouseEvent event) {
 		if (!hasFocus()) {
 			grabFocus();
-			repaint();
+			((MapGui)SwingUtilities.getWindowAncestor(this)).updateMap();
 		}
 	}
 }
