@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Map {
-	//private MapComponent[][] occupantArray;
+	private MapComponent[][] occupantArray;
 	private boolean[][] maze;
 
 	public Map() {
@@ -19,6 +19,11 @@ public class Map {
 	public static void main(String[] args) {
 		Map map = new Map(13);
 		map.print();
+	}
+
+	public void moveComponent(int fromx, int fromy, int tox, int toy) {
+		occupantArray[tox][toy] = occupantArray[fromx][fromy];
+		occupantArray[fromx][fromy] = null;
 	}
 
 	public void print() {
