@@ -17,8 +17,10 @@ public class MazeGenerator	{
 
 	public static void main(String... pumpkins) {
 		// printMaze(generateMaze(31, 31, 5, 2, 2, 1)); // Sample of generating 3d maze
-		// printMaze(generateMaze(101, 101, 10, 10));	// Sample of generating 2d maze
-		// saveImage(generateMaze(51, 51, 10, 10), "Maze.png");	// Sample of saving 2d maze as png image
+		boolean[][] maze = generateMaze(55, 55, 4, 2);
+		removeDeadEnds(maze, 1); // maze, probability for wall removing
+		printMaze(maze);	// Sample of generating 2d maze
+		// saveImage(maze, "Maze.png");	// Sample of saving 2d maze as png image
 	}
 	/**
 	 * Prints a two dimensional maze from an array
@@ -266,6 +268,72 @@ public class MazeGenerator	{
 		}
 		return temp;
 	}
+
+	public static void removeDeadEnds(boolean[][] maze,	double probability) {
+		boolean[][] visited = new boolean[maze.length][maze[0].length];
+		for (boolean[] x : visited)
+			for (int i = 0; i < x.length; i++)
+				x[i] = false;
+		removeDeadEndsRecursive(maze, visited, probability, 1, 1);
+	}
+
+	private static void removeDeadEndsRecursive(boolean[][] maze,
+		boolean[][] visited, double probability, int x, int y) {
+		visited[x][y] = true;
+		if (numAdjacentWalls(maze, x, y) == 3 && Math.random() < probability)
+			switch ((int)(Math.random() * 4)) { // Remove a random wall
+				case 0:
+					if (!maze[x-1][y] && x != 1) {
+						maze[x-1][y] = true;
+						break;
+					}
+				case 1:
+					if (!maze[x+1][y] && x != maze.length - 2) {
+						maze[x+1][y] = true;
+						break;
+					}
+				case 2:
+					if (!maze[x][y-1] && y != 1) {
+						maze[x][y-1] = true;
+						break;
+					}
+				case 3:
+					if (!maze[x][y+1] && y != maze[x].length - 2) {
+						maze[x][y+1] = true;
+						break;
+					}
+				default:
+					if (!maze[x-1][y] && x != 1)
+						maze[x-1][y] = true;
+					else if (!maze[x+1][y] && x != maze.length - 2)
+						maze[x+1][y] = true;
+					else if (!maze[x][y-1] && y != 1)
+						maze[x][y-1] = true;
+					else System.out.println("Bozo Alert!");
+			}
+		if (maze[x-1][y] && !visited[x-1][y])
+			removeDeadEndsRecursive(maze, visited, probability, x-1, y);
+		if (maze[x+1][y] && !visited[x+1][y])
+			removeDeadEndsRecursive(maze, visited, probability, x+1, y);
+		if (maze[x][y-1] && !visited[x][y-1])
+			removeDeadEndsRecursive(maze, visited, probability, x, y-1);
+		if (maze[x][y+1] && !visited[x][y+1])
+			removeDeadEndsRecursive(maze, visited, probability, x, y+1);
+	}
+
+	private static int numAdjacentWalls(boolean[][] maze, int x, int y) {
+		int count = 0;
+		if (x > 0 && !maze[x-1][y])
+			count++;
+		if (y > 0 && !maze[x][y-1])
+			count++;
+		if (x < maze.length - 1 && !maze[x+1][y])
+			count++;
+		if (y < maze[x].length - 1 && !maze[x][y+1])
+			count++;
+		return count;
+	}
+
 	/**
 	 * Saves an two dimensional maze as a png image
 	 * @param maze     the two dimensional array
