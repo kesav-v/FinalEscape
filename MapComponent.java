@@ -7,6 +7,7 @@ public abstract class MapComponent {
 		this.map = map;
 		this.x = x;
 		this.y = y;
+		map.addComponent(this);
 	}
 
 	public final void moveTo(int x, int y) {

@@ -22,6 +22,10 @@ public class Map {
 	public static void main(String[] args) {
 	}
 
+	public void addComponent(MapComponent occupant) {
+		occupantArray[occupant.getX()][occupant.getY()] = occupant;
+	}
+
 	public void moveComponent(int fromx, int fromy, int tox, int toy) {
 		occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
