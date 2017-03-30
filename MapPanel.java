@@ -44,9 +44,8 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
 		if (hasFocus()) {
-			drawMap(g);
-			// ArrayList<MapComponent> visibleComponents = getVisibleComponents();
-			// drawComponents(g, visibleComponents);
+			ArrayList<MapComponent> visibleComponents = getVisibleComponents();
+			drawComponents(g, visibleComponents);
 		}
 		drawBorder(g);
 	}
@@ -103,11 +102,92 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 		int centerX = map.getCenterX();
 		int centerY = map.getCenterY();
 
-		ArrayList<MapComponent> visibleComponents = new ArrayList<MapComponent>();
+		boolean[][] walls = generateWalls();
+		boolean[][] wasHere = new boolean[walls.length][walls[0].length];
+		for (boolean[] row : wasHere)
+			for (int i = 0; i < row.length; i++)
+				row[i] = false;
 
-		// hallway left
+		traverseMaze(walls, wasHere, (int)VISIBILITY_RADIUS, (int)VISIBILITY_RADIUS);
+
+		ArrayList<MapComponent> visibleComponents = new ArrayList<MapComponent>();
+		for (int i = 0; i < wasHere.length; i++)
+			for (int a = 0; a < wasHere[i].length; a++)
+				if (wasHere[i][a]) {
+					int mapx = centerX - (int)VISIBILITY_RADIUS + i;
+					int mapy = centerY - (int)VISIBILITY_RADIUS + a;
+					MapComponent comp = map.get(mapx, mapy);
+					if (comp == null)
+						comp = new GuiTempComponent(mapx, mapy);
+					visibleComponents.add(comp);
+					addAdjacentComponents(visibleComponents, mapx, mapy);
+				}
 
 		return visibleComponents;
+	}
+
+	private void addAdjacentComponents(ArrayList<MapComponent> visibleComponents,
+		int x, int y) {
+		addComponent(visibleComponents, x - 1, y);
+		addComponent(visibleComponents, x + 1, y);
+		addComponent(visibleComponents, x, y - 1);
+		addComponent(visibleComponents, x, y + 1);
+		addComponent(visibleComponents, x - 1, y - 1);
+		addComponent(visibleComponents, x + 1, y + 1);
+		addComponent(visibleComponents, x + 1, y - 1);
+		addComponent(visibleComponents, x - 1, y + 1);
+	}
+
+	private void addComponent(ArrayList<MapComponent> visibleComponents, int x,
+		int y) {
+		if (x < 0 || x >= map.size() || y < 0 || y >= map.size())
+			return;
+		MapComponent comp = map.get(x, y);
+		if (comp != null && comp.isOpaque() && isVisible(x, y)
+			&& !visibleComponents.contains(comp))
+			visibleComponents.add(comp);
+	}
+
+	private void traverseMaze(boolean[][] walls, boolean[][] wasHere, int x, int y) {
+		wasHere[x][y] = true;
+
+		if (x > 0 && !wasHere[x - 1][y] && !walls[x - 1][y])
+			traverseMaze(walls, wasHere, x - 1, y);
+		if (y > 0 && !wasHere[x][y - 1] && !walls[x][y - 1])
+			traverseMaze(walls, wasHere, x, y - 1);
+		if (x < walls.length - 1 && !wasHere[x + 1][y] && !walls[x + 1][y])
+			traverseMaze(walls, wasHere, x + 1, y);
+		if (y < walls[x].length - 1 && !wasHere[x][y + 1] && !walls[x][y + 1])
+			traverseMaze(walls, wasHere, x, y + 1);
+	}
+
+	private boolean[][] generateWalls() {
+		boolean[][] walls = new boolean[(int)VISIBILITY_RADIUS * 2 + 1]
+			[(int)VISIBILITY_RADIUS * 2 + 1];
+
+		int centerX = map.getCenterX();
+		int centerY = map.getCenterY();
+
+		for (int i = 0; i < walls.length; i++)
+			for (int a = 0; a < walls[i].length; a++) {
+				int mapx = centerX - (int)VISIBILITY_RADIUS + i;
+				int mapy = centerY - (int)VISIBILITY_RADIUS + a;
+				if (mapx < 0 || mapx >= map.size()
+					|| mapy < 0 || mapy >= map.size())
+					walls[i][a] = true; // wall (out of bounds)
+				else if (map.get(mapx, mapy) != null &&
+					map.get(mapx, mapy).isOpaque())
+					walls[i][a] = true;
+				else if (distance(centerX, centerY, mapx, mapy) <= VISIBILITY_RADIUS)
+					walls[i][a] = false;
+				else walls[i][a] = true;
+			}
+
+		return walls;
+	}
+
+	private boolean isVisible(int visx, int visy) {
+		return isVisible(map.getCenterX(), map.getCenterY(), visx, visy);
 	}
 
 	private boolean isVisible(int currx, int curry, int visx, int visy) {

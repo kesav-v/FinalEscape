@@ -26,6 +26,12 @@ public abstract class MapComponent {
 		}
 	}
 
+	// DON'T USE EXCEPT FOR TEMP COMPONENTS!!!
+	public MapComponent(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	public final void moveTo(int x, int y) {
 		moveTo(x, y, true);
 	}
