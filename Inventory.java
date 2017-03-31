@@ -11,11 +11,20 @@ public class Inventory extends ArrayList<Item> {
 		selectedItem = null;
 	}
 
+	public int capacity() { return inventoryCapacity; }
+
 	@Override
 	public boolean add(Item item) {
 		if (size() >= inventoryCapacity)
 			return false;
 		return super.add(item);
+	}
+
+	@Override
+	public Item get(int index) {
+		if (index >= size())
+			return null;
+		return super.get(index);
 	}
 
 	public boolean selectItem(Item item) {

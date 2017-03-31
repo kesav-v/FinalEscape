@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class MapPanel extends JPanel {
 
-	public static final int BLOCK_SIZE = 25;
+	public static final int BLOCK_SIZE = 50;
 	public static final double VISIBILITY_RADIUS = 4.2;
 
 	private int middleX, middleY;

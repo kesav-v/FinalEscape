@@ -36,12 +36,14 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 		map.setGui(this);
 		setLayout(null);
 		setSize(width, height);
+		setSize(SCREEN_WIDTH, SCREEN_HEIGHT - 20);
 		centerOnScreen();
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		addMapPanel();
 		addMinimapPanel();
+		addInventoryPanel();
 		startGameClock();
 
 		addKeyListener(this);
@@ -65,6 +67,17 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 
 	private void addInventoryPanel() {
 		inventoryPanel = new InventoryPanel(map.getMainCharacter().getInventory());
+		int marginHeight = getHeight() / 2 - mapPanel.getHeight() / 2;
+		int maxHeight = (int)(marginHeight * 0.8);
+
+		int width = (int)(getWidth() * 0.85);
+		width += 5 - width % 5;
+		if (width / 5 > maxHeight)
+			width = maxHeight * 5;
+
+		inventoryPanel.setSize(width, width / 5);
+		inventoryPanel.setLocation(getWidth() / 2 - width / 2,
+			getHeight() / 2 + mapPanel.getHeight() / 2 + (marginHeight / 4 - width / 20));
 		add(inventoryPanel);
 	}
 
@@ -73,6 +86,7 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 		mapPanel.repaint();
 		minimapPanel.updateMemory(visibleLocations);
 		minimapPanel.repaint();
+		inventoryPanel.repaint();
 	}
 
 	/**
