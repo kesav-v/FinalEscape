@@ -1,10 +1,4 @@
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -17,7 +11,7 @@ import java.awt.image.BufferedImage;
 
 import java.util.ArrayList;
 
-public class MapPanel extends JPanel implements KeyListener, MouseListener {
+public class MapPanel extends JPanel {
 
 	public static final int BLOCK_SIZE = 25;
 	public static final double VISIBILITY_RADIUS = 4.2;
@@ -28,8 +22,7 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 
 	public MapPanel(Map map) {
 		this.map = map;
-		addKeyListener(this);
-		addMouseListener(this);
+
 		setSize((int)Math.ceil(VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE,
 			(int)Math.ceil(VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE);
 	}
@@ -44,7 +37,7 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
-		if (hasFocus())
+		if (visibleLocations != null)
 			drawComponents(g, visibleLocations);
 		drawBorder(g);
 	}
@@ -210,49 +203,5 @@ public class MapPanel extends JPanel implements KeyListener, MouseListener {
 
 	private double distance(int x1, int y1, int x2, int y2) {
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-	}
-
-	@Override
-	public void keyReleased(KeyEvent event) {}
-
-	@Override
-	public void keyPressed(KeyEvent event) {
-		switch (event.getKeyCode()) {
-			case KeyEvent.VK_LEFT:
-				map.moveMainCharacter(-1, 0);
-				break;
-			case KeyEvent.VK_RIGHT:
-				map.moveMainCharacter(1, 0);
-				break;
-			case KeyEvent.VK_UP:
-				map.moveMainCharacter(0, -1);
-				break;
-			case KeyEvent.VK_DOWN:
-				map.moveMainCharacter(0, 1);
-				break;
-		}
-	}
-
-	@Override
-	public void keyTyped(KeyEvent event) {}
-
-	@Override
-	public void mouseExited(MouseEvent event) {}
-
-	@Override
-	public void mouseEntered(MouseEvent event) {}
-
-	@Override
-	public void mouseReleased(MouseEvent event) {}
-
-	@Override
-	public void mousePressed(MouseEvent event) {}
-
-	@Override
-	public void mouseClicked(MouseEvent event) {
-		if (!hasFocus()) {
-			grabFocus();
-			((MapGui)SwingUtilities.getWindowAncestor(this)).updateMap();
-		}
 	}
 }

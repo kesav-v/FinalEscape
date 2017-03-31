@@ -58,4 +58,6 @@ public abstract class MapComponent {
 	public void setOpaque(boolean opaque) { this.opaque = opaque; }
 	public void setDirection(Direction dir) { direction = dir; }
 	public void setColor(Color color) { this.color = color; }
+
+	public void tick() {}
 }

@@ -6,6 +6,7 @@ public class Map {
 	private Character mainCharacter;
 	private MapGui gui; // for when things changed, repaint
 	private final int size;
+	private int gameTicks;
 
 	public Map() {
 		this(13);
@@ -24,6 +25,7 @@ public class Map {
 					occupantArray[i][a] = new Wall(this, i, a);
 
 		mainCharacter = new Coder(this, randX - 1, randY - 1);
+		gameTicks = 0;
 	}
 
 	public static void main(String[] args) {
@@ -48,6 +50,14 @@ public class Map {
 	public void moveMainCharacter(int dx, int dy) {
 		mainCharacter.moveCharacter(dx, dy);
 		updateGui();
+	}
+
+	public void gameTick() {
+		for (MapComponent[] row : occupantArray)
+			for (MapComponent component : row)
+				if (component != null)
+					component.tick();
+		gameTicks++;
 	}
 
 	private void updateGui() {
