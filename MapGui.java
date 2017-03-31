@@ -50,7 +50,8 @@ public class MapGui extends JFrame {
 	}
 
 	private void addInventoryPanel() {
-
+		inventoryPanel = new InventoryPanel(map.getMainCharacter().getInventory());
+		add(inventoryPanel);
 	}
 
 	public void updateMap() {

@@ -60,5 +60,6 @@ public class Map {
 
 	public int getCenterX() { return mainCharacter.getX(); }
 	public int getCenterY() { return mainCharacter.getY(); }
+	public Character getMainCharacter() { return mainCharacter; }
 	public int size() { return size; }
 }
