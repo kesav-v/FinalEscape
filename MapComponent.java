@@ -25,12 +25,7 @@ public abstract class MapComponent {
 		direction = Direction.NORTH;
 		solid = opaque = false;
 		color = Color.GRAY;
-		try {
-			img = ImageIO.read(new File("images/" + name + ".png"));
-		} catch (IOException e) {
-			System.err.printf("Failed to load image in path: %s", "images/" + name + ".png");
-			System.exit(1);
-		}
+		img = getImageByName(name);
 	}
 
 	public final void moveTo(int x, int y) {
@@ -41,6 +36,17 @@ public abstract class MapComponent {
 		map.moveComponent(this.x, this.y, x, y, updateGui);
 		this.x = x;
 		this.y = y;
+	}
+
+	public static Image getImageByName(String name) {
+		Image img = null;
+		try {
+			img = ImageIO.read(new File("images/" + name + ".png"));
+		} catch (IOException e) {
+			System.err.printf("Failed to load image in path: %s", "images/" + name + ".png");
+			System.exit(1);
+		}
+		return img;
 	}
 
 	public int getX() { return x; }
