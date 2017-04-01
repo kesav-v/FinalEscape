@@ -10,6 +10,13 @@ public abstract class Character extends MapComponent {
 		inventory = new Inventory(inventoryCapacity);
 	}
 
+	public Character(String name, int inventoryCapacity) {
+		super(name);
+		health = 100;
+		setDirection(Direction.EAST);
+		inventory = new Inventory(inventoryCapacity);
+	}
+
 	public boolean moveCharacter(int dx, int dy) {
 		if ((dx == 0) == (dy == 0)) // both 0 or both not 0
 			return false;
@@ -18,7 +25,7 @@ public abstract class Character extends MapComponent {
 		setMoveDirection(dx, dy);
 		if (!canMoveHere(newx, newy))
 			return false;
-		moveTo(newx, newy, false);
+		moveTo(newx, newy);
 		return true;
 	}
 

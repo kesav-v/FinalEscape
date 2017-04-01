@@ -28,12 +28,16 @@ public abstract class MapComponent {
 		img = getImageByName(name);
 	}
 
-	public final void moveTo(int x, int y) {
-		moveTo(x, y, true);
+	public MapComponent(String name) {
+		this.name = name;
+		direction = Direction.NORTH;
+		solid = opaque = false;
+		color = Color.GRAY;
+		img = getImageByName(name);
 	}
 
-	public final void moveTo(int x, int y, boolean updateGui) {
-		map.moveComponent(this.x, this.y, x, y, updateGui);
+	public final void moveTo(int x, int y) {
+		map.moveComponent(this.x, this.y, x, y);
 		this.x = x;
 		this.y = y;
 	}
@@ -64,6 +68,9 @@ public abstract class MapComponent {
 	public void setOpaque(boolean opaque) { this.opaque = opaque; }
 	public void setDirection(Direction dir) { direction = dir; }
 	public void setColor(Color color) { this.color = color; }
+	public void setX(int x) { this.x = x; }
+	public void setY(int y) { this.y = y; }
+	public void setMap(Map map) { this.map = map; }
 
 	public void tick() {}
 }

@@ -14,13 +14,13 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 	/**
 	 * The width of the screen, in pixels.
 	 */
-	public final int SCREEN_WIDTH =
+	public static final int SCREEN_WIDTH =
 		(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 
 	/**
 	 * The height of the screen, in pixels.
 	 */
-	public final int SCREEN_HEIGHT =
+	public static final int SCREEN_HEIGHT =
 		(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
 	private final int GAME_TICK_DELAY_MILLISECONDS = 1000;

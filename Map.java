@@ -27,9 +27,8 @@ public class Map {
 		mainCharacter = new Coder(this, randX - 1, randY - 1);
 		gameTicks = 0;
 		removeWalls(minisize * 2);
-	}
 
-	public static void main(String[] args) {
+		Levels.loadLevel(this, 1);
 	}
 
 	public MapComponent get(int x, int y) {
@@ -47,21 +46,34 @@ public class Map {
 		}
 	}
 
-	public void addComponent(MapComponent occupant) {
-		occupantArray[occupant.getX()][occupant.getY()] = occupant;
+	public void randomlySpawnComponent(MapComponent component) {
+		int x, y;
+		do {
+			x = (int)(Math.random() * occupantArray.length);
+			y = (int)(Math.random() * occupantArray[x].length);
+		} while (occupantArray[x][y] != null);
+		addComponent(component, x, y);
 	}
 
-	public void moveComponent(int fromx, int fromy, int tox, int toy,
-		boolean updateGui) {
+	public void addComponent(MapComponent occupant, int x, int y) {
+		occupantArray[x][y] = occupant;
+		occupant.setX(x);
+		occupant.setY(y);
+		occupant.setMap(this);
+	}
+
+	public void addComponent(MapComponent occupant) {
+		addComponent(occupant, occupant.getX(), occupant.getY());
+	}
+
+	public void moveComponent(int fromx, int fromy, int tox, int toy) {
 		occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
-		if (updateGui)
-			updateGui();
 	}
 
 	public void moveMainCharacter(int dx, int dy) {
-		mainCharacter.moveCharacter(dx, dy);
-		updateGui();
+		if (mainCharacter.moveCharacter(dx, dy))
+			updateGui();
 	}
 
 	public void gameTick() {
@@ -70,6 +82,7 @@ public class Map {
 				if (component != null)
 					component.tick();
 		gameTicks++;
+		updateGui();
 	}
 
 	private void updateGui() {
