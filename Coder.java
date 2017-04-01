@@ -8,17 +8,16 @@ public class Coder extends Character {
 	}
 
 	@Override
-	public boolean moveCharacter(int dx, int dy) {
-		int newx = getX() + dx;
-		int newy = getY() + dy;
+	public boolean canMoveHere(int x, int y) {
+		MapComponent componentThere = getMap().get(x, y);
 		Inventory inventory = getInventory();
 
-		MapComponent nextComponent = getMap().get(newx, newy);
-
-		if (nextComponent instanceof ItemComponent
-			&& inventory.size() < inventory.capacity())
-			inventory.add(((ItemComponent)nextComponent).getItem());
-
-		return super.moveCharacter(dx, dy);
+		if (componentThere == null)
+			return true;
+		else if (componentThere instanceof ItemComponent
+			&& inventory.size() < inventory.capacity()) {
+			inventory.add(((ItemComponent)componentThere).getItem());
+			return true;
+		} else return !componentThere.isSolid();
 	}
 }

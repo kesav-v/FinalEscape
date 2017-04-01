@@ -72,7 +72,7 @@ public class Map {
 	}
 
 	public void moveMainCharacter(int dx, int dy) {
-		mainCharacter.moveCharacter(dx, dy);
+		mainCharacter.moveCharacterDelta(dx, dy);
 		updateGui();
 	}
 

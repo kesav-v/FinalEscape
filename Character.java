@@ -7,6 +7,7 @@ public abstract class Character extends MapComponent {
 		super(map, x, y, name);
 		health = 100;
 		setDirection(Direction.EAST);
+		setSolid(true);
 		inventory = new Inventory(inventoryCapacity);
 	}
 
@@ -17,16 +18,30 @@ public abstract class Character extends MapComponent {
 		inventory = new Inventory(inventoryCapacity);
 	}
 
-	public boolean moveCharacter(int dx, int dy) {
-		if ((dx == 0) == (dy == 0)) // both 0 or both not 0
+	public boolean moveCharacter(int x, int y) {
+		if ((x == getX()) == (y == getY()))
 			return false;
-		int newx = getX() + dx;
-		int newy = getY() + dy;
-		setMoveDirection(dx, dy);
-		if (!canMoveHere(newx, newy))
-			return false;
-		moveTo(newx, newy);
+		Direction newDirection = getDirectionTowards(x, y);
+		if (newDirection == getDirection())
+			if (canMoveHere(x, y))
+				moveTo(x, y);
+			else return false;
+		else setDirection(newDirection);
 		return true;
+	}
+
+	public boolean moveCharacterDelta(int dx, int dy) {
+		return moveCharacter(getX() + dx, getY() + dy);
+	}
+
+	public Direction getDirectionTowards(int x, int y) {
+		if (x == getX())
+			if (y > getY())
+				return Direction.NORTH;
+			else return Direction.SOUTH;
+		else if (x > getX())
+			return Direction.EAST;
+		else return Direction.WEST;
 	}
 
 	public void setMoveDirection(int dx, int dy) {
