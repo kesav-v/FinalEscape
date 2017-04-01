@@ -26,6 +26,7 @@ public class Map {
 
 		mainCharacter = new Coder(this, randX - 1, randY - 1);
 		gameTicks = 0;
+		removeWalls(minisize * 2);
 	}
 
 	public static void main(String[] args) {
@@ -33,6 +34,17 @@ public class Map {
 
 	public MapComponent get(int x, int y) {
 		return occupantArray[x][y];
+	}
+
+	public void removeWalls(int radius) {
+		int middle = occupantArray.length / 2;
+		for (int i = middle - radius / 2; i < middle + radius / 2; i++) {
+			for (int j = middle - radius / 2; j < middle + radius / 2; j++) {
+				if (occupantArray[i][j] != null && occupantArray[i][j].isSolid()) {
+					occupantArray[i][j] = null;
+				}
+			}
+		}
 	}
 
 	public void addComponent(MapComponent occupant) {
