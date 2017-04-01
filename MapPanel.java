@@ -114,6 +114,7 @@ public class MapPanel extends JPanel {
 					visibleLocations.add(loc);
 					addAdjacentLocations(visibleLocations, mapx, mapy);
 				}
+		addComponent(visibleLocations, centerX, centerY);
 
 		return visibleLocations;
 	}

@@ -15,6 +15,7 @@ public abstract class Character extends MapComponent {
 		super(name);
 		health = 100;
 		setDirection(Direction.EAST);
+		setSolid(true);
 		inventory = new Inventory(inventoryCapacity);
 	}
 
