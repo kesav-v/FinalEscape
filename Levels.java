@@ -28,20 +28,19 @@ public class Levels {
 			return headerOn;
 		if (isHeader(line))
 			return line;
-		System.out.println("here " + line);
 		switch (headerOn) {
 			case "MapComponents":
-				map.randomlySpawnComponent((MapComponent)getObject(line));
+				map.randomlySpawnComponent(getMapComponent(line));
 				break;
 		}
 		return headerOn;
 	}
 
-	private static Object getObject(String className) {
+	private static MapComponent getMapComponent(String className) {
 		try {
 			Class<?> clazz = Class.forName(className);
 			Constructor<?> constructor = clazz.getConstructor();
-			return constructor.newInstance();
+			return (MapComponent)constructor.newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

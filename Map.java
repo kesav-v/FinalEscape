@@ -72,8 +72,8 @@ public class Map {
 	}
 
 	public void moveMainCharacter(int dx, int dy) {
-		if (mainCharacter.moveCharacter(dx, dy))
-			updateGui();
+		mainCharacter.moveCharacter(dx, dy);
+		updateGui();
 	}
 
 	public void gameTick() {
