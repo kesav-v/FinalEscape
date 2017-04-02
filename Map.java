@@ -67,15 +67,15 @@ public class Map {
 	public void removeComponent(int x, int y) {
 		if (occupantArray[x][y] == null)
 			return;
+		if (occupantArray[x][y] instanceof Coder) {
+			System.out.println("Game over!");
+			System.exit(0);
+		}
 		occupantArray[x][y].setMap(null);
 		occupantArray[x][y] = null;
 	}
 
 	public void moveComponent(int fromx, int fromy, int tox, int toy) {
-		if (occupantArray[tox][toy] instanceof Coder) {
-			System.out.println("Game over!");
-			System.exit(0);
-		}
 		removeComponent(tox, toy);
 		occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
