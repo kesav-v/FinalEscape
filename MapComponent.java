@@ -73,4 +73,11 @@ public abstract class MapComponent {
 	public void setMap(Map map) { this.map = map; }
 
 	public void tick() {}
+
+	@Override
+	public String toString() {
+		if (map != null)
+			return String.format("[MapComponent %s in %d % d]", name, x, y);
+		else return String.format("[MapComponent %s out of map]", name);
+	}
 }

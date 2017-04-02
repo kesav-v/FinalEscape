@@ -37,13 +37,10 @@ public class Map {
 
 	public void removeWalls(int radius) {
 		int middle = occupantArray.length / 2;
-		for (int i = middle - radius / 2; i < middle + radius / 2; i++) {
-			for (int j = middle - radius / 2; j < middle + radius / 2; j++) {
-				if (occupantArray[i][j] != null && occupantArray[i][j].isSolid()) {
-					occupantArray[i][j] = null;
-				}
-			}
-		}
+		for (int i = middle - radius / 2; i < middle + radius / 2; i++)
+			for (int j = middle - radius / 2; j < middle + radius / 2; j++)
+				if (occupantArray[i][j] != null && occupantArray[i][j] instanceof Wall)
+					removeComponent(i, j);
 	}
 
 	public void randomlySpawnComponent(MapComponent component) {
@@ -56,6 +53,7 @@ public class Map {
 	}
 
 	public void addComponent(MapComponent occupant, int x, int y) {
+		removeComponent(x, y);
 		occupantArray[x][y] = occupant;
 		occupant.setX(x);
 		occupant.setY(y);
@@ -66,13 +64,19 @@ public class Map {
 		addComponent(occupant, occupant.getX(), occupant.getY());
 	}
 
+	public void removeComponent(int x, int y) {
+		if (occupantArray[x][y] == null)
+			return;
+		occupantArray[x][y].setMap(null);
+		occupantArray[x][y] = null;
+	}
+
 	public void moveComponent(int fromx, int fromy, int tox, int toy) {
-		if (occupantArray[tox][toy] != null)
-			occupantArray[tox][toy].setMap(null);
 		if (occupantArray[tox][toy] instanceof Coder) {
 			System.out.println("Game over!");
 			System.exit(0);
 		}
+		removeComponent(tox, toy);
 		occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
 	}
