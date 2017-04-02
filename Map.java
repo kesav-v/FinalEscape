@@ -67,6 +67,12 @@ public class Map {
 	}
 
 	public void moveComponent(int fromx, int fromy, int tox, int toy) {
+		if (occupantArray[tox][toy] != null)
+			occupantArray[tox][toy].setMap(null);
+		if (occupantArray[tox][toy] instanceof Coder) {
+			System.out.println("Game over!");
+			System.exit(0);
+		}
 		occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
 	}
@@ -81,11 +87,20 @@ public class Map {
 		updateGui();
 	}
 
-	public void gameTick() {
+	public ArrayList<MapComponent> getMapComponents() {
+		ArrayList<MapComponent> components = new ArrayList<MapComponent>();
 		for (MapComponent[] row : occupantArray)
 			for (MapComponent component : row)
 				if (component != null)
-					component.tick();
+					components.add(component);
+
+		return components;
+	}
+
+	public void gameTick() {
+		for (MapComponent component : getMapComponents())
+			if (component != null && component.getMap() != null)
+				component.tick();
 		gameTicks++;
 		updateGui();
 	}

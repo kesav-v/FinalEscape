@@ -99,7 +99,8 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 
 	public void startGameClock() {
 		gameTickTimer = new Timer();
-		gameTickTimer.schedule(new GameClock(), GAME_TICK_DELAY_MILLISECONDS);
+		gameTickTimer.scheduleAtFixedRate(new GameClock(), 0,
+			GAME_TICK_DELAY_MILLISECONDS);
 	}
 
 	public void stopGameClock() {
