@@ -14,7 +14,7 @@ public abstract class Item {
 	}
 
 	public Item(String name) {
-		this(name, new Color(173, 216, 230));
+		this(name, new Color(100, 216, 105));
 	}
 
 	public void setImage(Image img) { image = img; }
@@ -27,4 +27,11 @@ public abstract class Item {
 
 	public String getName() { return name; }
 	public Color getColor() { return color; }
+
+	/**
+	 * What happens when used
+	 * @param  character {@link Character} with item equipped
+	 * @return           true if to delete, false otherwise
+	 */
+	public abstract boolean onUse(Character character);
 }

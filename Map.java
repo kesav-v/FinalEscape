@@ -91,6 +91,11 @@ public class Map {
 		updateGui();
 	}
 
+	public void useSelectedItem() {
+		mainCharacter.useSelectedItem();
+		updateGui();
+	}
+
 	public ArrayList<MapComponent> getMapComponents() {
 		ArrayList<MapComponent> components = new ArrayList<MapComponent>();
 		for (MapComponent[] row : occupantArray)

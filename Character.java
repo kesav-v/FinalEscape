@@ -89,4 +89,9 @@ public abstract class Character extends MapComponent {
 	public int getHealth() { return health; }
 
 	public Inventory getInventory() { return inventory; }
+
+	public void useSelectedItem() {
+		if (inventory.size() > 0)
+			inventory.useSelectedItem(this);
+	}
 }

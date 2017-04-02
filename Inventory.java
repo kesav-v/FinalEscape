@@ -19,6 +19,10 @@ public class Inventory extends ArrayList<Item> {
 	public boolean add(Item item) {
 		if (size() >= inventoryCapacity)
 			return false;
+		if (size() == 0) {
+			selectedItemIndex = 0;
+			selectedItem = item;
+		}
 		return super.add(item);
 	}
 
@@ -38,12 +42,22 @@ public class Inventory extends ArrayList<Item> {
 	}
 
 	public void switchSelectedItem() {
-		if (size() == 0)
-			return;
-		selectedItemIndex = (selectedItemIndex + 1) % size();
-		selectedItem = get(selectedItemIndex);
+		if (size() == 0) {
+			selectedItem = null;
+			selectedItemIndex = -1;
+		} else {
+			selectedItemIndex = (selectedItemIndex + 1) % size();
+			selectedItem = get(selectedItemIndex);
+		}
 	}
 
 	public Item getSelectedItem() { return selectedItem; }
 	public int getSelectedItemIndex() { return selectedItemIndex; }
+
+	public void useSelectedItem(Character character) {
+		if (selectedItem.onUse(character)) {
+			remove(selectedItemIndex);
+			switchSelectedItem();
+		}
+	}
 }

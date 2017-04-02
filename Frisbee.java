@@ -1,10 +1,9 @@
-public class Frisbee extends Weapon {
+public class Frisbee extends Item {
 
 	public Frisbee() {
-		super(0, 0);
+		super("Frisbee");
 	}
-	
-	public void fire() {
 
-	}
+	@Override
+	public boolean onUse(Character character) { return true; }
 }
