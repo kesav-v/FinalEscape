@@ -11,14 +11,15 @@ public class InventoryPanel extends JPanel {
 	public InventoryPanel(Inventory inventory) {
 		this.inventory = inventory;
 		itemPanels = new ItemPanel[inventory.capacity()];
-		setLayout(new GridLayout(0, itemPanels.length));
-		for (int i = 0; i < itemPanels.length; i++)
-			add(itemPanels[i] = new ItemPanel(inventory, i));
+		setLayout(null);
 	}
 
-	@Override
-	public void paintComponent(Graphics g) {
-		for (ItemPanel itemPanel : itemPanels)
-			itemPanel.repaint();
+	public void initializeItemPanels() {
+		for (int i = 0; i < itemPanels.length; i++) {
+			itemPanels[i] = new ItemPanel(inventory, i);
+			itemPanels[i].setSize(getHeight(), getHeight());
+			itemPanels[i].setLocation(getHeight() * i, 0);
+			add(itemPanels[i]);
+		}
 	}
 }

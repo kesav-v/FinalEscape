@@ -78,6 +78,7 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 		inventoryPanel.setSize(width, width / 5);
 		inventoryPanel.setLocation(getWidth() / 2 - width / 2,
 			getHeight() / 2 + mapPanel.getHeight() / 2 + (marginHeight / 4 - width / 20));
+		inventoryPanel.initializeItemPanels();
 		add(inventoryPanel);
 	}
 
