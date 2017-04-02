@@ -5,7 +5,7 @@ public class Teacher extends Character {
 	public Teacher() {
 		super("Teacher", 1);
 		setColor(Color.RED);
-		// getInventory().add(new TextBook());
+		getInventory().add(new Textbook());
 	}
 
 	@Override
