@@ -76,6 +76,11 @@ public class Map {
 		updateGui();
 	}
 
+	public void shiftSelectedItem() {
+		mainCharacter.getInventory().switchSelectedItem();
+		updateGui();
+	}
+
 	public void gameTick() {
 		for (MapComponent[] row : occupantArray)
 			for (MapComponent component : row)

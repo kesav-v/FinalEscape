@@ -131,6 +131,9 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 			case KeyEvent.VK_DOWN:
 				map.moveMainCharacter(0, 1);
 				break;
+			case KeyEvent.VK_SHIFT:
+				map.shiftSelectedItem();
+				break;
 		}
 	}
 

@@ -6,7 +6,6 @@ public abstract class Character extends MapComponent {
 	public Character(Map map, int x, int y, String name, int inventoryCapacity) {
 		super(map, x, y, name);
 		health = 100;
-		setDirection(Direction.EAST);
 		setSolid(true);
 		inventory = new Inventory(inventoryCapacity);
 	}
@@ -14,7 +13,6 @@ public abstract class Character extends MapComponent {
 	public Character(String name, int inventoryCapacity) {
 		super(name);
 		health = 100;
-		setDirection(Direction.EAST);
 		setSolid(true);
 		inventory = new Inventory(inventoryCapacity);
 	}
@@ -38,8 +36,8 @@ public abstract class Character extends MapComponent {
 	public Direction getDirectionTowards(int x, int y) {
 		if (x == getX())
 			if (y > getY())
-				return Direction.NORTH;
-			else return Direction.SOUTH;
+				return Direction.SOUTH;
+			else return Direction.NORTH;
 		else if (x > getX())
 			return Direction.EAST;
 		else return Direction.WEST;

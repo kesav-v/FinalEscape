@@ -1,5 +1,4 @@
 import java.awt.Color;
-
 import java.awt.Image;
 
 public abstract class Item {
@@ -12,6 +11,10 @@ public abstract class Item {
 		this.name = name;
 		this.color = color;
 		image = null;
+	}
+
+	public Item(String name) {
+		this(name, new Color(173, 216, 230));
 	}
 
 	public void setImage(Image img) { image = img; }

@@ -7,6 +7,17 @@ public class ItemComponent extends MapComponent {
 		this.item = item;
 		setColor(item.getColor());
 		item.setImage(getImage());
+		setSolid(false);
+		setOpaque(false);
+	}
+
+	public ItemComponent(Item item) {
+		super(item.getName());
+		this.item = item;
+		setColor(item.getColor());
+		item.setImage(getImage());
+		setSolid(false);
+		setOpaque(false);
 	}
 
 	public Item getItem() { return item; }

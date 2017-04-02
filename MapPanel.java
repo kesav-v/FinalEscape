@@ -74,7 +74,7 @@ public class MapPanel extends JPanel {
 		} else {
 			Direction dir = component.getDirection();
 			Image img = component.getImage();
-			if (dir.compassDirection == 0)
+			if (dir == Direction.NORTH)
 				g.drawImage(img, middleX + x * BLOCK_SIZE,
 					middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, Color.WHITE, this);
 			else {

@@ -32,6 +32,9 @@ public class Levels {
 			case "MapComponents":
 				map.randomlySpawnComponent(getMapComponent(line));
 				break;
+			case "Items":
+				map.randomlySpawnComponent(getItemComponent(line));
+				break;
 		}
 		return headerOn;
 	}
@@ -41,6 +44,17 @@ public class Levels {
 			Class<?> clazz = Class.forName(className);
 			Constructor<?> constructor = clazz.getConstructor();
 			return (MapComponent)constructor.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private static ItemComponent getItemComponent(String className) {
+		try {
+			Class<?> clazz = Class.forName(className);
+			Constructor<?> constructor = clazz.getConstructor();
+			return new ItemComponent((Item)constructor.newInstance());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

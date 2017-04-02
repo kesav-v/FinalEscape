@@ -27,7 +27,9 @@ public class ItemPanel extends JPanel {
 	}
 
 	private void drawBorder(Graphics g) {
-		g.setColor(Color.BLACK);
+		if (index == inventory.getSelectedItemIndex())
+			g.setColor(Color.YELLOW);
+		else g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), BLOCK_SIZE);
 		g.fillRect(0, getHeight() - BLOCK_SIZE, getWidth(), BLOCK_SIZE);
 		g.fillRect(0, 0, BLOCK_SIZE, getHeight());
