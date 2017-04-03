@@ -97,7 +97,7 @@ public class MapPanel extends JPanel {
 
 	public ArrayList<Location> getVisibleComponents() { return visibleLocations; }
 
-	public ArrayList<Location> calculateVisibleLocations() {
+	public synchronized ArrayList<Location> calculateVisibleLocations() {
 		int centerX = map.getCenterX();
 		int centerY = map.getCenterY();
 
