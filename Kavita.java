@@ -11,7 +11,8 @@ public class Kavita extends Teacher {
 	@Override
 	public void tick() {
 		Character target = getTarget();
-		if (getInventory().getSelectedItem() instanceof Packet) {
+		if (getInventory().getSelectedItem() instanceof Packet
+			&& target != null) {
 			if (target.getX() == getX() && !getInventory().isFull())
 				if (target.getY() > getY())
 					setDirection(Direction.getDir(0, 1));
