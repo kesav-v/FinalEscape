@@ -61,7 +61,8 @@ public class Map {
 	}
 
 	public void addComponent(MapComponent occupant, int x, int y) {
-		removeComponent(x, y);
+		if (!removeComponent(x, y))
+			return;
 		occupantArray[x][y] = occupant;
 		occupant.setX(x);
 		occupant.setY(y);
@@ -72,21 +73,25 @@ public class Map {
 		addComponent(occupant, occupant.getX(), occupant.getY());
 	}
 
-	public void removeComponent(int x, int y) {
+	public boolean removeComponent(int x, int y) {
+		if (x == 0 || y == 0 || x == size - 1 || y == size - 1)
+			return false;
 		if (occupantArray[x][y] == null)
-			return;
+			return true;
 		occupantArray[x][y].setMap(null);
 		occupantArray[x][y] = null;
+		return true;
 	}
 
-	public void removeComponent(MapComponent component) {
+	public boolean removeComponent(MapComponent component) {
 		if (component.getMap() != null)
-			removeComponent(component.getX(), component.getY());
+			return removeComponent(component.getX(), component.getY());
+		return true;
 	}
 
 	public void moveComponent(int fromx, int fromy, int tox, int toy) {
-		removeComponent(tox, toy);
-		occupantArray[tox][toy] = occupantArray[fromx][fromy];
+		if (removeComponent(tox, toy))
+			occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
 	}
 
