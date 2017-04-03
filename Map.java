@@ -153,7 +153,7 @@ public class Map {
 		gui.updateMap();
 	}
 
-	public void stopGame() {
+	public void loseGame() {
 		gui.stopGameClock();
 		gui.setGameOver(true);
 	}

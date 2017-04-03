@@ -43,21 +43,21 @@ public class MapPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
-		if (gameOver) drawGameEndMessage(g);
+		if (gameOver)
+			drawGameOverMessage(g);
 		else if (visibleLocations != null)
 			drawComponents(g, visibleLocations);
 		drawBorder(g);
 	}
 
-	private void drawGameEndMessage(Graphics g) {
-		super.paintComponent(g);
+	private void drawGameOverMessage(Graphics g) {
 		g.setFont(new Font("Arial", Font.BOLD, 80));
 		Color c = g.getColor();
 		g.setColor(Color.RED);
 		String text = "Game over!";
 		int width = g.getFontMetrics().stringWidth(text);
 		int height = g.getFontMetrics().getHeight();
-		g.drawString(text, middleX - width / 2, middleY + height / 2);
+		g.drawString(text, getWidth() / 2 - width / 2, middleY + height / 2);
 		g.setColor(c);
 	}
 
