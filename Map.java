@@ -159,6 +159,8 @@ public class Map {
 			if (component != null && component.getMap() != null)
 				component.tick();
 		gameTicks++;
+		if (gameTicks % 250 == 0)
+			randomlySpawnComponent(new ItemComponent(new Frisbee()));
 		updateGui();
 	}
 
