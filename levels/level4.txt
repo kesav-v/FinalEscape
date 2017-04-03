@@ -1,9 +1,8 @@
 Variables
 
-minisize 5
-removedeadendprobability 0.95
-removewallradius 5
-visibilityradius 4.2
+minisize 13
+removedeadendprobability 0.9
+removewallradius 25
 
 Initialize Map
 
@@ -14,9 +13,6 @@ Teacher
 Teacher
 Teacher
 Teacher
-Kavita
-Kavita
-Kavita
 
 Items
 

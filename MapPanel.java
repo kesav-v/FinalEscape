@@ -15,7 +15,7 @@ import java.util.ConcurrentModificationException;
 public class MapPanel extends JPanel {
 
 	public static final int BLOCK_SIZE = 50;
-	public static final double VISIBILITY_RADIUS = 4.2;
+	public double visibilityRadius;
 
 	private int middleX, middleY;
 	private Map map;
@@ -23,8 +23,9 @@ public class MapPanel extends JPanel {
 
 	public MapPanel(Map map) {
 		this.map = map;
-		setSize((int)Math.ceil(VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE,
-			(int)Math.ceil(VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE);
+		visibilityRadius = map.getVisibilityRadius();
+		setSize((int)Math.ceil(visibilityRadius * 2 + 4) * BLOCK_SIZE,
+			(int)Math.ceil(visibilityRadius * 2 + 4) * BLOCK_SIZE);
 	}
 
 	@Override
@@ -104,14 +105,14 @@ public class MapPanel extends JPanel {
 			for (int i = 0; i < row.length; i++)
 				row[i] = false;
 
-		traverseMaze(walls, wasHere, (int)VISIBILITY_RADIUS, (int)VISIBILITY_RADIUS);
+		traverseMaze(walls, wasHere, (int)visibilityRadius, (int)visibilityRadius);
 
 		visibleLocations = new ArrayList<Location>();
 		for (int i = 0; i < wasHere.length; i++)
 			for (int a = 0; a < wasHere[i].length; a++)
 				if (wasHere[i][a]) {
-					int mapx = centerX - (int)VISIBILITY_RADIUS + i;
-					int mapy = centerY - (int)VISIBILITY_RADIUS + a;
+					int mapx = centerX - (int)visibilityRadius + i;
+					int mapy = centerY - (int)visibilityRadius + a;
 					Location loc = new Location(mapx, mapy);
 					visibleLocations.add(loc);
 					addAdjacentLocations(visibleLocations, mapx, mapy);
@@ -157,23 +158,23 @@ public class MapPanel extends JPanel {
 	}
 
 	private boolean[][] generateWalls() {
-		boolean[][] walls = new boolean[(int)VISIBILITY_RADIUS * 2 + 1]
-			[(int)VISIBILITY_RADIUS * 2 + 1];
+		boolean[][] walls = new boolean[(int)visibilityRadius * 2 + 1]
+			[(int)visibilityRadius * 2 + 1];
 
 		int centerX = map.getCenterX();
 		int centerY = map.getCenterY();
 
 		for (int i = 0; i < walls.length; i++)
 			for (int a = 0; a < walls[i].length; a++) {
-				int mapx = centerX - (int)VISIBILITY_RADIUS + i;
-				int mapy = centerY - (int)VISIBILITY_RADIUS + a;
+				int mapx = centerX - (int)visibilityRadius + i;
+				int mapy = centerY - (int)visibilityRadius + a;
 				if (mapx < 0 || mapx >= map.size()
 					|| mapy < 0 || mapy >= map.size())
 					walls[i][a] = true; // wall (out of bounds)
 				else if (map.get(mapx, mapy) != null &&
 					map.get(mapx, mapy).isOpaque())
 					walls[i][a] = true;
-				else if (distance(centerX, centerY, mapx, mapy) <= VISIBILITY_RADIUS)
+				else if (distance(centerX, centerY, mapx, mapy) <= visibilityRadius)
 					walls[i][a] = false;
 				else walls[i][a] = true;
 			}
@@ -186,7 +187,7 @@ public class MapPanel extends JPanel {
 	}
 
 	private boolean isVisible(int currx, int curry, int visx, int visy) {
-		if (distance(currx, curry, visx, visy) <= VISIBILITY_RADIUS)
+		if (distance(currx, curry, visx, visy) <= visibilityRadius)
 			return true;
 		return false;
 	}
@@ -207,4 +208,6 @@ public class MapPanel extends JPanel {
 	private double distance(int x1, int y1, int x2, int y2) {
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 	}
+
+	public void setVisibilityRadius(double radius) { visibilityRadius = radius; }
 }

@@ -3,6 +3,7 @@ Variables
 minisize 5
 removedeadendprobability 1
 removewallradius 5
+visibilityradius 5.3
 
 Initialize Map
 

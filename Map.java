@@ -19,6 +19,7 @@ public class Map {
 	public int minisize;
 	public double removedeadendprobability;
 	public int removewallradius;
+	public double visibilityradius;
 
 	public Map() {
 		this(1);
@@ -28,6 +29,7 @@ public class Map {
 		minisize = 13;
 		removedeadendprobability = 0.9;
 		removewallradius = 25;
+		visibilityradius = 4.2;
 		Levels.loadLevel(this, levelOn);
 	}
 
@@ -245,4 +247,5 @@ public class Map {
 	public int getCenterY() { return mainCharacter.getY(); }
 	public Character getMainCharacter() { return mainCharacter; }
 	public int size() { return size; }
+	public double getVisibilityRadius() { return visibilityradius; }
 }

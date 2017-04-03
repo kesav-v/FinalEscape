@@ -1,13 +1,15 @@
 Variables
 
-minisize 15
+minisize 10
 removedeadendprobability 0.9
-removewallradius 25
+removewallradius 8
+visibilityradius 5.3
 
 Initialize Map
 
 MapComponents
 
+Teacher
 Teacher
 Teacher
 Teacher

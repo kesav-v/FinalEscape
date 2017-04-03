@@ -67,6 +67,9 @@ public class Levels {
 			case "removewallradius":
 				map.removewallradius = Integer.parseInt(varValue);
 				break;
+			case "visibilityradius":
+				map.visibilityradius = Float.parseFloat(varValue);
+				break;
 		}
 	}
 
