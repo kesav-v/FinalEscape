@@ -85,7 +85,7 @@ public class Map {
 		}
 	}
 
-	public void randomlySpawnComponent(MapComponent component) {
+	public synchronized void randomlySpawnComponent(MapComponent component) {
 		int x, y;
 		do {
 			x = (int)(Math.random() * occupantArray.length);
@@ -115,7 +115,7 @@ public class Map {
 			return true;
 	}
 
-	public void addComponent(MapComponent occupant, int x, int y, boolean force) {
+	public synchronized void addComponent(MapComponent occupant, int x, int y, boolean force) {
 		if (!removeComponent(x, y, force))
 			return;
 		occupantArray[x][y] = occupant;
@@ -124,19 +124,19 @@ public class Map {
 		occupant.setMap(this);
 	}
 
-	public void addComponent(MapComponent occupant, int x, int y) {
+	public synchronized void addComponent(MapComponent occupant, int x, int y) {
 		addComponent(occupant, x, y, false);
 	}
 
-	public void addComponent(MapComponent occupant, boolean force) {
+	public synchronized void addComponent(MapComponent occupant, boolean force) {
 		addComponent(occupant, occupant.getX(), occupant.getY(), force);
 	}
 
-	public void addComponent(MapComponent occupant) {
+	public synchronized void addComponent(MapComponent occupant) {
 		addComponent(occupant, false);
 	}
 
-	public boolean removeComponent(int x, int y, boolean force) {
+	public synchronized boolean removeComponent(int x, int y, boolean force) {
 		if (force);
 		else if (x == 0 || y == 0 || x == size - 1 || y == size - 1)
 			return false;
@@ -147,23 +147,23 @@ public class Map {
 		return true;
 	}
 
-	public boolean removeComponent(int x, int y) {
+	public synchronized boolean removeComponent(int x, int y) {
 		return removeComponent(x, y, false);
 	}
 
-	public boolean removeComponent(MapComponent component) {
+	public synchronized boolean removeComponent(MapComponent component) {
 		if (component.getMap() != null)
 			return removeComponent(component.getX(), component.getY());
 		return true;
 	}
 
-	public void moveComponent(int fromx, int fromy, int tox, int toy) {
+	public synchronized void moveComponent(int fromx, int fromy, int tox, int toy) {
 		if (removeComponent(tox, toy))
 			occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
 	}
 
-	public void moveMainCharacter(int dx, int dy) {
+	public synchronized void moveMainCharacter(int dx, int dy) {
 		mainCharacter.moveCharacterDelta(dx, dy);
 		updateGui();
 	}
@@ -203,17 +203,20 @@ public class Map {
 	public ArrayList<MapComponent> getMapComponents() {
 		ArrayList<MapComponent> components = new ArrayList<MapComponent>();
 		for (MapComponent[] row : occupantArray)
-			for (MapComponent component : row)
+			for (MapComponent component : row) {
+				if (component != null && component.getDelayInterval() == 0)
+					System.out.println(component);
 				if (component != null
 					&& gameTicks % component.getDelayInterval() == 0)
 					components.add(component);
+			}
 
 		components.sort(componentTickComparator);
 
 		return components;
 	}
 
-	public void gameTick() {
+	public synchronized void gameTick() {
 		ArrayList<MapComponent> componentsToTick = getMapComponents();
 		for (MapComponent component : componentsToTick)
 			if (component != null && component.getMap() != null)

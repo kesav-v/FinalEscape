@@ -43,12 +43,14 @@ public class MapPanel extends JPanel {
 		drawBorder(g);
 	}
 
-	private void drawComponents(Graphics g,
+	private synchronized void drawComponents(Graphics g,
 		ArrayList<Location> visibleLocations) {
 		try {
 			for (Location loc : visibleLocations)
 				drawMapComponent(g, loc);
-		} catch (ConcurrentModificationException e) {}
+		} catch (ConcurrentModificationException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void drawMap(Graphics g) {
