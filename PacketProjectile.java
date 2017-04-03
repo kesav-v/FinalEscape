@@ -8,7 +8,8 @@ public class PacketProjectile extends ProjectileComponent {
 		MapComponent componentThere = getMap().get(x, y);
 		if (componentThere == null || !componentThere.isSolid())
 			return true;
-		if (componentThere == getMap().getMainCharacter())
+		if (componentThere == getMap().getMainCharacter()
+			|| componentThere instanceof ProjectileComponent)
 			componentThere.destroy();
 		return false;
 	}

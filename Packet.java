@@ -13,7 +13,7 @@ public class Packet extends Item {
 		if (componentThere == null || !componentThere.isSolid())
 			new PacketProjectile(character.getMap(), spawnx, spawny, dir);
 		else if (componentThere.isSolid())
-			componentThere.destroy();
+			return false;
 		return true;
 	}
 }
