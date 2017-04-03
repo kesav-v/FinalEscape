@@ -83,6 +83,12 @@ public abstract class MapComponent {
 
 	public void tick() {}
 
+	public final boolean instof(Object obj1, Object obj2) {
+		if (obj1 == null)
+			return false;
+		return obj2.getClass().isAssignableFrom(obj1.getClass());
+	}
+
 	@Override
 	public String toString() {
 		if (map != null)

@@ -3,9 +3,8 @@ public class Kavita extends Teacher {
 	private int tickCount;
 
 	public Kavita() {
-		super("Kavita");
+		super("Kavita", new Packet());
 		tickCount = 0;
-		getInventory().add(new Packet());
 	}
 
 	@Override
