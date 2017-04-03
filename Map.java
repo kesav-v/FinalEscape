@@ -37,18 +37,37 @@ public class Map {
 		removeWalls(minisize * 2);
 
 		Levels.loadLevel(this, 1);
+		placeDesk();
 	}
 
 	public MapComponent get(int x, int y) {
 		return occupantArray[x][y];
 	}
 
-	public void removeWalls(int radius) {
+	private void removeWalls(int radius) {
 		int middle = occupantArray.length / 2;
 		for (int i = middle - radius / 2; i < middle + radius / 2; i++)
 			for (int j = middle - radius / 2; j < middle + radius / 2; j++)
 				if (occupantArray[i][j] != null && occupantArray[i][j] instanceof Wall)
 					removeComponent(i, j);
+	}
+
+	private void placeDesk() {
+		int randValue = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
+		switch ((int)(Math.random() * 4)) {
+			case 0:
+				addComponent(new Desk(this, 0, randValue));
+				break;
+			case 1:
+				addComponent(new Desk(this, size - 1, randValue));
+				break;
+			case 2:
+				addComponent(new Desk(this, randValue, 0));
+				break;
+			case 3:
+				addComponent(new Desk(this, randValue, size - 1));
+				break;
+		}
 	}
 
 	public void randomlySpawnComponent(MapComponent component) {
