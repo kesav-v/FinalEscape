@@ -13,31 +13,43 @@ public class Map {
 	private MapComponent[][] occupantArray;
 	private Character mainCharacter;
 	private MapGui gui; // for when things changed, repaint
-	private final int size;
+	private int size;
 	private int gameTicks;
 
+	public int minisize;
+	public double removedeadendprobability;
+	public int removewallradius;
+
 	public Map() {
-		this(13);
+		this(1);
 	}
 
-	public Map(int minisize) {
+	public Map(int levelOn) {
+		minisize = 13;
+		removedeadendprobability = 0.9;
+		removewallradius = 25;
+		Levels.loadLevel(this, levelOn);
+	}
+
+	public void initMap() {
 		size = 4 * minisize - 1;
+		gameTicks = 0;
 		int randX = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
 		int randY = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
 		boolean[][] maze = MazeGenerator.generateMaze(size, size, randX, randY);
-		MazeGenerator.removeDeadEnds(maze, 0.9);
+		MazeGenerator.removeDeadEnds(maze, removedeadendprobability);
+		initOccupantArray(maze);
+		mainCharacter = new Coder(this, randX - 1, randY - 1);
+		removeWalls(removewallradius);
+		placeDesk();
+	}
+
+	private void initOccupantArray(boolean[][] walls) {
 		occupantArray = new MapComponent[size][size];
 		for (int i = 0; i < occupantArray.length; i++)
 			for (int a = 0; a < occupantArray[i].length; a++)
-				if (!maze[i][a]) // wall
+				if (!walls[i][a]) // wall
 					occupantArray[i][a] = new Wall(this, i, a);
-
-		mainCharacter = new Coder(this, randX - 1, randY - 1);
-		gameTicks = 0;
-		removeWalls(minisize * 2);
-
-		Levels.loadLevel(this, 2);
-		placeDesk();
 	}
 
 	public MapComponent get(int x, int y) {
@@ -48,7 +60,8 @@ public class Map {
 		int middle = occupantArray.length / 2;
 		for (int i = middle - radius / 2; i < middle + radius / 2; i++)
 			for (int j = middle - radius / 2; j < middle + radius / 2; j++)
-				if (occupantArray[i][j] != null && occupantArray[i][j] instanceof Wall)
+				if (occupantArray[i][j] != null
+					&& occupantArray[i][j] instanceof Wall)
 					removeComponent(i, j);
 	}
 
@@ -196,8 +209,7 @@ public class Map {
 	}
 
 	public void loseGame() {
-		gui.stopGameClock();
-		gui.setGameOver(true);
+		gui.gameLost();
 	}
 
 	public void setGui(MapGui gui) {

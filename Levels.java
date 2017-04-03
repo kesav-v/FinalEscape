@@ -9,8 +9,12 @@ public class Levels {
 
 	public static final String LEVELS_PATH = "levels/";
 	private static String[] HEADERS = {
+		"Variables",
 		"MapComponents",
 		"Items",
+	};
+	private static String[] COMMANDS = {
+		"Initialize Map",
 	};
 
 	public static void loadLevel(Map map, int levelNum) {
@@ -28,7 +32,18 @@ public class Levels {
 			return headerOn;
 		if (isHeader(line))
 			return line;
+		else if (isCommand(line)) {
+			switch(line) {
+				case "Initialize Map":
+					map.initMap();
+					break;
+			}
+			return headerOn;
+		}
 		switch (headerOn) {
+			case "Variables":
+				parseVariable(map, line);
+				break;
 			case "MapComponents":
 				map.randomlySpawnComponent(getMapComponent(line));
 				break;
@@ -37,6 +52,30 @@ public class Levels {
 				break;
 		}
 		return headerOn;
+	}
+
+	private static void parseVariable(Map map, String line) {
+		String varname = getVarName(line);
+		String varValue = getVarValue(line);
+		switch (varname) {
+			case "minisize":
+				map.minisize = Integer.parseInt(varValue);
+				break;
+			case "removedeadendprobability":
+				map.removedeadendprobability = Float.parseFloat(varValue);
+				break;
+			case "removewallradius":
+				map.removewallradius = Integer.parseInt(varValue);
+				break;
+		}
+	}
+
+	private static String getVarName(String line) {
+		return line.substring(0, line.indexOf(' '));
+	}
+
+	private static String getVarValue(String line) {
+		return line.substring(line.lastIndexOf(' ') + 1);
 	}
 
 	private static MapComponent getMapComponent(String className) {
@@ -64,6 +103,13 @@ public class Levels {
 	private static boolean isHeader(String line) {
 		for (String header : HEADERS)
 			if (line.equals(header))
+				return true;
+		return false;
+	}
+
+	private static boolean isCommand(String line) {
+		for (String command : COMMANDS)
+			if (line.equals(command))
 				return true;
 		return false;
 	}

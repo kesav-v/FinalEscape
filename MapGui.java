@@ -30,9 +30,11 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 	private MinimapPanel minimapPanel;
 	private InventoryPanel inventoryPanel;
 	private Timer gameTickTimer;
+	private int levelOn;
 
-	public MapGui(Map map, int width, int height) {
-		this.map = map;
+	public MapGui(int width, int height, int levelOn) {
+		this.levelOn = levelOn;
+		map = new Map(levelOn);
 		map.setGui(this);
 		setLayout(null);
 		setSize(width, height);
@@ -50,8 +52,13 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 		addMouseListener(this);
 	}
 
-	public void setGameOver(boolean over) {
-		mapPanel.setGameOver(over);
+	public MapGui(int width, int height) {
+		this(width, height, 1);
+	}
+
+	public void gameLost() {
+		mapPanel.setGameOver(true);
+		stopGameClock();
 	}
 
 	private void addMapPanel() {

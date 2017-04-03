@@ -1,3 +1,11 @@
+Variables
+
+minisize 5
+removedeadendprobability 1
+removewallradius 5
+
+Initialize Map
+
 MapComponents
 
 Teacher
