@@ -19,6 +19,7 @@ public class FinalEscape extends JFrame {
 
 	private MapGui mapGui;
 	private GameLostPanel gameLostPanel;
+	private GameWonPanel gameWonPanel;
 	private JPanel cards;
 
 	public FinalEscape(int width, int height) {
@@ -32,8 +33,7 @@ public class FinalEscape extends JFrame {
 		addCards();
 		addMapGui(1);
 		addGameLostPanel();
-		mapGui.gameLost();
-		// ((CardLayout)cards.getLayout()).show(cards, "Map");
+		addGameWonPanel();
 	}
 
 	private void addCards() {
@@ -43,15 +43,20 @@ public class FinalEscape extends JFrame {
 	}
 
 	private void addMapGui(int levelOn) {
-		mapGui = new MapGui(this, getWidth(), getHeight(), levelOn);
+		mapGui = new MapGui(this, levelOn);
 		cards.add(mapGui, "Map");
 		mapGui.setFocusable(true);
 		mapGui.grabFocus();
 	}
 
 	private void addGameLostPanel() {
-		gameLostPanel = new GameLostPanel(mapGui);
+		gameLostPanel = new GameLostPanel(this);
 		cards.add(gameLostPanel, "Game Lost");
+	}
+
+	private void addGameWonPanel() {
+		gameWonPanel = new GameWonPanel(this);
+		cards.add(gameWonPanel, "Game Won");
 	}
 
 	private void centerOnScreen() {
@@ -59,7 +64,11 @@ public class FinalEscape extends JFrame {
 			(SCREEN_HEIGHT - getHeight()) / 2);
 	}
 
-	public void gameLost() {
+	public void loseGame() {
 		((CardLayout)cards.getLayout()).show(cards, "Game Lost");
+	}
+
+	public void winGame() {
+		((CardLayout)cards.getLayout()).show(cards, "Game Won");
 	}
 }

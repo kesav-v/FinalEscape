@@ -4,11 +4,11 @@ import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.Color;
 
-public class GameLostPanel extends JPanel {
+public class GameWonPanel extends JPanel {
 
 	private FinalEscape mainPanel;
 
-	public GameLostPanel(FinalEscape mainPanel) {
+	public GameWonPanel(FinalEscape mainPanel) {
 		this.mainPanel = mainPanel;
 	}
 
@@ -25,8 +25,8 @@ public class GameLostPanel extends JPanel {
 
 	private void drawGameOverMessage(Graphics g) {
 		g.setFont(new Font("Arial", Font.BOLD, 80));
-		g.setColor(Color.RED);
-		String text = "Game over!";
+		g.setColor(Color.GREEN);
+		String text = "Victory!";
 		int width = g.getFontMetrics().stringWidth(text);
 		int height = g.getFontMetrics().getHeight();
 		g.drawString(text, getWidth() / 2 - width / 2,

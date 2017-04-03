@@ -209,7 +209,11 @@ public class Map {
 	}
 
 	public void loseGame() {
-		gui.gameLost();
+		gui.loseGame();
+	}
+
+	public void winGame() {
+		gui.winGame();
 	}
 
 	public void setGui(MapGui gui) {

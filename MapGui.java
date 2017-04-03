@@ -21,13 +21,13 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 	private Timer gameTickTimer;
 	private int levelOn;
 
-	public MapGui(FinalEscape mainFrame, int width, int height, int levelOn) {
+	public MapGui(FinalEscape mainFrame, int levelOn) {
 		this.mainFrame = mainFrame;
 		this.levelOn = levelOn;
 		map = new Map(levelOn);
 		map.setGui(this);
 		setLayout(null);
-		setSize(width, height);
+		setSize(mainFrame.getWidth(), mainFrame.getHeight());
 		addMapPanel();
 		addMinimapPanel();
 		addInventoryPanel();
@@ -37,13 +37,18 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 		addMouseListener(this);
 	}
 
-	public MapGui(FinalEscape mainFrame, int width, int height) {
-		this(mainFrame, width, height, 1);
+	public MapGui(FinalEscape mainFrame) {
+		this(mainFrame, 1);
 	}
 
-	public void gameLost() {
+	public void loseGame() {
 		stopGameClock();
-		mainFrame.gameLost();
+		mainFrame.loseGame();
+	}
+
+	public void winGame() {
+		stopGameClock();
+		mainFrame.winGame();
 	}
 
 	private void addMapPanel() {
