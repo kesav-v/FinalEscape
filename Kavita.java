@@ -3,7 +3,7 @@ public class Kavita extends Teacher {
 	private int tickCount;
 
 	public Kavita() {
-		super("Kavita", new Packet());
+		super("Kavita", new Packet(), 0.9);
 		tickCount = 0;
 	}
 

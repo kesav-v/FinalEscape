@@ -4,15 +4,16 @@ public class Teacher extends Character {
 
 	private Item itemOfChoice;
 
-	public Teacher(String name, Item itemOfChoice) {
+	public Teacher(String name, Item itemOfChoice, double itemOfChoiceProbability) {
 		super(name, 2);
 		this.itemOfChoice = itemOfChoice;
-		getInventory().add(itemOfChoice);
+		if (Math.random() < itemOfChoiceProbability)
+			getInventory().add(itemOfChoice);
 		setColor(Color.RED);
 	}
 
 	public Teacher() {
-		this("Teacher", new Textbook());
+		this("Teacher", new Textbook(), 0.25);
 	}
 
 	@Override
