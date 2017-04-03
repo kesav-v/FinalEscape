@@ -146,7 +146,8 @@ public class Map {
 		ArrayList<MapComponent> components = new ArrayList<MapComponent>();
 		for (MapComponent[] row : occupantArray)
 			for (MapComponent component : row)
-				if (component != null)
+				if (component != null
+					&& gameTicks % component.getDelayInterval() == 0)
 					components.add(component);
 
 		components.sort(componentTickComparator);
@@ -155,13 +156,15 @@ public class Map {
 	}
 
 	public void gameTick() {
-		for (MapComponent component : getMapComponents())
+		ArrayList<MapComponent> componentsToTick = getMapComponents();
+		for (MapComponent component : componentsToTick)
 			if (component != null && component.getMap() != null)
 				component.tick();
 		gameTicks++;
-		if (gameTicks % 250 == 0)
+		if (gameTicks % 1000 == 0)
 			randomlySpawnComponent(new ItemComponent(new Frisbee()));
-		updateGui();
+		if (componentsToTick.size() > 0)
+			updateGui();
 	}
 
 	private void updateGui() {

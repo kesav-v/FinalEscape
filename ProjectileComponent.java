@@ -10,6 +10,7 @@ public abstract class ProjectileComponent extends MapComponent {
 		setColor(Color.PINK);
 		setSolid(true);
 		setPrecedence(5);
+		setDelayInterval(5);
 	}
 
 	public Direction getDirection() { return dir; }

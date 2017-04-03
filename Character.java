@@ -8,6 +8,7 @@ public abstract class Character extends MapComponent {
 		health = 100;
 		setSolid(true);
 		inventory = new Inventory(inventoryCapacity);
+		setDelayInterval(20);
 	}
 
 	public Character(String name, int inventoryCapacity) {
@@ -15,6 +16,7 @@ public abstract class Character extends MapComponent {
 		health = 100;
 		setSolid(true);
 		inventory = new Inventory(inventoryCapacity);
+		setDelayInterval(20);
 	}
 
 	public boolean moveCharacter(int x, int y) {

@@ -23,7 +23,7 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 	public static final int SCREEN_HEIGHT =
 		(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
-	private final int GAME_TICK_DELAY_MILLISECONDS = 500;
+	private final int GAME_TICK_DELAY_MILLISECONDS = 50;
 
 	private Map map;
 	private MapPanel mapPanel;
