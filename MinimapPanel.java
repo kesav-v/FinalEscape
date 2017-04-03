@@ -22,7 +22,7 @@ public class MinimapPanel extends JPanel {
 		memory = new Color[map.size()][map.size()];
 		for (Color[] row : memory)
 			for (int i = 0; i < row.length; i++)
-				row[i] = Color.GRAY;
+				row[i] = new Color(0, 0, 0, 0);
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class MinimapPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
-		drawMemory(g);
 		drawBorder(g);
+		drawMemory(g);
 	}
 
 	private void drawMemory(Graphics g) {
