@@ -5,10 +5,7 @@ import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.Color;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class GameWonPanel extends JPanel implements ActionListener {
+public class GameWonPanel extends JPanel {
 
 	private FinalEscape mainPanel;
 	private JButton continueButton;
@@ -21,7 +18,7 @@ public class GameWonPanel extends JPanel implements ActionListener {
 	private void addContinueButton(int stringHeight) {
 		continueButton = new JButton("Continue?");
 		continueButton.setActionCommand("continue");
-		continueButton.addActionListener(this);
+		continueButton.addActionListener(mainPanel);
 		continueButton.setSize(getWidth() / 4, getWidth() / 16);
 		continueButton.setLocation(getWidth() / 2 - getWidth() / 8,
 			getHeight() / 2 + stringHeight);
@@ -31,7 +28,7 @@ public class GameWonPanel extends JPanel implements ActionListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawWhiteRectangle(g);
-		int stringHeight = drawGameOverMessage(g);
+		int stringHeight = drawGameWonMessage(g);
 		if (continueButton == null)
 			addContinueButton(stringHeight);
 	}
@@ -41,7 +38,7 @@ public class GameWonPanel extends JPanel implements ActionListener {
 		g.fillRect(0, 0, getWidth(), getHeight());
 	}
 
-	private int drawGameOverMessage(Graphics g) {
+	private int drawGameWonMessage(Graphics g) {
 		g.setFont(new Font("Arial", Font.BOLD, 80));
 		g.setColor(Color.GREEN);
 		String text = "Victory!";
@@ -50,14 +47,5 @@ public class GameWonPanel extends JPanel implements ActionListener {
 		g.drawString(text, getWidth() / 2 - width / 2,
 			getHeight() / 2 - g.getFontMetrics().getAscent() + height / 2);
 		return height;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		switch (event.getActionCommand()) {
-			case "continue":
-				mainPanel.nextLevel();
-				break;
-		}
 	}
 }

@@ -4,7 +4,10 @@ import javax.swing.JPanel;
 import java.awt.Toolkit;
 import java.awt.CardLayout;
 
-public class FinalEscape extends JFrame {
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class FinalEscape extends JFrame implements ActionListener {
 	/**
 	 * The width of the screen, in pixels.
 	 */
@@ -77,8 +80,8 @@ public class FinalEscape extends JFrame {
 		removeCard(mapGui);
 	}
 
-	public void nextLevel() {
-		addMapGui(++levelOn);
+	public void newGame() {
+		addMapGui(levelOn);
 		showCard("Map");
 		mapGui.grabFocus();
 	}
@@ -89,5 +92,18 @@ public class FinalEscape extends JFrame {
 
 	private void removeCard(JPanel card) {
 		((CardLayout)cards.getLayout()).removeLayoutComponent(card);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		switch (event.getActionCommand()) {
+			case "continue":
+				levelOn++;
+				newGame();
+				break;
+			case "retry":
+				newGame();
+				break;
+		}
 	}
 }
