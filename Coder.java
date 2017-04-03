@@ -15,9 +15,7 @@ public class Coder extends Character {
 		if (componentThere == null)
 			return true;
 		else if (componentThere instanceof ItemComponent) {
-			if (inventory.size() < inventory.capacity())
-				inventory.add(((ItemComponent)componentThere).getItem());
-			else if (componentThere.getName().equals("Laptop"))
+			if (inventory.isFull() && componentThere.getName().equals("Laptop"))
 				inventory.set(inventory.getSelectedItemIndex(),
 					((ItemComponent)componentThere).getItem());
 			return true;

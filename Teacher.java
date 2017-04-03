@@ -3,7 +3,7 @@ import java.awt.Color;
 public class Teacher extends Character {
 
 	public Teacher() {
-		super("Teacher", 1);
+		super("Teacher", 2);
 		setColor(Color.RED);
 		getInventory().add(new Textbook());
 	}
@@ -34,6 +34,8 @@ public class Teacher extends Character {
 		else if (componentThere == getMap().getMainCharacter()
 			&& !(((Character)componentThere).getInventory().getSelectedItem() instanceof Textbook))
 			getMap().getMainCharacter().destroy();
+		else if (componentThere instanceof ItemComponent && !getInventory().isFull())
+			return true;
 		return false;
 	}
 }

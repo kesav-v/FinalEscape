@@ -22,8 +22,11 @@ public abstract class Character extends MapComponent {
 			return false;
 		Direction newDirection = getDirectionTowards(x, y);
 		if (newDirection == getDirection())
-			if (canMoveHere(x, y))
+			if (canMoveHere(x, y)) {
+				if (getMap().get(x, y) instanceof ItemComponent && !inventory.isFull())
+					inventory.add(((ItemComponent)getMap().get(x, y)).getItem());
 				moveTo(x, y);
+			}
 			else return false;
 		else setDirection(newDirection);
 		return true;
@@ -97,9 +100,9 @@ public abstract class Character extends MapComponent {
 
 	@Override
 	public void destroy() {
-		if (inventory.getSelectedItem() != null)
+		if (inventory.getMostPrecedentedItem() != null)
 			getMap().addComponent(new ItemComponent(getMap(), getX(), getY(),
-				inventory.getSelectedItem()));
+				inventory.getMostPrecedentedItem()));
 		else super.destroy();
 	}
 }

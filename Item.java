@@ -6,11 +6,13 @@ public abstract class Item {
 	private String name;
 	private Color color;
 	private Image image;
+	private int precedence;
 
 	public Item(String name, Color color) {
 		this.name = name;
 		this.color = color;
 		image = null;
+		precedence = 0;
 	}
 
 	public Item(String name) {
@@ -28,6 +30,8 @@ public abstract class Item {
 	public String getName() { return name; }
 	public Color getColor() { return color; }
 	public void setColor(Color color) { this.color = color; }
+	public int getPrecedence() { return precedence; }
+	public void setPrecedence(int precedence) { this.precedence = precedence; }
 
 	/**
 	 * What happens when used

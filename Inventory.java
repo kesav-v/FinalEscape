@@ -5,11 +5,12 @@ public class Inventory extends ArrayList<Item> {
 	private int inventoryCapacity;
 	private Item selectedItem;
 	private int selectedItemIndex;
+	private Item mostPrecedented;
 
 	public Inventory(int capacity) {
 		super(capacity);
 		this.inventoryCapacity = capacity;
-		selectedItem = null;
+		selectedItem = mostPrecedented = null;
 		selectedItemIndex = -1;
 	}
 
@@ -17,12 +18,15 @@ public class Inventory extends ArrayList<Item> {
 
 	@Override
 	public boolean add(Item item) {
-		if (size() >= inventoryCapacity)
+		if (isFull())
 			return false;
 		if (size() == 0) {
 			selectedItemIndex = 0;
 			selectedItem = item;
 		}
+		if (mostPrecedented == null
+			|| item.getPrecedence() > mostPrecedented.getPrecedence())
+			mostPrecedented = item;
 		return super.add(item);
 	}
 
@@ -51,6 +55,10 @@ public class Inventory extends ArrayList<Item> {
 		}
 	}
 
+	public boolean isFull() {
+		return size() >= inventoryCapacity;
+	}
+
 	public Item getSelectedItem() { return selectedItem; }
 	public int getSelectedItemIndex() { return selectedItemIndex; }
 
@@ -60,4 +68,6 @@ public class Inventory extends ArrayList<Item> {
 			switchSelectedItem();
 		}
 	}
+
+	public Item getMostPrecedentedItem() { return mostPrecedented; }
 }
