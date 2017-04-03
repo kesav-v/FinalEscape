@@ -11,6 +11,8 @@ public class Desk extends MapComponent {
 		else if (y == map.size() - 1)
 			setDirection(Direction.SOUTH);
 		else setDirection(Direction.NORTH);
+		setSolid(true);
+		setOpaque(true);
 	}
 
 	public Desk(Map map, int x, int y) {

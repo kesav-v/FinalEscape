@@ -56,16 +56,16 @@ public class Map {
 		int randValue = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
 		switch ((int)(Math.random() * 4)) {
 			case 0:
-				addComponent(new Desk(this, 0, randValue));
+				addComponent(new Desk(this, 0, randValue), true);
 				break;
 			case 1:
-				addComponent(new Desk(this, size - 1, randValue));
+				addComponent(new Desk(this, size - 1, randValue), true);
 				break;
 			case 2:
-				addComponent(new Desk(this, randValue, 0));
+				addComponent(new Desk(this, randValue, 0), true);
 				break;
 			case 3:
-				addComponent(new Desk(this, randValue, size - 1));
+				addComponent(new Desk(this, randValue, size - 1), true);
 				break;
 		}
 	}
@@ -79,8 +79,8 @@ public class Map {
 		addComponent(component, x, y);
 	}
 
-	public void addComponent(MapComponent occupant, int x, int y) {
-		if (!removeComponent(x, y))
+	public void addComponent(MapComponent occupant, int x, int y, boolean force) {
+		if (!removeComponent(x, y, force))
 			return;
 		occupantArray[x][y] = occupant;
 		occupant.setX(x);
@@ -88,18 +88,31 @@ public class Map {
 		occupant.setMap(this);
 	}
 
-	public void addComponent(MapComponent occupant) {
-		addComponent(occupant, occupant.getX(), occupant.getY());
+	public void addComponent(MapComponent occupant, int x, int y) {
+		addComponent(occupant, x, y, false);
 	}
 
-	public boolean removeComponent(int x, int y) {
-		if (x == 0 || y == 0 || x == size - 1 || y == size - 1)
+	public void addComponent(MapComponent occupant, boolean force) {
+		addComponent(occupant, occupant.getX(), occupant.getY(), force);
+	}
+
+	public void addComponent(MapComponent occupant) {
+		addComponent(occupant, false);
+	}
+
+	public boolean removeComponent(int x, int y, boolean force) {
+		if (force);
+		else if (x == 0 || y == 0 || x == size - 1 || y == size - 1)
 			return false;
 		if (occupantArray[x][y] == null)
 			return true;
 		occupantArray[x][y].setMap(null);
 		occupantArray[x][y] = null;
 		return true;
+	}
+
+	public boolean removeComponent(int x, int y) {
+		return removeComponent(x, y, false);
 	}
 
 	public boolean removeComponent(MapComponent component) {

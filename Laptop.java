@@ -16,7 +16,8 @@ public class Laptop extends Item {
 			new ItemComponent(character.getMap(), spawnx, spawny, this);
 			return true;
 		} else if (componentThere instanceof Desk) {
-			new DeskWithLaptop(character.getMap(), spawnx, spawny);
+			character.getMap().addComponent(
+				new DeskWithLaptop(character.getMap(), spawnx, spawny), true);
 			// win the game
 			return true;
 		} else return false;
