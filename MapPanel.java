@@ -54,7 +54,10 @@ public class MapPanel extends JPanel {
 		g.setFont(new Font("Arial", Font.BOLD, 80));
 		Color c = g.getColor();
 		g.setColor(Color.RED);
-		g.drawString("Game over!", middleX - 190, middleY + 40);
+		String text = "Game over!";
+		int width = g.getFontMetrics().stringWidth(text);
+		int height = g.getFontMetrics().getHeight();
+		g.drawString(text, middleX - width / 2, middleY + height / 2);
 		g.setColor(c);
 	}
 
