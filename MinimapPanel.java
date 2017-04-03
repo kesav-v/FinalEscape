@@ -34,10 +34,12 @@ public class MinimapPanel extends JPanel {
 
 	public void updateMemory(ArrayList<Location> visibleLocations) {
 		for (Location loc : visibleLocations) {
-			MapComponent comp = map.get(loc.getX(), loc.getY());
-			if (comp == null)
-				memory[loc.getX()][loc.getY()] = Color.WHITE;
-			else memory[loc.getX()][loc.getY()] = comp.getColor();
+			try {
+				MapComponent comp = map.get(loc.getX(), loc.getY());
+				if (comp == null)
+					memory[loc.getX()][loc.getY()] = Color.WHITE;
+				else memory[loc.getX()][loc.getY()] = comp.getColor();
+			} catch (NullPointerException e) {}
 		}
 	}
 

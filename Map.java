@@ -142,6 +142,28 @@ public class Map {
 		updateGui();
 	}
 
+	private boolean laptopExists() {
+		for (MapComponent[] row : occupantArray)
+			for (MapComponent component : row)
+				if (component == null);
+				else if (component.getName().equals("Laptop"))
+					return true;
+				else if (component instanceof Character)
+					if (((Character)component).getInventory()
+						.getMostPrecedentedItem() instanceof Laptop)
+				return true;
+		return false;
+	}
+
+	public ArrayList<Character> getMapCharacters() {
+		ArrayList<Character> characters = new ArrayList<Character>();
+		for (MapComponent[] row : occupantArray)
+			for (MapComponent component : row)
+				if (component != null && component instanceof Character)
+					characters.add((Character)component);
+		return characters;
+	}
+
 	public ArrayList<MapComponent> getMapComponents() {
 		ArrayList<MapComponent> components = new ArrayList<MapComponent>();
 		for (MapComponent[] row : occupantArray)
@@ -163,6 +185,8 @@ public class Map {
 		gameTicks++;
 		if (gameTicks % 1000 == 0)
 			randomlySpawnComponent(new ItemComponent(new Frisbee()));
+		if (!laptopExists())
+			randomlySpawnComponent(new ItemComponent(new Laptop()));
 		if (componentsToTick.size() > 0)
 			updateGui();
 	}
