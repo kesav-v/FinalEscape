@@ -88,8 +88,29 @@ public class Map {
 		do {
 			x = (int)(Math.random() * occupantArray.length);
 			y = (int)(Math.random() * occupantArray[x].length);
-		} while (occupantArray[x][y] != null);
+		} while (!validSpawn(x, y));
 		addComponent(component, x, y);
+	}
+
+	private boolean validSpawn(int x, int y) {
+		if (occupantArray[x][y] != null)
+			return false;
+
+		int centerX = getCenterX();
+		int centerY = getCenterY();
+
+		if (x - 1 == centerX)
+			if (y - 1 == centerY || y + 1 == centerY || y == centerY)
+				return false;
+			else return true;
+		else if (x + 1 == centerX)
+			if (y - 1 == centerY || y + 1 == centerY || y == centerY)
+				return false;
+			else return true;
+		else if (x == centerX)
+			if (y - 1 == centerY || y + 1 == centerY || y == centerY)
+				return false;
+			return true;
 	}
 
 	public void addComponent(MapComponent occupant, int x, int y, boolean force) {
