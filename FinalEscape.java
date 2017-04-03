@@ -22,7 +22,10 @@ public class FinalEscape extends JFrame {
 	private GameWonPanel gameWonPanel;
 	private JPanel cards;
 
+	private int levelOn;
+
 	public FinalEscape(int width, int height) {
+		levelOn = 1;
 		setLayout(null);
 		cards = new JPanel(new CardLayout());
 		setSize(width, height);
@@ -31,7 +34,7 @@ public class FinalEscape extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		addCards();
-		addMapGui(1);
+		addMapGui(levelOn);
 		addGameLostPanel();
 		addGameWonPanel();
 	}
@@ -65,10 +68,26 @@ public class FinalEscape extends JFrame {
 	}
 
 	public void loseGame() {
-		((CardLayout)cards.getLayout()).show(cards, "Game Lost");
+		showCard("Game Lost");
+		removeCard(mapGui);
 	}
 
 	public void winGame() {
-		((CardLayout)cards.getLayout()).show(cards, "Game Won");
+		showCard("Game Won");
+		removeCard(mapGui);
+	}
+
+	public void nextLevel() {
+		addMapGui(++levelOn);
+		showCard("Map");
+		mapGui.grabFocus();
+	}
+
+	private void showCard(String cardName) {
+		((CardLayout)cards.getLayout()).show(cards, cardName);
+	}
+
+	private void removeCard(JPanel card) {
+		((CardLayout)cards.getLayout()).removeLayoutComponent(card);
 	}
 }
