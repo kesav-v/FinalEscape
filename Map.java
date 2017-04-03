@@ -59,9 +59,9 @@ public class Map {
 	}
 
 	private void removeWalls(int radius) {
-		int middle = occupantArray.length / 2;
-		for (int i = middle - radius / 2; i < middle + radius / 2; i++)
-			for (int j = middle - radius / 2; j < middle + radius / 2; j++)
+		int middle = size / 2;
+		for (int i = middle - radius / 2; i <= middle + radius / 2; i++)
+			for (int j = middle - radius / 2; j <= middle + radius / 2; j++)
 				if (occupantArray[i][j] != null
 					&& occupantArray[i][j] instanceof Wall)
 					removeComponent(i, j);
