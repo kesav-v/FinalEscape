@@ -1,5 +1,5 @@
-import javax.swing.JFrame;
-import java.awt.Toolkit;
+import javax.swing.JPanel;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,22 +9,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-public class MapGui extends JFrame implements KeyListener, MouseListener {
-
-	/**
-	 * The width of the screen, in pixels.
-	 */
-	public static final int SCREEN_WIDTH =
-		(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-
-	/**
-	 * The height of the screen, in pixels.
-	 */
-	public static final int SCREEN_HEIGHT =
-		(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+public class MapGui extends JPanel implements KeyListener, MouseListener {
 
 	private final int GAME_TICK_DELAY_MILLISECONDS = 50;
 
+	private FinalEscape mainFrame;
 	private Map map;
 	private MapPanel mapPanel;
 	private MinimapPanel minimapPanel;
@@ -32,17 +21,13 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 	private Timer gameTickTimer;
 	private int levelOn;
 
-	public MapGui(int width, int height, int levelOn) {
+	public MapGui(FinalEscape mainFrame, int width, int height, int levelOn) {
+		this.mainFrame = mainFrame;
 		this.levelOn = levelOn;
 		map = new Map(levelOn);
 		map.setGui(this);
 		setLayout(null);
 		setSize(width, height);
-		setSize(SCREEN_WIDTH, SCREEN_HEIGHT - 20);
-		centerOnScreen();
-		setResizable(false);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
 		addMapPanel();
 		addMinimapPanel();
 		addInventoryPanel();
@@ -52,13 +37,13 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 		addMouseListener(this);
 	}
 
-	public MapGui(int width, int height) {
-		this(width, height, 1);
+	public MapGui(FinalEscape mainFrame, int width, int height) {
+		this(mainFrame, width, height, 1);
 	}
 
 	public void gameLost() {
-		mapPanel.setGameOver(true);
 		stopGameClock();
+		mainFrame.gameLost();
 	}
 
 	private void addMapPanel() {
@@ -99,14 +84,6 @@ public class MapGui extends JFrame implements KeyListener, MouseListener {
 		minimapPanel.updateMemory(visibleLocations);
 		minimapPanel.repaint();
 		inventoryPanel.repaint();
-	}
-
-	/**
-	 * Centers this {@code SimpleHtmlRenderer} on the screen.
-	 */
-	private void centerOnScreen() {
-		setLocation((SCREEN_WIDTH - getWidth()) / 2,
-			(SCREEN_HEIGHT - getHeight()) / 2);
 	}
 
 	public void startGameClock() {

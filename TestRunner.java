@@ -1,5 +1,5 @@
 public class TestRunner {
 	public static void main(String... pumpkins) {
-		MapGui gui = new MapGui(MapGui.SCREEN_WIDTH, MapGui.SCREEN_HEIGHT);
+		FinalEscape gui = new FinalEscape(FinalEscape.SCREEN_WIDTH, FinalEscape.SCREEN_HEIGHT);
 	}
 }
