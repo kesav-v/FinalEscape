@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class MapPanel extends JPanel {
 
@@ -63,8 +64,10 @@ public class MapPanel extends JPanel {
 
 	private void drawComponents(Graphics g,
 		ArrayList<Location> visibleLocations) {
-		for (Location loc : visibleLocations)
-			drawMapComponent(g, loc);
+		try {
+			for (Location loc : visibleLocations)
+				drawMapComponent(g, loc);
+		} catch (ConcurrentModificationException e) {}
 	}
 
 	private void drawMap(Graphics g) {

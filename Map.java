@@ -36,7 +36,7 @@ public class Map {
 		gameTicks = 0;
 		removeWalls(minisize * 2);
 
-		Levels.loadLevel(this, 1);
+		Levels.loadLevel(this, 2);
 		placeDesk();
 	}
 

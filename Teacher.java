@@ -2,16 +2,20 @@ import java.awt.Color;
 
 public class Teacher extends Character {
 
-	public Teacher() {
-		super("Teacher", 2);
+	public Teacher(String name) {
+		super(name, 2);
 		setColor(Color.RED);
+	}
+
+	public Teacher() {
+		this("Teacher");
 		getInventory().add(new Textbook());
 	}
 
 	@Override
 	public void tick() {
-		Character target = getMap().getMainCharacter();
-		if (target.getInventory().getSelectedItem() instanceof Textbook) {
+		Character target = getTarget();
+		if (target == null) {
 			moveRandomly();
 			return;
 		}
@@ -24,6 +28,13 @@ public class Teacher extends Character {
 				moveCharacterDelta(1, 0);
 			else moveCharacterDelta(-1, 0);
 		else moveRandomly();
+	}
+
+	public Character getTarget() {
+		Character target = getMap().getMainCharacter();
+		if (target.getInventory().getSelectedItem() instanceof Textbook)
+			return null;
+		return target;
 	}
 
 	@Override

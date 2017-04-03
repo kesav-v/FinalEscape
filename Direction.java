@@ -10,7 +10,7 @@ public enum Direction {
 		this.dY = dY;
 	}
 
-	Direction getDir(int dX, int dY) {
+	static Direction getDir(int dX, int dY) {
 		for (Direction dir : values())
 			if (dir.dX == dX && dir.dY == dY)
 				return dir;
