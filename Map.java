@@ -129,6 +129,11 @@ public class Map {
 		gui.updateMap();
 	}
 
+	public void stopGame() {
+		gui.stopGameClock();
+		gui.setGameOver(true);
+	}
+
 	public void setGui(MapGui gui) {
 		this.gui = gui;
 	}

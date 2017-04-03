@@ -27,6 +27,7 @@ public class Coder extends Character {
 	@Override
 	public void destroy() {
 		System.out.println("Game over!");
-		System.exit(0);
+		getMap().stopGame();
+		// System.exit(0);
 	}
 }

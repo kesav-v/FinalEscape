@@ -5,6 +5,7 @@ import java.awt.image.AffineTransformOp;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Font;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -19,12 +20,17 @@ public class MapPanel extends JPanel {
 	private int middleX, middleY;
 	private Map map;
 	private ArrayList<Location> visibleLocations;
+	private boolean gameOver;
 
 	public MapPanel(Map map) {
 		this.map = map;
-
+		gameOver = false;
 		setSize((int)Math.ceil(VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE,
 			(int)Math.ceil(VISIBILITY_RADIUS * 2 + 4) * BLOCK_SIZE);
+	}
+
+	public void setGameOver(boolean b) {
+		gameOver = b;
 	}
 
 	@Override
@@ -37,9 +43,19 @@ public class MapPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		drawUnknownMist(g);
-		if (visibleLocations != null)
+		if (gameOver) drawGameEndMessage(g);
+		else if (visibleLocations != null)
 			drawComponents(g, visibleLocations);
 		drawBorder(g);
+	}
+
+	private void drawGameEndMessage(Graphics g) {
+		super.paintComponent(g);
+		g.setFont(new Font("Arial", Font.BOLD, 80));
+		Color c = g.getColor();
+		g.setColor(Color.RED);
+		g.drawString("Game over!", middleX - 190, middleY + 40);
+		g.setColor(c);
 	}
 
 	private void drawComponents(Graphics g,

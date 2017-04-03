@@ -6,7 +6,7 @@ public class Person extends MapComponent {
 
 	public Person(Map map, int x, int y) {
 		super(map, x, y, "Maze");
-		w = new Frisbee();
+		// w = new Frisbee();
 		health = 100;
 		direction = Direction.EAST;
 	}
