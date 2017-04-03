@@ -53,7 +53,7 @@ public class Map {
 	}
 
 	private void placeDesk() {
-		int randValue = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
+		int randValue = 2 * (int)(Math.random() * (size / 2 - 3)) + 1;
 		switch ((int)(Math.random() * 4)) {
 			case 0:
 				addComponent(new Desk(this, 0, randValue), true);
