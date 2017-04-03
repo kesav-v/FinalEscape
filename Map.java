@@ -1,6 +1,14 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Map {
+
+	private final Comparator<MapComponent> componentTickComparator = new Comparator<MapComponent>() {
+		@Override
+		public int compare(MapComponent obj1, MapComponent obj2) {
+			return obj2.getPrecedence() - obj1.getPrecedence();
+		}
+	};
 
 	private MapComponent[][] occupantArray;
 	private Character mainCharacter;
@@ -67,12 +75,13 @@ public class Map {
 	public void removeComponent(int x, int y) {
 		if (occupantArray[x][y] == null)
 			return;
-		if (occupantArray[x][y] instanceof Coder) {
-			System.out.println("Game over!");
-			System.exit(0);
-		}
 		occupantArray[x][y].setMap(null);
 		occupantArray[x][y] = null;
+	}
+
+	public void removeComponent(MapComponent component) {
+		if (component.getMap() != null)
+			removeComponent(component.getX(), component.getY());
 	}
 
 	public void moveComponent(int fromx, int fromy, int tox, int toy) {
@@ -102,6 +111,8 @@ public class Map {
 			for (MapComponent component : row)
 				if (component != null)
 					components.add(component);
+
+		components.sort(componentTickComparator);
 
 		return components;
 	}

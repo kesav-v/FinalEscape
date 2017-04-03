@@ -27,6 +27,7 @@ public abstract class Item {
 
 	public String getName() { return name; }
 	public Color getColor() { return color; }
+	public void setColor(Color color) { this.color = color; }
 
 	/**
 	 * What happens when used

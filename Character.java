@@ -94,4 +94,12 @@ public abstract class Character extends MapComponent {
 		if (inventory.size() > 0)
 			inventory.useSelectedItem(this);
 	}
+
+	@Override
+	public void destroy() {
+		if (inventory.getSelectedItem() != null)
+			getMap().addComponent(new ItemComponent(getMap(), getX(), getY(),
+				inventory.getSelectedItem()));
+		else super.destroy();
+	}
 }

@@ -23,4 +23,10 @@ public class Coder extends Character {
 			return true;
 		} else return !componentThere.isSolid();
 	}
+
+	@Override
+	public void destroy() {
+		System.out.println("Game over!");
+		System.exit(0);
+	}
 }

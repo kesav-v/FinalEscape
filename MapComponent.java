@@ -15,6 +15,7 @@ public abstract class MapComponent {
 	private Image img;
 	private Direction direction;
 	private Color color;
+	private int precedence;
 
 	public MapComponent(Map map, int x, int y, String name) {
 		this.map = map;
@@ -22,18 +23,20 @@ public abstract class MapComponent {
 		this.y = y;
 		this.name = name;
 		map.addComponent(this);
-		direction = Direction.NORTH;
-		solid = opaque = false;
-		color = Color.GRAY;
-		img = getImageByName(name);
+		setDefaults();
 	}
 
 	public MapComponent(String name) {
 		this.name = name;
+		setDefaults();
+	}
+
+	private void setDefaults() {
 		direction = Direction.NORTH;
 		solid = opaque = false;
 		color = Color.GRAY;
 		img = getImageByName(name);
+		precedence = 0;
 	}
 
 	public final void moveTo(int x, int y) {
@@ -60,6 +63,7 @@ public abstract class MapComponent {
 	public Direction getDirection() { return direction; }
 	public Color getColor() { return color; }
 	public String getName() { return name; }
+	public int getPrecedence() { return precedence; }
 
 	public boolean isSolid() { return solid; }
 	public boolean isOpaque() { return opaque; }
@@ -71,6 +75,7 @@ public abstract class MapComponent {
 	public void setX(int x) { this.x = x; }
 	public void setY(int y) { this.y = y; }
 	public void setMap(Map map) { this.map = map; }
+	public void setPrecedence(int precedence) { this.precedence = precedence; }
 
 	public void tick() {}
 
@@ -79,5 +84,9 @@ public abstract class MapComponent {
 		if (map != null)
 			return String.format("[MapComponent %s in %d % d]", name, x, y);
 		else return String.format("[MapComponent %s out of map]", name);
+	}
+
+	public void destroy() {
+		map.removeComponent(this);
 	}
 }

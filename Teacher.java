@@ -25,8 +25,10 @@ public class Teacher extends Character {
 	@Override
 	public boolean canMoveHere(int x, int y) {
 		MapComponent componentThere = getMap().get(x, y);
-		if (componentThere == null || componentThere == getMap().getMainCharacter())
+		if (componentThere == null)
 			return true;
+		else if (componentThere == getMap().getMainCharacter())
+			getMap().getMainCharacter().destroy();
 		return false;
 	}
 }
