@@ -10,14 +10,10 @@ public class Frisbee extends Item {
 		int spawnx = character.getX() + dir.dX;
 		int spawny = character.getY() + dir.dY;
 		MapComponent componentThere = character.getMap().get(spawnx, spawny);
-		if (componentThere == null)
+		if (componentThere == null || !componentThere.isSolid())
 			new FrisbeeProjectile(character.getMap(), spawnx, spawny, dir);
 		else if (componentThere.isSolid())
 			componentThere.destroy();
-		else {
-			componentThere.destroy();
-			new FrisbeeProjectile(character.getMap(), spawnx, spawny, dir);
-		}
 		return true;
 	}
 }
