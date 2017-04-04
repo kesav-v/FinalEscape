@@ -108,6 +108,20 @@ public abstract class Character extends MapComponent {
 		return false;
 	}
 
+	public void tryMovingInDir(Direction dir) {
+		if (dir == Direction.IN_PLACE)
+			moveRandomly();
+		else if (dir != getDirection())
+			setDirection(dir);
+		else {
+			int newx = getX() + dir.dX;
+			int newy = getY() + dir.dY;
+			if (canMoveHere(newx, newy))
+				moveTo(newx, newy);
+			else moveRandomly();
+		}
+	}
+
 	public void setHealth(int health) { this.health = health; }
 	public int getHealth() { return health; }
 

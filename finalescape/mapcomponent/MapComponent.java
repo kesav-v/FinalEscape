@@ -56,7 +56,7 @@ public abstract class MapComponent {
 	public static BufferedImage getImageByName(String name, int size) {
 		try {
 			Image img = ImageIO.read(new File("images/" + name + ".png"))
-				.getScaledInstance(size, size, Image.SCALE_DEFAULT);
+				.getScaledInstance(size, size, Image.SCALE_SMOOTH);
 			BufferedImage bi = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g2d = bi.createGraphics();
 			g2d.drawImage(img, 0, 0, null);
@@ -101,7 +101,7 @@ public abstract class MapComponent {
 	public void tick() {}
 
 	public final boolean instof(Object obj1, Object obj2) {
-		if (obj1 == null)
+		if (obj1 == null || obj2 == null)
 			return false;
 		return obj2.getClass().isAssignableFrom(obj1.getClass());
 	}
