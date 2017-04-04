@@ -7,12 +7,16 @@ public abstract class Item {
 	private Color color;
 	private Image image;
 	private int precedence;
+	private int maxUses;
+	private int uses;
 
 	public Item(String name, Color color) {
 		this.name = name;
 		this.color = color;
 		image = null;
 		precedence = 0;
+		uses = 0;
+		maxUses = 1;
 	}
 
 	public Item(String name) {
@@ -63,7 +67,9 @@ public abstract class Item {
 	public int getPrecedence() { return precedence; }
 	public void setPrecedence(int precedence) { this.precedence = precedence; }
 
-	public float getOpacity() { return 1f; }
+	public float getOpacity() {
+		return 1f - uses * 1f / maxUses;
+	}
 
 	/**
 	 * What happens when used
@@ -71,4 +77,10 @@ public abstract class Item {
 	 * @return           true if to delete, false otherwise
 	 */
 	public abstract boolean onUse(Character character);
+
+	public int maxUses() { return maxUses; }
+	public int getUses() { return uses; }
+	public void setUses(int uses) { this.uses = uses; }
+	public void setMaxUses(int maxUses) { this.maxUses = maxUses; }
+	public void incrementUses() { uses++; }
 }

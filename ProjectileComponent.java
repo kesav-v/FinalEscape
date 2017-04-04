@@ -2,10 +2,12 @@ import java.awt.Color;
 
 public abstract class ProjectileComponent extends MapComponent {
 
+	private Item item;
 	private Direction dir;
 
-	public ProjectileComponent(Map map, int x, int y, String name, Direction dir) {
-		super(map, x, y, name);
+	public ProjectileComponent(Map map, int x, int y, Item item, Direction dir) {
+		super(map, x, y, item.getName());
+		this.item = item;
 		this.dir = dir;
 		setColor(new Color(0, 0, 0, 0));
 		setSolid(true);
@@ -13,8 +15,9 @@ public abstract class ProjectileComponent extends MapComponent {
 		setDelayInterval(5);
 	}
 
-	public ProjectileComponent(String name) {
-		super(name);
+	public ProjectileComponent(Item item) {
+		super(item.getName());
+		this.item = item;
 		setColor(new Color(0, 0, 0, 0));
 		setSolid(true);
 		setPrecedence(5);
@@ -40,4 +43,6 @@ public abstract class ProjectileComponent extends MapComponent {
 		componentThere.destroy();
 		return false;
 	}
+
+	public Item getItem() { return item; }
 }

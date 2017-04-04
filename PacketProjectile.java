@@ -1,10 +1,10 @@
 public class PacketProjectile extends ProjectileComponent {
-	public PacketProjectile(Map map, int x, int y, Direction dir) {
-		super(map, x, y, "Packet", dir);
+	public PacketProjectile(Map map, int x, int y, Direction dir, Item item) {
+		super(map, x, y, item, dir);
 	}
 
-	public PacketProjectile() {
-		super("Packet");
+	public PacketProjectile(Item item) {
+		super(item);
 	}
 
 	@Override

@@ -1,18 +1,15 @@
 public class BoomerangProjectile extends ProjectileComponent {
 
 	private boolean bounced;
-	private int uses;
 
-	public BoomerangProjectile(Map map, int x, int y, Direction dir, int uses) {
-		super(map, x, y, "Boomerang", dir);
-		this.uses = uses;
+	public BoomerangProjectile(Map map, int x, int y, Direction dir, Item item) {
+		super(map, x, y, item, dir);
 		bounced = false;
 		setPrecedence(6);
 	}
 
-	public BoomerangProjectile(int uses) {
-		super("Boomerang");
-		this.uses = uses;
+	public BoomerangProjectile(Item item) {
+		super(item);
 		bounced = false;
 		setPrecedence(6);
 	}
@@ -24,9 +21,10 @@ public class BoomerangProjectile extends ProjectileComponent {
 
 	@Override
 	public void destroy() {
-		if (bounced)
+		if (bounced) {
 			super.destroy();
-		else bounceBack();
+			bounced = false;
+		} else bounceBack();
 	}
 
 	@Override
@@ -35,8 +33,10 @@ public class BoomerangProjectile extends ProjectileComponent {
 		if (componentThere == null || !componentThere.isSolid())
 			return true;
 		else if (componentThere instanceof Character && bounced) {
-			if (uses < 10)
-				((Character)componentThere).getInventory().add(new Boomerang(uses + 1));
+			Item item = getItem();
+			item.incrementUses();
+			if (item.getUses() <= item.maxUses())
+				((Character)componentThere).getInventory().add(item);
 		} else componentThere.destroy();
 		return false;
 	}

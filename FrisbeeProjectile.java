@@ -1,9 +1,9 @@
 public class FrisbeeProjectile extends ProjectileComponent {
-	public FrisbeeProjectile(Map map, int x, int y, Direction dir) {
-		super(map, x, y, "Frisbee", dir);
+	public FrisbeeProjectile(Map map, int x, int y, Direction dir, Item item) {
+		super(map, x, y, item, dir);
 	}
 
-	public FrisbeeProjectile() {
-		super("Frisbee");
+	public FrisbeeProjectile(Item item) {
+		super(item);
 	}
 }

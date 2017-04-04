@@ -1,13 +1,18 @@
-public class ProjectileItem extends Item {
+public abstract class ProjectileItem extends Item {
 
 	private ProjectileComponent projectile;
 	private boolean destroy;
 	private boolean destroyOverriden;
 
-	public ProjectileItem(String name, ProjectileComponent projectile) {
+	public ProjectileItem(String name) {
 		super(name);
 		this.projectile = projectile;
 		destroyOverriden = false;
+	}
+
+	// CALL THIS
+	public void setProjectile(ProjectileComponent projectile) {
+		this.projectile = projectile;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 public class Frisbee extends ProjectileItem {
 
 	public Frisbee() {
-		super("Frisbee", new FrisbeeProjectile());
+		super("Frisbee");
+		setProjectile(new FrisbeeProjectile(this));
 	}
 }

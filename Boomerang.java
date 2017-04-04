@@ -1,10 +1,10 @@
 public class Boomerang extends ProjectileItem {
 
-	public int uses;
-
 	public Boomerang(int uses) {
-		super("Boomerang", new BoomerangProjectile(uses));
-		this.uses = uses;
+		super("Boomerang");
+		setProjectile(new BoomerangProjectile(this));
+		setUses(uses);
+		setMaxUses(10);
 	}
 
 	public Boomerang() {
@@ -17,16 +17,11 @@ public class Boomerang extends ProjectileItem {
 			return true;
 		else if (component.isSolid()) {
 			component.destroy();
-			uses++;
-			if (uses < 10)
+			incrementUses();
+			if (getUses() < maxUses())
 				overrideDestroy(false);
 			else overrideDestroy(true);
 		}
 		return false;
-	}
-
-	@Override
-	public float getOpacity() {
-		return 1f - uses * 0.1f;
 	}
 }
