@@ -2,5 +2,6 @@
 
 ### On Linux
 
-bash build.sh
-java -jar FinalEscape.jar
+> bash build.sh
+
+> java -jar FinalEscape.jar
