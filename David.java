@@ -14,19 +14,24 @@ public class David extends Teacher {
 		Character target = getTarget();
 		if (target.getInventory().getSelectedItem() instanceof Laptop
 			&& distance(target) <= getMap().getVisibilityRadius()) {
-			Direction dir = solveMazeDirection(getMap().getDestinationComponent());
-			if (dir == Direction.IN_PLACE)
-				moveRandomly();
-			else if (dir != getDirection())
-				setDirection(dir);
-			else {
-				int newx = getX() + dir.dX;
-				int newy = getY() + dir.dY;
-				if (canMoveHere(newx, newy))
-					moveTo(newx, newy);
-				else moveRandomly();
-			}
-		} else moveRandomly();
+			tryMovingInDir(solveMazeDirection(getMap().getDestinationComponent()));
+		} else if (distance(target) <= getMap().getVisibilityRadius())
+			tryMovingInDir(solveMazeDirection(getMap().findLaptop()));
+		else moveRandomly();
+	}
+
+	private void tryMovingInDir(Direction dir) {
+		if (dir == Direction.IN_PLACE)
+			moveRandomly();
+		else if (dir != getDirection())
+			setDirection(dir);
+		else {
+			int newx = getX() + dir.dX;
+			int newy = getY() + dir.dY;
+			if (canMoveHere(newx, newy))
+				moveTo(newx, newy);
+			else moveRandomly();
+		}
 	}
 
 	@Override

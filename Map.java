@@ -182,17 +182,17 @@ public class Map {
 		updateGui();
 	}
 
-	private boolean laptopExists() {
+	public MapComponent findLaptop() {
 		for (MapComponent[] row : occupantArray)
 			for (MapComponent component : row)
 				if (component == null);
 				else if (component.getName().equals("Laptop"))
-					return true;
+					return component;
 				else if (component instanceof Character)
 					if (((Character)component).getInventory()
 						.getMostPrecedentedItem() instanceof Laptop)
-				return true;
-		return false;
+					return component;
+		return null;
 	}
 
 	public ArrayList<Character> getMapCharacters() {
@@ -228,7 +228,7 @@ public class Map {
 		gameTicks++;
 		if (gameTicks % 1000 == 0)
 			randomlySpawnComponent(new ItemComponent(new Frisbee()));
-		if (!laptopExists())
+		if (findLaptop() == null)
 			randomlySpawnComponent(new ItemComponent(new Laptop()));
 		if (componentsToTick.size() > 0)
 			updateGui();
@@ -251,6 +251,9 @@ public class Map {
 	}
 
 	public Direction solveMazeDirection(MapComponent from, MapComponent to) {
+		if (to == null)
+			return Direction.IN_PLACE;
+
 		boolean[][] locsVisited = new boolean[size][size];
 		for (boolean[] row : locsVisited)
 			for (int i = 0; i < row.length; i++)
@@ -313,6 +316,9 @@ public class Map {
 	}
 
 	private boolean mazeSolveValid(Location loc, boolean[][] locsVisited) {
+		if (loc.getX() < 0 || loc.getX() > size - 2 || loc.getY() < 0 ||
+			loc.getY() > size - 2)
+			return false;
 		if (locsVisited[loc.getX()][loc.getY()])
 			return false;
 		locsVisited[loc.getX()][loc.getY()] = true;
