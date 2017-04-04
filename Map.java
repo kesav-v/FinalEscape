@@ -319,8 +319,8 @@ public class Map {
 	}
 
 	private boolean mazeSolveValid(Location loc, boolean[][] locsVisited) {
-		if (loc.getX() < 0 || loc.getX() > size - 2 || loc.getY() < 0 ||
-			loc.getY() > size - 2)
+		if (loc.getX() < 0 || loc.getX() > size - 1 || loc.getY() < 0 ||
+			loc.getY() > size - 1)
 			return false;
 		if (locsVisited[loc.getX()][loc.getY()])
 			return false;
