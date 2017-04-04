@@ -13,7 +13,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import java.util.ArrayList;
@@ -21,7 +20,9 @@ import java.util.ConcurrentModificationException;
 
 public class MapPanel extends JPanel {
 
-	public static final int BLOCK_SIZE = 50;
+	private final static double SCREEN_RATIO = 0.65;
+
+	public final int BLOCK_SIZE;
 	public double visibilityRadius;
 
 	private int middleX, middleY;
@@ -31,6 +32,8 @@ public class MapPanel extends JPanel {
 	public MapPanel(Map map) {
 		this.map = map;
 		visibilityRadius = map.getVisibilityRadius();
+		BLOCK_SIZE = (int)((FinalEscapeFrame.SCREEN_HEIGHT * SCREEN_RATIO)
+			/ ((int)Math.ceil(visibilityRadius * 2 + 4)));
 		setSize((int)Math.ceil(visibilityRadius * 2 + 4) * BLOCK_SIZE,
 			(int)Math.ceil(visibilityRadius * 2 + 4) * BLOCK_SIZE);
 	}
@@ -86,10 +89,10 @@ public class MapPanel extends JPanel {
 				BLOCK_SIZE, BLOCK_SIZE);
 		} else {
 			Direction dir = component.getDirection();
-			Image img = component.getImage();
+			BufferedImage img = component.getImage(BLOCK_SIZE);
 			if (dir == Direction.NORTH)
 				g.drawImage(img, middleX + x * BLOCK_SIZE,
-					middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, Color.WHITE, this);
+					middleY + y * BLOCK_SIZE, Color.WHITE, this);
 			else {
 				AffineTransform at = new AffineTransform();
 				at.rotate(Math.toRadians(dir.compassDirection),
@@ -97,8 +100,8 @@ public class MapPanel extends JPanel {
 				AffineTransformOp ato = new AffineTransformOp(at,
 					AffineTransformOp.TYPE_BILINEAR);
 				Graphics2D g2d = (Graphics2D)g;
-				g2d.drawImage(ato.filter((BufferedImage)img, null), middleX + x * BLOCK_SIZE,
-					middleY + y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, Color.WHITE, this);
+				g2d.drawImage(ato.filter(img, null), middleX + x * BLOCK_SIZE,
+					middleY + y * BLOCK_SIZE, Color.WHITE, this);
 			}
 		}
 	}

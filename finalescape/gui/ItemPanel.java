@@ -15,15 +15,19 @@ public class ItemPanel extends JPanel {
 	private final int BLOCK_SIZE = 10;
 	private Inventory inventory;
 	private int index;
+	private int size;
 
 	public ItemPanel(Inventory inventory, int index) {
 		this.inventory = inventory;
 		this.index = index;
+		size = -1;
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		if (size == -1)
+			size = getWidth() - BLOCK_SIZE * 2;
 		drawImage(g);
 		drawBorder(g);
 	}
@@ -34,11 +38,10 @@ public class ItemPanel extends JPanel {
 			if (item.getOpacity() != 1f) {
 				((Graphics2D)g).setComposite(AlphaComposite
 				.getInstance(AlphaComposite.SRC_OVER, item.getOpacity()));
-				g.drawImage(item.getImage(), 0, 0, getWidth(), getHeight(), this);
+				g.drawImage(item.getImage(size), BLOCK_SIZE, BLOCK_SIZE, this);
 				((Graphics2D)g).setComposite(AlphaComposite
 				.getInstance(AlphaComposite.SRC_OVER, 1f));
-			}
-			else g.drawImage(item.getImage(), 0, 0, getWidth(), getHeight(), this);
+			} else g.drawImage(item.getImage(size), BLOCK_SIZE, BLOCK_SIZE, this);
 	}
 
 	private void drawBorder(Graphics g) {

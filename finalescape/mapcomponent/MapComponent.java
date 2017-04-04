@@ -4,6 +4,8 @@ import finalescape.map.Map;
 import finalescape.util.Direction;
 
 import java.awt.Image;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.File;
@@ -17,7 +19,7 @@ public abstract class MapComponent {
 	private int x, y;
 	private Map map;
 	private boolean solid, opaque;
-	private Image img;
+	private BufferedImage img;
 	private Direction direction;
 	private Color color;
 	private int precedence;
@@ -41,7 +43,6 @@ public abstract class MapComponent {
 		direction = Direction.NORTH;
 		solid = opaque = false;
 		color = Color.GRAY;
-		img = getImageByName(name);
 		precedence = 0;
 		delayInterval = 5;
 	}
@@ -52,21 +53,32 @@ public abstract class MapComponent {
 		this.y = y;
 	}
 
-	public static Image getImageByName(String name) {
-		Image img = null;
+	public static BufferedImage getImageByName(String name, int size) {
 		try {
-			img = ImageIO.read(new File("images/" + name + ".png"));
+			Image img = ImageIO.read(new File("images/" + name + ".png"))
+				.getScaledInstance(size, size, Image.SCALE_DEFAULT);
+			BufferedImage bi = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2d = bi.createGraphics();
+			g2d.drawImage(img, 0, 0, null);
+			g2d.dispose();
+
+			return bi;
 		} catch (IOException e) {
 			System.err.printf("Failed to load image in path: %s", "images/" + name + ".png");
 			System.exit(1);
+			return null;
 		}
+	}
+
+	public BufferedImage getImage(int size) {
+		if (img == null)
+			img = getImageByName(name, size);
 		return img;
 	}
 
 	public int getX() { return x; }
 	public int getY() { return y; }
 	public Map getMap() { return map; }
-	public Image getImage() { return img; }
 	public Direction getDirection() { return direction; }
 	public Color getColor() { return color; }
 	public String getName() { return name; }

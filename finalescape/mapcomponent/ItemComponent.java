@@ -11,7 +11,6 @@ public class ItemComponent extends MapComponent {
 		super(map, x, y, item.getName());
 		this.item = item;
 		setColor(item.getColor());
-		item.setImage(getImage());
 		setSolid(false);
 		setOpaque(false);
 	}
@@ -20,7 +19,6 @@ public class ItemComponent extends MapComponent {
 		super(item.getName());
 		this.item = item;
 		setColor(item.getColor());
-		item.setImage(getImage());
 		setSolid(false);
 		setOpaque(false);
 	}

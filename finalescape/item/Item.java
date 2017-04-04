@@ -7,13 +7,13 @@ import finalescape.mapcomponent.ItemComponent;
 import finalescape.util.Direction;
 
 import java.awt.Color;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 public abstract class Item {
 
 	private String name;
 	private Color color;
-	private Image image;
+	private BufferedImage image;
 	private int precedence;
 	private int maxUses;
 	private int uses;
@@ -31,11 +31,9 @@ public abstract class Item {
 		this(name, new Color(100, 216, 105));
 	}
 
-	public void setImage(Image img) { image = img; }
-
-	public Image getImage() {
+	public BufferedImage getImage(int size) {
 		if (image == null)
-			image = MapComponent.getImageByName(name);
+			image = MapComponent.getImageByName(name, size);
 		return image;
 	}
 
