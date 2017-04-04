@@ -99,4 +99,12 @@ public abstract class MapComponent {
 	public void destroy() {
 		map.removeComponent(this);
 	}
+
+	public double distance(MapComponent that) {
+		return Math.sqrt(Math.pow(this.x - that.x, 2) + Math.pow(this.y - that.y, 2));
+	}
+
+	public Direction solveMazeDirection(MapComponent componentTo) {
+		return map.solveMazeDirection(this, componentTo);
+	}
 }

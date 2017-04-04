@@ -15,6 +15,7 @@ public class Map {
 	private MapGui gui; // for when things changed, repaint
 	private int size;
 	private int gameTicks;
+	private MapComponent destinationComponent;
 
 	public int minisize;
 	public double removedeadendprobability;
@@ -69,20 +70,23 @@ public class Map {
 
 	private void placeDesk() {
 		int randValue = 2 * (int)(Math.random() * (size / 2 - 3)) + 1;
+		Desk desk = null;
 		switch ((int)(Math.random() * 4)) {
 			case 0:
-				addComponent(new Desk(this, 0, randValue), true);
+				desk = new Desk(this, 0, randValue);
 				break;
 			case 1:
-				addComponent(new Desk(this, size - 1, randValue), true);
+				desk = new Desk(this, size - 1, randValue);
 				break;
 			case 2:
-				addComponent(new Desk(this, randValue, 0), true);
+				desk = new Desk(this, randValue, 0);
 				break;
 			case 3:
-				addComponent(new Desk(this, randValue, size - 1), true);
+				desk = new Desk(this, randValue, size - 1);
 				break;
 		}
+		addComponent(desk, true);
+		destinationComponent = desk;
 	}
 
 	public synchronized void randomlySpawnComponent(MapComponent component) {
@@ -246,9 +250,79 @@ public class Map {
 		this.gui = gui;
 	}
 
+	public Direction solveMazeDirection(MapComponent from, MapComponent to) {
+		boolean[][] locsVisited = new boolean[size][size];
+		for (boolean[] row : locsVisited)
+			for (int i = 0; i < row.length; i++)
+				row[i] = false;
+		ArrayList<Location> queue = new ArrayList<Location>(size * size);
+		queue.add(new Location(from.getX(), from.getY()));
+		locsVisited[from.getX()][from.getY()] = true;
+		Location finalLoc = new Location(to.getX(), to.getY());
+		boolean init = true;
+		int[] ranDs = MazeGenerator.getRanDs(4);
+		Location nextLoc;
+
+		while (queue.size() > 0) {
+			Location loc = queue.remove(0);
+			if (loc.equals(finalLoc))
+				return loc.getDirection();
+			for (int dir : ranDs)
+				switch (dir) {
+					case 0:
+						nextLoc = new Location(loc.getX() - 1, loc.getY());
+						if (mazeSolveValid(nextLoc, locsVisited)) {
+							queue.add(nextLoc);
+							if (init)
+								nextLoc.setDirection(Direction.WEST);
+							else nextLoc.setDirection(loc.getDirection());
+						}
+						break;
+					case 1:
+						nextLoc = new Location(loc.getX(), loc.getY() - 1);
+						if (mazeSolveValid(nextLoc, locsVisited)) {
+							queue.add(nextLoc);
+							if (init)
+								nextLoc.setDirection(Direction.NORTH);
+							else nextLoc.setDirection(loc.getDirection());
+						}
+						break;
+					case 2:
+						nextLoc = new Location(loc.getX() + 1, loc.getY());
+						if (mazeSolveValid(nextLoc, locsVisited)) {
+							queue.add(nextLoc);
+							if (init)
+								nextLoc.setDirection(Direction.EAST);
+							else nextLoc.setDirection(loc.getDirection());
+						}
+						break;
+					case 3:
+						nextLoc = new Location(loc.getX(), loc.getY() + 1);
+						if (mazeSolveValid(nextLoc, locsVisited)) {
+							queue.add(nextLoc);
+							if (init)
+								nextLoc.setDirection(Direction.SOUTH);
+							else nextLoc.setDirection(loc.getDirection());
+						}
+						break;
+				}
+		}
+		return Direction.IN_PLACE;
+	}
+
+	private boolean mazeSolveValid(Location loc, boolean[][] locsVisited) {
+		if (locsVisited[loc.getX()][loc.getY()])
+			return false;
+		locsVisited[loc.getX()][loc.getY()] = true;
+		if (get(loc.getX(), loc.getY()) instanceof Wall)
+			return false;
+		return true;
+	}
+
 	public int getCenterX() { return mainCharacter.getX(); }
 	public int getCenterY() { return mainCharacter.getY(); }
 	public Character getMainCharacter() { return mainCharacter; }
+	public MapComponent getDestinationComponent() { return destinationComponent; }
 	public int size() { return size; }
 	public double getVisibilityRadius() { return visibilityradius; }
 }

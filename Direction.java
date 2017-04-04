@@ -1,5 +1,6 @@
 public enum Direction {
-	NORTH(0, 0, -1), SOUTH(180, 0, 1), EAST(90, 1, 0), WEST(270, -1, 0);
+	NORTH(0, 0, -1), SOUTH(180, 0, 1), EAST(90, 1, 0), WEST(270, -1, 0),
+	IN_PLACE(0, 0, 0);
 
 	public final int compassDirection;
 	public final int dX, dY;
