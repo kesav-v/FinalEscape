@@ -237,7 +237,7 @@ public class Map {
 			updateGui();
 	}
 
-	private void updateGui() {
+	private synchronized void updateGui() {
 		gui.updateMap();
 	}
 
