@@ -6,8 +6,8 @@ public class Textbook extends Item {
 	@Override
 	public boolean onUse(Character character) {
 		for (Item item : character.getInventory())
-			if (item.maxUses() > 1 && item.getUses() < item.maxUses()) {
-				item.setUses(item.maxUses());
+			if (item.maxUses() > 1 && item.getUses() > 0) {
+				item.setUses(0);
 				break;
 			}
 		return true;
