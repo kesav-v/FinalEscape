@@ -2,6 +2,7 @@ package finalescape.item;
 
 import finalescape.mapcomponent.MapComponent;
 import finalescape.mapcomponent.PacketProjectile;
+import finalescape.mapcomponent.Failure;
 
 public class Packet extends ProjectileItem {
 
@@ -15,7 +16,9 @@ public class Packet extends ProjectileItem {
 		if (component == null || !component.isSolid())
 			return true;
 		else if (component.isSolid())
-			overrideDestroy(false);
+			if (component instanceof Failure)
+				component.preventUpdate(10);
+			else overrideDestroy(false);
 		return false;
 	}
 }

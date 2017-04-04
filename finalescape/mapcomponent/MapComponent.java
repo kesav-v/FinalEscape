@@ -24,6 +24,7 @@ public abstract class MapComponent {
 	private Color color;
 	private int precedence;
 	private int delayInterval;
+	private int preventUpdate;
 
 	public MapComponent(Map map, int x, int y, String name) {
 		this.map = map;
@@ -45,6 +46,7 @@ public abstract class MapComponent {
 		color = Color.GRAY;
 		precedence = 0;
 		delayInterval = 5;
+		preventUpdate = 0;
 	}
 
 	public final void moveTo(int x, int y) {
@@ -83,6 +85,12 @@ public abstract class MapComponent {
 	public Color getColor() { return color; }
 	public String getName() { return name; }
 	public int getPrecedence() { return precedence; }
+	public boolean preventUpdate() {
+		if (preventUpdate > 0) {
+			preventUpdate--;
+			return true;
+		} else return false;
+	}
 
 	public boolean isSolid() { return solid; }
 	public boolean isOpaque() { return opaque; }
@@ -97,6 +105,11 @@ public abstract class MapComponent {
 	public void setMap(Map map) { this.map = map; }
 	public void setPrecedence(int precedence) { this.precedence = precedence; }
 	public void setDelayInterval(int interval) { delayInterval = interval; }
+
+	public void preventUpdate(int numMoves) {
+		if (preventUpdate < numMoves)
+			preventUpdate = numMoves;
+	}
 
 	public void tick() {}
 

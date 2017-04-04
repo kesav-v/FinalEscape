@@ -224,14 +224,15 @@ public class Map {
 		return characters;
 	}
 
-	public ArrayList<MapComponent> getMapComponents() {
+	public ArrayList<MapComponent> getComponentsToTick() {
 		ArrayList<MapComponent> components = new ArrayList<MapComponent>();
 		for (MapComponent[] row : occupantArray)
 			for (MapComponent component : row) {
 				if (component != null && component.getDelayInterval() == 0)
 					System.out.println(component);
 				if (component != null
-					&& gameTicks % component.getDelayInterval() == 0)
+					&& gameTicks % component.getDelayInterval() == 0
+					&& !component.preventUpdate())
 					components.add(component);
 			}
 
@@ -241,7 +242,7 @@ public class Map {
 	}
 
 	public synchronized void gameTick() {
-		ArrayList<MapComponent> componentsToTick = getMapComponents();
+		ArrayList<MapComponent> componentsToTick = getComponentsToTick();
 		for (MapComponent component : componentsToTick)
 			if (component != null && component.getMap() != null)
 				component.tick();
