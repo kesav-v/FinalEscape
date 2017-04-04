@@ -19,9 +19,13 @@ public class David extends Teacher {
 		Character target = getTarget();
 		if (target.getInventory().getSelectedItem() instanceof Laptop
 			&& distance(target) <= getMap().getVisibilityRadius()) {
-			tryMovingInDir(solveMazeDirection(getMap().getDestinationComponent()));
+			if (distance(getMap().getDestinationComponent()) <= getMap().getVisibilityRadius())
+				moveRandomly();
+			else tryMovingInDir(solveMazeDirection(getMap().getDestinationComponent()));
 		} else if (distance(target) <= getMap().getVisibilityRadius())
-			tryMovingInDir(solveMazeDirection(getMap().findLaptop()));
+			if (distance(getMap().findLaptop()) <= getMap().getVisibilityRadius())
+				moveRandomly();
+			else tryMovingInDir(solveMazeDirection(getMap().findLaptop()));
 		else moveRandomly();
 	}
 

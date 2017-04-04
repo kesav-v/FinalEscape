@@ -270,6 +270,8 @@ public class Map {
 		this.gui = gui;
 	}
 
+	private int[] ranDs = MazeGenerator.getRanDs(4);
+
 	public Direction solveMazeDirection(MapComponent from, MapComponent to) {
 		if (to == null)
 			return Direction.IN_PLACE;
@@ -283,7 +285,7 @@ public class Map {
 		locsVisited[from.getX()][from.getY()] = true;
 		Location finalLoc = new Location(to.getX(), to.getY());
 		boolean init = true;
-		int[] ranDs = MazeGenerator.getRanDs(4);
+		int[] ranDs = this.ranDs;
 		Location nextLoc;
 
 		while (queue.size() > 0) {
