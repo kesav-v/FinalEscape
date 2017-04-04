@@ -2,7 +2,7 @@ Variables
 
 minisize 13
 removedeadendprobability 0.9
-removewallradius 25
+removewallradius 28
 
 Initialize Map
 
