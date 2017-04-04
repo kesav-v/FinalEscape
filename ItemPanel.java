@@ -1,7 +1,9 @@
 import javax.swing.JPanel;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.AlphaComposite;
 
 public class ItemPanel extends JPanel {
 
@@ -23,7 +25,14 @@ public class ItemPanel extends JPanel {
 	private void drawImage(Graphics g) {
 		Item item = inventory.get(index);
 		if (item != null)
-			g.drawImage(item.getImage(), 0, 0, getWidth(), getHeight(), this);
+			if (item.getOpacity() != 1f) {
+				((Graphics2D)g).setComposite(AlphaComposite
+				.getInstance(AlphaComposite.SRC_OVER, item.getOpacity()));
+				g.drawImage(item.getImage(), 0, 0, getWidth(), getHeight(), this);
+				((Graphics2D)g).setComposite(AlphaComposite
+				.getInstance(AlphaComposite.SRC_OVER, 1f));
+			}
+			else g.drawImage(item.getImage(), 0, 0, getWidth(), getHeight(), this);
 	}
 
 	private void drawBorder(Graphics g) {

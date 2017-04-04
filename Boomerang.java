@@ -24,4 +24,9 @@ public class Boomerang extends ProjectileItem {
 		}
 		return false;
 	}
+
+	@Override
+	public float getOpacity() {
+		return 1f - uses * 0.1f;
+	}
 }

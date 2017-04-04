@@ -63,6 +63,8 @@ public abstract class Item {
 	public int getPrecedence() { return precedence; }
 	public void setPrecedence(int precedence) { this.precedence = precedence; }
 
+	public float getOpacity() { return 1f; }
+
 	/**
 	 * What happens when used
 	 * @param  character {@link Character} with item equipped
