@@ -33,7 +33,9 @@ public class MapPanel extends JPanel {
 		this.map = map;
 		visibilityRadius = map.getVisibilityRadius();
 		BLOCK_SIZE = (int)((FinalEscapeFrame.SCREEN_HEIGHT * SCREEN_RATIO)
-			/ ((int)Math.ceil(visibilityRadius * 2 + 4)));
+			/ ((int)Math.ceil(visibilityRadius * 2 + 4)))
+			+ ((int)((FinalEscapeFrame.SCREEN_HEIGHT * SCREEN_RATIO)
+			/ ((int)Math.ceil(visibilityRadius * 2 + 4)))) % 2;
 		setSize((int)Math.ceil(visibilityRadius * 2 + 4) * BLOCK_SIZE,
 			(int)Math.ceil(visibilityRadius * 2 + 4) * BLOCK_SIZE);
 	}
