@@ -45,6 +45,18 @@ public abstract class Character extends MapComponent {
 	}
 
 	public boolean moveRandomly() {
+		if (Math.random() < 0.5)
+			return moveForward();
+		else return turnMove();
+	}
+
+	public boolean moveForward() {
+		if (moveCharacterDelta(getDirection().dX, getDirection().dY))
+			return true;
+		else return turnMove();
+	}
+
+	public boolean turnMove() {
 		int[] ranDs = MazeGenerator.getRanDs(4);
 		for (int dir : ranDs)
 			switch (dir) {
