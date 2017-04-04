@@ -9,6 +9,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
+import java.awt.Graphics;
+import java.awt.Font;
+import java.awt.Color;
+
 public class MapGui extends JPanel implements KeyListener, MouseListener {
 
 	private final int GAME_TICK_DELAY_MILLISECONDS = 50;
@@ -25,14 +29,16 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 	private KeyClock keyClock;
 
 	private int levelOn;
-
 	private int lastPressedOnKey;
+
+	private boolean neverPainted;
 
 	public MapGui(FinalEscape mainFrame, int levelOn) {
 		this.mainFrame = mainFrame;
 		this.levelOn = levelOn;
 		gameTickTimer = new Timer();
 		keyClock = null;
+		neverPainted = true;
 		map = new Map(levelOn);
 		map.setGui(this);
 		setLayout(null);
@@ -48,6 +54,20 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 
 	public MapGui(FinalEscape mainFrame) {
 		this(mainFrame, 1);
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		drawLevelOn(g);
+		neverPainted = false;
+	}
+
+	private void drawLevelOn(Graphics g) {
+		g.setFont(new Font("Arial", Font.BOLD, 80));
+		g.setColor(Color.BLACK);
+		String text = "Level " + levelOn;
+		int width = g.getFontMetrics().stringWidth(text);
+		g.drawString(text, getWidth() - width, g.getFontMetrics().getAscent());
 	}
 
 	public void loseGame() {
@@ -98,6 +118,8 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 		minimapPanel.updateMemory(visibleLocations);
 		minimapPanel.repaint();
 		inventoryPanel.repaint();
+		if (neverPainted)
+			repaint();
 	}
 
 	public void startGameClock() {
