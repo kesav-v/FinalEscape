@@ -28,7 +28,7 @@ public class FinalEscape extends JFrame implements ActionListener {
 	private int levelOn;
 
 	public FinalEscape(int width, int height) {
-		levelOn = 1;
+		levelOn = DataManager.loadLevelOn();
 		setLayout(null);
 		cards = new JPanel(new CardLayout());
 		setSize(width, height);
@@ -53,6 +53,7 @@ public class FinalEscape extends JFrame implements ActionListener {
 		cards.add(mapGui, "Map");
 		mapGui.setFocusable(true);
 		mapGui.grabFocus();
+		DataManager.saveLevelOn(levelOn);
 	}
 
 	private void addGameLostPanel() {

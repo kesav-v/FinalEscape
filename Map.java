@@ -22,11 +22,14 @@ public class Map {
 	public int removewallradius;
 	public double visibilityradius;
 
+	private int levelOn;
+
 	public Map() {
 		this(1);
 	}
 
 	public Map(int levelOn) {
+		this.levelOn = levelOn;
 		minisize = 13;
 		removedeadendprobability = 0.9;
 		removewallradius = 25;
@@ -333,4 +336,7 @@ public class Map {
 	public MapComponent getDestinationComponent() { return destinationComponent; }
 	public int size() { return size; }
 	public double getVisibilityRadius() { return visibilityradius; }
+	public int getLevelOn() { return levelOn; }
+
+	public void setLevelOn(int level) { levelOn = level; }
 }

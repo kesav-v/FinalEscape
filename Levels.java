@@ -18,7 +18,7 @@ public class Levels {
 	};
 
 	public static void loadLevel(Map map, int levelNum) {
-		parseLevel(map, loadFile(LEVELS_PATH + "level" + levelNum + ".txt"));
+		parseLevel(map, loadScanner(LEVELS_PATH + "level" + levelNum + ".txt"));
 	}
 
 	public static void parseLevel(Map map, Scanner level) {
@@ -117,11 +117,10 @@ public class Levels {
 		return false;
 	}
 
-	public static Scanner loadFile(String path) {
+	public static Scanner loadScanner(String path) {
 		try {
 			return new Scanner(new File(path));
 		} catch (IOException e) {
-			e.printStackTrace();
 			return null;
 		}
 	}
