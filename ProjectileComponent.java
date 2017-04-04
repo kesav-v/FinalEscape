@@ -13,6 +13,14 @@ public abstract class ProjectileComponent extends MapComponent {
 		setDelayInterval(5);
 	}
 
+	public ProjectileComponent(String name) {
+		super(name);
+		setColor(new Color(0, 0, 0, 0));
+		setSolid(true);
+		setPrecedence(5);
+		setDelayInterval(5);
+	}
+
 	public Direction getDirection() { return dir; }
 	public void setDirection(Direction dir) { this.dir = dir; }
 

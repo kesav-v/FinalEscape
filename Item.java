@@ -27,6 +27,36 @@ public abstract class Item {
 		return image;
 	}
 
+	public boolean placeIfPossible(Character character) {
+		if (canPlace(character)) {
+			place(character);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean canPlace(Character character) {
+		Direction dir = character.getDirection();
+		int spawnx = character.getX() + dir.dX;
+		int spawny = character.getY() + dir.dY;
+		return canPlaceOn(character.getMap().get(spawnx, spawny));
+	}
+
+	public boolean canPlaceOn(MapComponent component) {
+		return component == null;
+	}
+
+	public void place(Character character) {
+		Direction dir = character.getDirection();
+		int spawnx = character.getX() + dir.dX;
+		int spawny = character.getY() + dir.dY;
+		place(character.getMap(), spawnx, spawny, character.getDirection());
+	}
+
+	public void place(Map map, int x, int y, Direction dir) {
+		new ItemComponent(map, x, y, this);
+	}
+
 	public String getName() { return name; }
 	public Color getColor() { return color; }
 	public void setColor(Color color) { this.color = color; }

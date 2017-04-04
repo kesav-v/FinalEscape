@@ -17,4 +17,11 @@ public enum Direction {
 				return dir;
 		return null;
 	}
+
+	static Direction getDir(int compassDirection) {
+		for (Direction dir : values())
+			if (dir.compassDirection == compassDirection % 360)
+				return dir;
+		return null;
+	}
 }

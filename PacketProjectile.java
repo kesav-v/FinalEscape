@@ -3,6 +3,10 @@ public class PacketProjectile extends ProjectileComponent {
 		super(map, x, y, "Packet", dir);
 	}
 
+	public PacketProjectile() {
+		super("Packet");
+	}
+
 	@Override
 	public boolean canMoveHere(int x, int y) {
 		MapComponent componentThere = getMap().get(x, y);
