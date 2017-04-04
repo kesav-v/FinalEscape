@@ -18,7 +18,7 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 	private final int GAME_TICK_DELAY_MILLISECONDS = 50;
 	private final int KEY_PRESSED_DELAY_MILLISECONDS = 100;
 
-	private FinalEscape mainFrame;
+	private FinalEscapeFrame mainFrame;
 	private Map map;
 	private MapPanel mapPanel;
 	private MinimapPanel minimapPanel;
@@ -31,7 +31,7 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 	private int levelOn;
 	private int lastPressedOnKey;
 
-	public MapGui(FinalEscape mainFrame, int levelOn) {
+	public MapGui(FinalEscapeFrame mainFrame, int levelOn) {
 		this.mainFrame = mainFrame;
 		this.levelOn = levelOn;
 		gameTickTimer = new Timer();
@@ -49,7 +49,7 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 		addMouseListener(this);
 	}
 
-	public MapGui(FinalEscape mainFrame) {
+	public MapGui(FinalEscapeFrame mainFrame) {
 		this(mainFrame, 1);
 	}
 

@@ -7,10 +7,10 @@ import java.awt.Color;
 
 public class GameWonPanel extends JPanel {
 
-	private FinalEscape mainPanel;
+	private FinalEscapeFrame mainPanel;
 	private JButton continueButton;
 
-	public GameWonPanel(FinalEscape mainPanel) {
+	public GameWonPanel(FinalEscapeFrame mainPanel) {
 		this.mainPanel = mainPanel;
 		setLayout(null);
 	}

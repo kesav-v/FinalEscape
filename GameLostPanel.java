@@ -7,10 +7,10 @@ import java.awt.Color;
 
 public class GameLostPanel extends JPanel {
 
-	private FinalEscape mainPanel;
+	private FinalEscapeFrame mainPanel;
 	private JButton retryButton;
 
-	public GameLostPanel(FinalEscape mainPanel) {
+	public GameLostPanel(FinalEscapeFrame mainPanel) {
 		this.mainPanel = mainPanel;
 		setLayout(null);
 	}
