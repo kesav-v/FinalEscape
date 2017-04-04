@@ -70,7 +70,7 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 		String text = "Level " + levelOn;
 		int width = g.getFontMetrics().stringWidth(text);
 		int height = g.getFontMetrics().getHeight();
-		g.drawString(text, getWidth() - width, g.getFontMetrics().getAscent());
+		g.drawString(text, getWidth() - width - 10, g.getFontMetrics().getAscent());
 		// text = String.format("%,d", map.getGameTicks());
 		// width = g.getFontMetrics().stringWidth(text);
 		// g.drawString(text, getWidth() - width, g.getFontMetrics().getAscent()
