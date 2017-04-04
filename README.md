@@ -1,7 +1,8 @@
 ## Running
 
-### On Linux
+### On *nix
 
-> bash build.sh
-
-> java -jar FinalEscape.jar
+```sh
+bash build.sh
+java -jar FinalEscape.jar
+```
