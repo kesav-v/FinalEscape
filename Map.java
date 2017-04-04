@@ -306,6 +306,8 @@ public class Map {
 						}
 						break;
 				}
+				if (init)
+					init = false;
 		}
 		return Direction.IN_PLACE;
 	}

@@ -7,7 +7,7 @@ public abstract class ProjectileComponent extends MapComponent {
 	public ProjectileComponent(Map map, int x, int y, String name, Direction dir) {
 		super(map, x, y, name);
 		this.dir = dir;
-		setColor(Color.PINK);
+		setColor(new Color(0, 0, 0, 0));
 		setSolid(true);
 		setPrecedence(5);
 		setDelayInterval(5);

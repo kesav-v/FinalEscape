@@ -2,19 +2,22 @@ Variables
 
 minisize 5
 removedeadendprobability 1
-removewallradius 8
+removewallradius 10
 visibilityradius 5.3
 
 Initialize Map
 
 MapComponents
 
-David
+Teacher
+Teacher
+Teacher
+Teacher
+Teacher
 
 Items
 
 Laptop
-Frisbee
 Frisbee
 Frisbee
 Frisbee

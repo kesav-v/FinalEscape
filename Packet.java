@@ -12,8 +12,6 @@ public class Packet extends Item {
 		MapComponent componentThere = character.getMap().get(spawnx, spawny);
 		if (componentThere == null || !componentThere.isSolid())
 			new PacketProjectile(character.getMap(), spawnx, spawny, dir);
-		else if (componentThere.isSolid())
-			return false;
 		return true;
 	}
 }
