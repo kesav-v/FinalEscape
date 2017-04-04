@@ -26,6 +26,8 @@ public class GameLostPanel extends JPanel {
 		retryButton.setLocation(getWidth() / 2 - getWidth() / 8,
 			getHeight() / 2 + stringHeight);
 		add(retryButton);
+		getRootPane().setDefaultButton(retryButton);
+		retryButton.requestFocus();
 	}
 
 	@Override
