@@ -12,18 +12,27 @@ import java.awt.event.MouseEvent;
 public class MapGui extends JPanel implements KeyListener, MouseListener {
 
 	private final int GAME_TICK_DELAY_MILLISECONDS = 50;
+	private final int KEY_PRESSED_DELAY_MILLISECONDS = 100;
 
 	private FinalEscape mainFrame;
 	private Map map;
 	private MapPanel mapPanel;
 	private MinimapPanel minimapPanel;
 	private InventoryPanel inventoryPanel;
+
 	private Timer gameTickTimer;
+	private Timer keyPressedTimer;
+	private KeyClock keyClock;
+
 	private int levelOn;
+
+	private int lastPressedOnKey;
 
 	public MapGui(FinalEscape mainFrame, int levelOn) {
 		this.mainFrame = mainFrame;
 		this.levelOn = levelOn;
+		gameTickTimer = new Timer();
+		keyClock = null;
 		map = new Map(levelOn);
 		map.setGui(this);
 		setLayout(null);
@@ -92,13 +101,26 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 	}
 
 	public void startGameClock() {
-		gameTickTimer = new Timer();
 		gameTickTimer.scheduleAtFixedRate(new GameClock(), 0,
 			GAME_TICK_DELAY_MILLISECONDS);
 	}
 
+	public Map getMap() { return this.map; }
+
 	public void stopGameClock() {
 		gameTickTimer.cancel();
+	}
+
+	private void startKeyPressedTimer() {
+		keyPressedTimer = new Timer();
+		keyClock = new KeyClock();
+		keyPressedTimer.scheduleAtFixedRate(keyClock, 0,
+			KEY_PRESSED_DELAY_MILLISECONDS);
+	}
+
+	private void stopKeyPressedTimer() {
+		keyClock.cancel();
+		keyClock = null;
 	}
 
 	class GameClock extends TimerTask {
@@ -108,12 +130,35 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 		}
 	}
 
+	class KeyClock extends TimerTask {
+		@Override
+		public void run() {
+			parseKeyCode(lastPressedOnKey);
+		}
+	}
+
 	@Override
-	public void keyReleased(KeyEvent event) {}
+	public void keyReleased(KeyEvent event) {
+		if (keyClock != null)
+			stopKeyPressedTimer();
+		lastPressedOnKey = -1;
+	}
 
 	@Override
 	public void keyPressed(KeyEvent event) {
-		switch (event.getKeyCode()) {
+		if (lastPressedOnKey == event.getKeyCode()) {
+			if (keyClock == null)
+				startKeyPressedTimer();
+			return;
+		}
+		if (keyClock != null)
+			stopKeyPressedTimer();
+		lastPressedOnKey = event.getKeyCode();
+		parseKeyCode(lastPressedOnKey);
+	}
+
+	private void parseKeyCode(int keyCode) {
+		switch (keyCode) {
 			case KeyEvent.VK_LEFT:
 				map.moveMainCharacter(-1, 0);
 				break;
