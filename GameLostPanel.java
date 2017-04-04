@@ -17,6 +17,7 @@ public class GameLostPanel extends JPanel {
 
 	private void addRetryButton(int stringHeight) {
 		retryButton = new JButton("Try Again?");
+		retryButton.setFont(new Font("Arial", Font.BOLD, 60));
 		retryButton.setActionCommand("retry");
 		retryButton.addActionListener(mainPanel);
 		retryButton.setSize(getWidth() / 4, getWidth() / 16);

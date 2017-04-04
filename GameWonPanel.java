@@ -17,6 +17,7 @@ public class GameWonPanel extends JPanel {
 
 	private void addContinueButton(int stringHeight) {
 		continueButton = new JButton("Continue?");
+		continueButton.setFont(new Font("Arial", Font.BOLD, 60));
 		continueButton.setActionCommand("continue");
 		continueButton.addActionListener(mainPanel);
 		continueButton.setSize(getWidth() / 4, getWidth() / 16);
