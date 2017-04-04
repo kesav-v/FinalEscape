@@ -31,14 +31,11 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 	private int levelOn;
 	private int lastPressedOnKey;
 
-	private boolean neverPainted;
-
 	public MapGui(FinalEscape mainFrame, int levelOn) {
 		this.mainFrame = mainFrame;
 		this.levelOn = levelOn;
 		gameTickTimer = new Timer();
 		keyClock = null;
-		neverPainted = true;
 		map = new Map(levelOn);
 		map.setGui(this);
 		setLayout(null);
@@ -58,8 +55,8 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		drawLevelOn(g);
-		neverPainted = false;
 	}
 
 	private void drawLevelOn(Graphics g) {
@@ -67,7 +64,12 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 		g.setColor(Color.BLACK);
 		String text = "Level " + levelOn;
 		int width = g.getFontMetrics().stringWidth(text);
+		int height = g.getFontMetrics().getHeight();
 		g.drawString(text, getWidth() - width, g.getFontMetrics().getAscent());
+		// text = String.format("%,d", map.getGameTicks());
+		// width = g.getFontMetrics().stringWidth(text);
+		// g.drawString(text, getWidth() - width, g.getFontMetrics().getAscent()
+		// 	+ height);
 	}
 
 	public void loseGame() {
@@ -114,12 +116,8 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 
 	public void updateMap() {
 		ArrayList<Location> visibleLocations = mapPanel.calculateVisibleLocations();
-		mapPanel.repaint();
 		minimapPanel.updateMemory(visibleLocations);
-		minimapPanel.repaint();
-		inventoryPanel.repaint();
-		if (neverPainted)
-			repaint();
+		repaint();
 	}
 
 	public void startGameClock() {

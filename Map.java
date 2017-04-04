@@ -337,6 +337,7 @@ public class Map {
 	public int size() { return size; }
 	public double getVisibilityRadius() { return visibilityradius; }
 	public int getLevelOn() { return levelOn; }
+	public int getGameTicks() { return gameTicks; }
 
 	public void setLevelOn(int level) { levelOn = level; }
 }

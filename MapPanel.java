@@ -37,6 +37,7 @@ public class MapPanel extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		drawUnknownMist(g);
 		if (visibleLocations != null)
 			drawComponents(g, visibleLocations);

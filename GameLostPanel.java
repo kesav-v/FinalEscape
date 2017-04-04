@@ -27,15 +27,10 @@ public class GameLostPanel extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		drawWhiteRectangle(g);
+		super.paintComponent(g);
 		int stringHeight = drawGameOverMessage(g);
 		if (retryButton == null)
 			addRetryButton(stringHeight);
-	}
-
-	private void drawWhiteRectangle(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, getWidth(), getHeight());
 	}
 
 	private int drawGameOverMessage(Graphics g) {

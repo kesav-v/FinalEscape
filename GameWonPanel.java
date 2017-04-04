@@ -27,15 +27,10 @@ public class GameWonPanel extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		drawWhiteRectangle(g);
+		super.paintComponent(g);
 		int stringHeight = drawGameWonMessage(g);
 		if (continueButton == null)
 			addContinueButton(stringHeight);
-	}
-
-	private void drawWhiteRectangle(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, getWidth(), getHeight());
 	}
 
 	private int drawGameWonMessage(Graphics g) {

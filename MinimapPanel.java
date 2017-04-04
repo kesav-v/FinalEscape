@@ -45,6 +45,7 @@ public class MinimapPanel extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		drawUnknownMist(g);
 		drawBorder(g);
 		drawMemory(g);
