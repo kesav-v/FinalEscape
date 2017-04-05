@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 javac -d . @sources.txt
 jar cvfm FinalEscape.jar Manifest.txt @compiled.txt images/ levels/

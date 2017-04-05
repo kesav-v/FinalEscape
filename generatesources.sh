@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 find -name "*.java" > sources.txt
 find -name "*.class" > compiled.txt
