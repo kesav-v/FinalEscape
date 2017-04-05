@@ -18,10 +18,12 @@ public class Failure extends Teacher {
 	public void tick() {
 		tryMovingInDir(solveMazeDirection(getTarget()));
 		elapsedTicks++;
-		if (elapsedTicks % 1000 == 0 && getDelayInterval() > 5)
+		if (elapsedTicks % 750 == 0 && getDelayInterval() > 5)
 			setDelayInterval(getDelayInterval() - 1);
 	}
 
 	@Override
-	public void destroy() {}
+	public void destroy() {
+		preventUpdate(5);
+	}
 }

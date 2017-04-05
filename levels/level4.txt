@@ -3,6 +3,7 @@ Variables
 minisize 13
 removedeadendprobability 0.9
 removewallradius 28
+name Finding My Way
 
 Initialize Map
 

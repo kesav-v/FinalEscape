@@ -77,6 +77,8 @@ public class Levels {
 			case "visibilityradius":
 				map.visibilityradius = Float.parseFloat(varValue);
 				break;
+			case "name":
+				map.name = varValue;
 		}
 	}
 
@@ -85,7 +87,7 @@ public class Levels {
 	}
 
 	private static String getVarValue(String line) {
-		return line.substring(line.lastIndexOf(' ') + 1);
+		return line.substring(line.indexOf(' ') + 1);
 	}
 
 	private static MapComponent getMapComponent(String className) {

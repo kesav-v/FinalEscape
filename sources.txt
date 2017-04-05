@@ -20,6 +20,7 @@
 ./finalescape/util/DataManager.java
 ./finalescape/util/MazeGenerator.java
 ./finalescape/gui/InventoryPanel.java
+./finalescape/gui/GameOverPanel.java
 ./finalescape/gui/FinalEscapeFrame.java
 ./finalescape/gui/GameWonPanel.java
 ./finalescape/gui/MapPanel.java

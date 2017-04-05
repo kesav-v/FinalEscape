@@ -38,6 +38,7 @@ public class Map {
 	public double removedeadendprobability;
 	public int removewallradius;
 	public double visibilityradius;
+	public String name;
 
 	private int levelOn;
 
@@ -51,6 +52,7 @@ public class Map {
 		removedeadendprobability = 0.9;
 		removewallradius = 25;
 		visibilityradius = 4.2;
+		name = "";
 		Levels.loadLevel(this, levelOn);
 	}
 
@@ -358,6 +360,7 @@ public class Map {
 	public double getVisibilityRadius() { return visibilityradius; }
 	public int getLevelOn() { return levelOn; }
 	public int getGameTicks() { return gameTicks; }
+	public String getName() { return name; }
 
 	public void setLevelOn(int level) { levelOn = level; }
 }

@@ -3,6 +3,7 @@ Variables
 minisize 15
 removedeadendprobability 0.8
 removewallradius 25
+name Continuing the Journey
 
 Initialize Map
 

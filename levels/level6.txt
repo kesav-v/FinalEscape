@@ -4,6 +4,7 @@ minisize 10
 removedeadendprobability 0.75
 removewallradius 25
 visibilityradius 2.5
+name Can't See Them Coming
 
 Initialize Map
 

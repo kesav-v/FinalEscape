@@ -4,6 +4,7 @@ minisize 10
 removedeadendprobability 0.9
 removewallradius 20
 visibilityradius 5.3
+name Someone Help
 
 Initialize Map
 
