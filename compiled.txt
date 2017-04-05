@@ -8,6 +8,7 @@
 ./finalescape/mapcomponent/Wall.class
 ./finalescape/mapcomponent/Desk.class
 ./finalescape/mapcomponent/Coder.class
+./finalescape/mapcomponent/Failure.class
 ./finalescape/mapcomponent/Inventory.class
 ./finalescape/mapcomponent/BoomerangProjectile.class
 ./finalescape/mapcomponent/David.class
@@ -24,6 +25,7 @@
 ./finalescape/gui/GameWonPanel.class
 ./finalescape/gui/MapGui$KeyClock.class
 ./finalescape/gui/GameLostPanel.class
+./finalescape/gui/GameOverPanel.class
 ./finalescape/gui/FinalEscapeFrame.class
 ./finalescape/gui/MapGui$GameClock.class
 ./finalescape/gui/MapGui.class
