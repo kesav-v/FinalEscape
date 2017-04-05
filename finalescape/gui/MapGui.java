@@ -65,16 +65,27 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 	}
 
 	private void drawLevelOn(Graphics g) {
-		g.setFont(new Font("Arial", Font.BOLD, 80));
+		Font font = new Font("Arial", Font.BOLD, 80);
+		g.setFont(font);
 		g.setColor(Color.BLACK);
-		String text = "Level " + levelOn;
+		String text = "Day " + levelOn;
 		int width = g.getFontMetrics().stringWidth(text);
 		int height = g.getFontMetrics().getHeight();
 		g.drawString(text, getWidth() - width - 10, g.getFontMetrics().getAscent());
 		// text = String.format("%,d", map.getGameTicks());
-		// width = g.getFontMetrics().stringWidth(text);
-		// g.drawString(text, getWidth() - width, g.getFontMetrics().getAscent()
-		// 	+ height);
+		text = map.getName();
+		setFontMaxWidth(g, font, text, width * 3 / 2);
+		width = g.getFontMetrics().stringWidth(text);
+		g.drawString(text, getWidth() - width - 10, g.getFontMetrics().getAscent()
+			+ height);
+	}
+
+	public static void setFontMaxWidth(Graphics g, Font font, String text, int maxWidth) {
+		g.setFont(font);
+		while (g.getFontMetrics().stringWidth(text) > maxWidth) {
+			font = new Font(font.getName(), font.getStyle(), font.getSize() - 1);
+			g.setFont(font);
+		}
 	}
 
 	public void loseGame() {

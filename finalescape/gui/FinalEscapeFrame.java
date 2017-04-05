@@ -77,11 +77,13 @@ public class FinalEscapeFrame extends JFrame implements ActionListener {
 
 	public void loseGame() {
 		showCard("Game Lost");
+		gameLostPanel.setButtonFocus();
 		removeCard(mapGui);
 	}
 
 	public void winGame() {
 		showCard("Game Won");
+		gameWonPanel.setButtonFocus();
 		removeCard(mapGui);
 	}
 
