@@ -23,7 +23,8 @@ public class Piston extends Item {
 		if (componentThere instanceof Wall) {
 			spawnx += dir.dX;
 			spawny += dir.dY;
-			if (map.isRemovable(spawnx, spawny)) {
+
+			if (destroy(character, spawnx, spawny)) {
 				componentThere.moveTo(spawnx, spawny);
 				incrementUses();
 			} else if (map.removeComponent(componentThere))
@@ -33,5 +34,17 @@ public class Piston extends Item {
 				return false;
 			return true;
 		} else return false;
+	}
+
+	private boolean destroy(Character character, int x, int y) {
+		Map map = character.getMap();
+		if (x < 0 || x > map.size() - 1 || y < 0 || y > map.size() - 1)
+			return false;
+		MapComponent there = map.get(x, y);
+		if (there == null)
+			return true;
+		there.destroy();
+		there = map.get(x, y);
+		return (there == null) || !there.isSolid();
 	}
 }
