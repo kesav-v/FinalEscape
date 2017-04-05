@@ -18,7 +18,9 @@
 ./finalescape/util/DataManager.class
 ./finalescape/util/Levels.class
 ./finalescape/util/Location.class
+./finalescape/util/MazeGenerator$GENERATION_STYLE.class
 ./finalescape/util/Direction.class
+./finalescape/util/MazeGenerator$1.class
 ./finalescape/util/MazeGenerator.class
 ./finalescape/gui/MinimapPanel.class
 ./finalescape/gui/MapPanel.class

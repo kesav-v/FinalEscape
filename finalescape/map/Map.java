@@ -86,6 +86,18 @@ public class Map {
 		return occupantArray[x][y];
 	}
 
+	public boolean isEmpty(int x, int y) {
+		if (x < 0 || x >= size || y < 0 || y >= size)
+			return false;
+		return get(x, y) == null;
+	}
+
+	public boolean isRemovable(int x, int y) {
+		if (x < 1 || x >= size - 1 || y < 1 || y >= size - 1)
+			return false;
+		return get(x, y) == null;
+	}
+
 	private void removeWalls(int radius) {
 		int middle = size / 2;
 		for (int i = middle - radius / 2; i <= middle + radius / 2; i++)
