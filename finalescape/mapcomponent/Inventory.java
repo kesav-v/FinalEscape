@@ -35,6 +35,14 @@ public class Inventory extends ArrayList<Item> {
 	}
 
 	@Override
+	public Item set(int index, Item item) {
+		if (mostPrecedented == null
+			|| item.getPrecedence() > mostPrecedented.getPrecedence())
+			mostPrecedented = item;
+		return super.set(index, item);
+	}
+
+	@Override
 	public Item get(int index) {
 		if (index >= size())
 			return null;
