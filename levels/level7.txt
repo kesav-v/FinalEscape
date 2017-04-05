@@ -10,33 +10,13 @@ Initialize Map
 
 MapComponents
 
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Kavita
-Kavita
-Kavita
-Kavita
-Kavita
-Kavita
-David
-Failure
+Teacher 10
+Kavita 6
+David 1
+Failure 1
 
 Items
 
-Laptop
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Boomerang
-Boomerang
+Laptop 1
+Frisbee 6
+Boomerang 2

@@ -48,24 +48,26 @@ public class Levels {
 			}
 			return headerOn;
 		}
+		String name = getVarName(line);
+		String val = getVarValue(line);
 		switch (headerOn) {
 			case "Variables":
-				parseVariable(map, line);
+				parseVariable(map, name, val);
 				break;
 			case "MapComponents":
-				map.randomlySpawnComponent(getMapComponent(line));
+				for (int i = 0; i < Integer.parseInt(val); i++)
+					map.randomlySpawnComponent(getMapComponent(name));
 				break;
 			case "Items":
-				map.randomlySpawnComponent(getItemComponent(line));
+				for (int i = 0; i < Integer.parseInt(val); i++)
+					map.randomlySpawnComponent(getItemComponent(name));
 				break;
 		}
 		return headerOn;
 	}
 
-	private static void parseVariable(Map map, String line) {
-		String varname = getVarName(line);
-		String varValue = getVarValue(line);
-		switch (varname) {
+	private static void parseVariable(Map map, String varName, String varValue) {
+		switch (varName) {
 			case "minisize":
 				map.minisize = Integer.parseInt(varValue);
 				break;
