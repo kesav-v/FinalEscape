@@ -17,12 +17,16 @@ public class MazeGenerator	{
 	private static final int blackrgb = new Color(0, 0, 0).getRGB();
 	private static final int whitergb = new Color(255, 255, 255).getRGB();
 
+	public static enum GENERATION_STYLE {
+		NORMAL, CHECKERBOARD, INWARDS_X, OUTWARDS_X, INWARDS_CIRCLE, OUTWARDS_CIRCLE;
+	};
+
 	public static void main(String... pumpkins) {
 		// printMaze(generateMaze(31, 31, 5, 2, 2, 1)); // Sample of generating 3d maze
-		boolean[][] maze = generateMaze(55, 55, 4, 2);
-		removeDeadEnds(maze, 1); // maze, probability for wall removing
-		printMaze(maze);	// Sample of generating 2d maze
-		// saveImage(maze, "Maze.png");	// Sample of saving 2d maze as png image
+		boolean[][] maze = generateMaze(155, 155, 4, 2, GENERATION_STYLE.CHECKERBOARD, 0.8);
+		// removeDeadEnds(maze, 1); // maze, probability for wall removing
+		// printMaze(maze);	// Sample of generating 2d maze
+		saveImage(maze, "Maze.png");	// Sample of saving 2d maze as png image
 	}
 	/**
 	 * Prints a two dimensional maze from an array
@@ -81,6 +85,19 @@ public class MazeGenerator	{
 				realmaze[i][a] = maze[i+1][a+1];
 		return realmaze;
 	}
+
+	public static boolean[][] generateMaze(int width, int height, int startX,
+		int startY, GENERATION_STYLE style, double styleIntensity)	{
+		boolean[][] maze = new boolean[width+2][height+2];
+		maze[startX][startY] = true;
+		generateMaze(maze, startX, startY, style, styleIntensity);
+		boolean[][] realmaze = new boolean[width][height];
+		for (int i = 0; i < realmaze.length; i++)
+			for (int a = 0; a < realmaze[i].length; a++)
+				realmaze[i][a] = maze[i+1][a+1];
+		return realmaze;
+	}
+
 	/**
 	 * The recursive method used to generate a 2d maze. When
 	 * making a new array, set the array elements to false by
@@ -132,6 +149,52 @@ public class MazeGenerator	{
 			}
 		}
 	}
+
+	public static void generateMaze(boolean[][] maze, int x, int y,
+		GENERATION_STYLE style, double styleIntensity)	{
+		int[] tempRandDs = getRanDs(style, styleIntensity, x, y, maze.length, maze[x].length);
+		for (int i = 0; i < tempRandDs.length; i++)	{
+			switch (tempRandDs[i])	{
+				case 0:	{
+					if (y - 2 <= 0) continue;
+					if (maze[x][y-2] == false)	{
+						maze[x][y-1] = true;
+						maze[x][y-2] = true;
+						mustGenMaze(maze, x, y-2, style, styleIntensity);
+					}
+					break;
+				}
+				case 1:	{
+					if (y + 2 >= maze[x].length - 1) continue;
+					if (maze[x][y+2] == false)	{
+						maze[x][y+1] = true;
+						maze[x][y+2] = true;
+						mustGenMaze(maze, x, y+2, style, styleIntensity);
+					}
+					break;
+				}
+				case 2:	{
+					if (x + 2 >= maze.length - 1) continue;
+					if (maze[x+2][y] == false)	{
+						maze[x+1][y] = true;
+						maze[x+2][y] = true;
+						mustGenMaze(maze, x+2, y, style, styleIntensity);
+					}
+					break;
+				}
+				case 3:	{
+					if (x - 2 <= 0) continue;
+					if (maze[x-2][y] == false)	{
+						maze[x-1][y] = true;
+						maze[x-2][y] = true;
+						mustGenMaze(maze, x-2, y, style, styleIntensity);
+					}
+					break;
+				}
+			}
+		}
+	}
+
 	/**
 	 * Generates a three dimensional maze given a width, height
 	 * and depth.
@@ -251,6 +314,14 @@ public class MazeGenerator	{
 			mustGenMaze(maze, x, y);
 		}
 	}
+	private static void mustGenMaze(boolean[][] maze, int x, int y,
+		GENERATION_STYLE style, double styleIntensity)	{
+		try	{
+			generateMaze(maze, x, y, style, styleIntensity);
+		}	catch (StackOverflowError e)	{
+			mustGenMaze(maze, x, y, style, styleIntensity);
+		}
+	}
 	/**
 	 * Returns an array of ints from 0 to num-1 of length num,
 	 * in a random order
@@ -269,6 +340,82 @@ public class MazeGenerator	{
 			temp[ran] = i;
 		}
 		return temp;
+	}
+
+	public static int[] getRanDs(GENERATION_STYLE style, double styleIntensity,
+		int x, int y, int width, int height)	{
+		int[] temp = new int[4];
+		for (int i = 0; i < temp.length; i++)
+			temp[i] = -1;
+		int ran = 0;
+		for (int i = 0; i < temp.length; i++)	{
+			do {
+				ran = getRanD(style, styleIntensity, x, y, width, height);
+			}	while (temp[ran] != -1);
+			temp[ran] = i;
+		}
+		return temp;
+	}
+
+	public static int getRanD(GENERATION_STYLE style, double styleIntensity,
+		int x, int y, int width, int height) {
+		int relx = x * height / width;
+		int rely = y * width / height;
+		switch (style) {
+			case CHECKERBOARD:
+				if (((x * 5 / width) % 2 == 0) == ((y * 5 / height) % 2 == 0))
+					if (Math.random() < styleIntensity)
+						return (int)(Math.random() * 2);
+					else return (int)(Math.random() * 4);
+				else if (Math.random() < styleIntensity)
+					return (int)(Math.random() * 2 + 2);
+				else return (int)(Math.random() * 4);
+			case INWARDS_X:
+				if ((relx < y) == (x > width - rely))
+					if (Math.random()< styleIntensity)
+						return (int)(Math.random() * 2);
+					else return (int)(Math.random() * 4);
+				else if (Math.random()< styleIntensity)
+					return (int)(Math.random() * 2 + 2);
+				else return (int)(Math.random() * 4);
+			case OUTWARDS_X:
+				if ((relx < y) != (x > width - rely))
+					if (Math.random()< styleIntensity)
+						return (int)(Math.random() * 2);
+					else return (int)(Math.random() * 4);
+				else if (Math.random()< styleIntensity)
+					return (int)(Math.random() * 2 + 2);
+				else return (int)(Math.random() * 4);
+			case INWARDS_CIRCLE:
+				if (awkwardCircleVertical(x, y, width, height))
+					if (Math.random() < styleIntensity)
+						return (int)(Math.random() * 2);
+					else return (int)(Math.random() * 4);
+				else if (Math.random() < styleIntensity)
+					return (int)(Math.random() * 2 + 2);
+				else return (int)(Math.random() * 4);
+			case OUTWARDS_CIRCLE:
+				if (!awkwardCircleVertical(x, y, width, height))
+					if (Math.random() < styleIntensity)
+						return (int)(Math.random() * 2);
+					else return (int)(Math.random() * 4);
+				else if (Math.random() < styleIntensity)
+					return (int)(Math.random() * 2 + 2);
+				else return (int)(Math.random() * 4);
+			case NORMAL: default:
+				return (int)(Math.random() * 4);
+		}
+	}
+
+	private static boolean awkwardCircleVertical(int x, int y, int width, int height) {
+		int deltaX = Math.abs(x - width / 2);
+		int deltaY = Math.abs(y - height / 2);
+		int relx = x * height / width;
+		int rely = y * width / height;
+		if (Math.pow(deltaX, 2) / Math.pow(width / 2, 2) + Math.pow(deltaY, 2)
+			/ Math.pow(height / 2, 2) <= 1)
+			return (relx < y) == (x > width - rely);
+		return (relx < y) != (x > width - rely);
 	}
 
 	public static void removeDeadEnds(boolean[][] maze,	double probability) {

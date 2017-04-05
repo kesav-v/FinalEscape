@@ -1,6 +1,7 @@
 package finalescape.util;
 
 import finalescape.map.Map;
+import finalescape.util.MazeGenerator;
 import finalescape.mapcomponent.MapComponent;
 import finalescape.mapcomponent.ItemComponent;
 import finalescape.item.Item;
@@ -79,6 +80,13 @@ public class Levels {
 				break;
 			case "name":
 				map.name = varValue;
+				break;
+			case "mazestyle":
+				map.mazestyle = MazeGenerator.GENERATION_STYLE.valueOf(varValue);
+				break;
+			case "mazestyleintensity":
+				map.mazestyleintensity = Double.parseDouble(varValue);
+				break;
 		}
 	}
 

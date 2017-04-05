@@ -39,6 +39,8 @@ public class Map {
 	public int removewallradius;
 	public double visibilityradius;
 	public String name;
+	public MazeGenerator.GENERATION_STYLE mazestyle;
+	public double mazestyleintensity;
 
 	private int levelOn;
 
@@ -53,6 +55,8 @@ public class Map {
 		removewallradius = 25;
 		visibilityradius = 4.2;
 		name = "";
+		mazestyle = MazeGenerator.GENERATION_STYLE.NORMAL;
+		mazestyleintensity = 0.8;
 		Levels.loadLevel(this, levelOn);
 	}
 
@@ -61,7 +65,8 @@ public class Map {
 		gameTicks = 0;
 		int randX = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
 		int randY = 2 * (int)(Math.random() * (size / 2 - 3)) + 2;
-		boolean[][] maze = MazeGenerator.generateMaze(size, size, randX, randY);
+		boolean[][] maze = MazeGenerator.generateMaze(size, size, randX, randY,
+			mazestyle, mazestyleintensity);
 		MazeGenerator.removeDeadEnds(maze, removedeadendprobability);
 		initOccupantArray(maze);
 		mainCharacter = new Coder(this, randX - 1, randY - 1);

@@ -1,10 +1,12 @@
 Variables
 
 minisize 12
-removedeadendprobability 0.85
+removedeadendprobability 0.95
 removewallradius 0
 visibilityradius 3.2
 name The Maze
+mazestyle INWARDS_CIRCLE
+mazestyleintensity 0.8
 
 Initialize Map
 
@@ -80,18 +82,6 @@ Teacher
 Teacher
 Teacher
 Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Kavita
-Kavita
-Kavita
-Kavita
-Kavita
-Kavita
 Kavita
 Kavita
 Kavita
@@ -143,6 +133,18 @@ Frisbee
 Frisbee
 Frisbee
 Frisbee
+Frisbee
+Frisbee
+Frisbee
+Frisbee
+Frisbee
+Frisbee
+Frisbee
+Frisbee
+Frisbee
+Frisbee
+Frisbee
+Boomerang
 Boomerang
 Boomerang
 Boomerang
