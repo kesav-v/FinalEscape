@@ -1,5 +1,11 @@
 package finalescape.mapcomponent;
 
+import finalescape.map.Map;
+import finalescape.util.Direction;
+import finalescape.item.Item;
+
+import java.awt.Color;
+
 /**
  * A {@link MapComponent} for projectiles, with some basic functionality.
  * Projectiles move in a specific {@link Direction} until they hit something
@@ -7,22 +13,15 @@ package finalescape.mapcomponent;
  * These properties can be overridden.
  *
  * All projectiles have corresponding {@link Item}s, which have been
- * {@link ProjectileItem}s historically.
+ * {@link finalescape.item.ProjectileItem}s historically.
  *
  * @author Ofek Gila
  * @see MapComponent
  * @see FrisbeeProjectile
  * @see BoomerangProjectile
  * @see PacketProjectile
- * @see ProjectileItem
+ * @see finalescape.item.ProjectileItem
  */
-
-import finalescape.map.Map;
-import finalescape.util.Direction;
-import finalescape.item.Item;
-
-import java.awt.Color;
-
 public abstract class ProjectileComponent extends MapComponent {
 
 	private Item item;

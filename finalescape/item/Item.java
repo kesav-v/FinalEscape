@@ -1,16 +1,5 @@
 package finalescape.item;
 
-/**
- * Items to be held in a {@link Character}'s {@link Inventory}. Can be displayed
- * in the {@link Map} using a {@link ItemComponent}. Can be picked up by
- * {@link Character}s.
- *
- * @author Ofek Gila
- * @see Inventory
- * @see ItemComponent
- * @see Character
- */
-
 import finalescape.map.Map;
 import finalescape.mapcomponent.MapComponent;
 import finalescape.mapcomponent.Character;
@@ -20,6 +9,16 @@ import finalescape.util.Direction;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+/**
+ * Items to be held in a {@link Character}'s {@link finalescape.mapcomponent.Inventory}. Can be displayed
+ * in the {@link Map} using a {@link ItemComponent}. Can be picked up by
+ * {@link Character}s.
+ *
+ * @author Ofek Gila
+ * @see finalescape.mapcomponent.Inventory
+ * @see ItemComponent
+ * @see Character
+ */
 public abstract class Item {
 
 	private String name;

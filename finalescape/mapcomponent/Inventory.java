@@ -1,5 +1,9 @@
 package finalescape.mapcomponent;
 
+import finalescape.item.Item;
+
+import java.util.ArrayList;
+
 /**
  * An {@link ArrayList} of {@link Item}s that a {@link Character} has. The
  * 'capacity' of this list is the maximum size, you cannot add more items than
@@ -13,11 +17,6 @@ package finalescape.mapcomponent;
  * @see Character
  * @see Item
  */
-
-import finalescape.item.Item;
-
-import java.util.ArrayList;
-
 public class Inventory extends ArrayList<Item> {
 
 	private int inventoryCapacity;

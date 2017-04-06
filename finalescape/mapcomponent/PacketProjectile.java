@@ -1,5 +1,9 @@
 package finalescape.mapcomponent;
 
+import finalescape.map.Map;
+import finalescape.util.Direction;
+import finalescape.item.Item;
+
 /**
  * A {@link ProjectileComponent} corresponding to a homework packet (the
  * {@link finalescape.item.Packet} {@link Item}). This projectile can only kill
@@ -8,12 +12,11 @@ package finalescape.mapcomponent;
  * This also doesn't destroy solid objects when colliding with them (other than
  * other {@link ProjectileComponent}s, but can be used to delay the {@link Failure}
  * {@link Character}.
+ *
+ * @author Ofek Gila
+ * @see ProjectileComponent
+ * @see finalescape.item.Packet
  */
-
-import finalescape.map.Map;
-import finalescape.util.Direction;
-import finalescape.item.Item;
-
 public class PacketProjectile extends ProjectileComponent {
 	public PacketProjectile(Map map, int x, int y, Direction dir, Item item) {
 		super(map, x, y, item, dir);

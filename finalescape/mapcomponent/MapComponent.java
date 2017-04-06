@@ -1,16 +1,5 @@
 package finalescape.mapcomponent;
 
-/**
- * The main class for items going in the {@link Map}. Somewhat similar to the
- * {@code Actor} class in GridWorld (kinda).
- *
- * @author Ofek Gila
- * @see Wall
- * @see Teacher
- * @see ItemComponent
- * @see Map
- */
-
 import finalescape.map.Map;
 import finalescape.util.Direction;
 
@@ -23,6 +12,16 @@ import java.io.File;
 
 import java.awt.Color;
 
+/**
+ * The main class for items going in the {@link Map}. Somewhat similar to the
+ * {@code Actor} class in GridWorld (kinda).
+ *
+ * @author Ofek Gila
+ * @see Wall
+ * @see Teacher
+ * @see ItemComponent
+ * @see Map
+ */
 public abstract class MapComponent {
 
 	private final String name;

@@ -1,13 +1,13 @@
 package finalescape.item;
 
+import finalescape.mapcomponent.FrisbeeProjectile;
+
 /**
  * A very generic {@link ProjectileItem} of a frisbee.
  *
  * @author Ofek Gila
+ * @see FrisbeeProjectile
  */
-
-import finalescape.mapcomponent.FrisbeeProjectile;
-
 public class Frisbee extends ProjectileItem {
 
 	/**

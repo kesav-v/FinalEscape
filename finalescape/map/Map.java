@@ -1,13 +1,5 @@
 package finalescape.map;
 
-/**
- * The map of {@link MapComponent}s that handles modifying what's on the map
- *
- * @see MapComponent
- * @author Ofek Gila
- * @author Kesav Viswanadha
- */
-
 import finalescape.gui.MapGui;
 import finalescape.util.Levels;
 import finalescape.util.Direction;
@@ -26,6 +18,13 @@ import finalescape.item.Frisbee;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * The map of {@link MapComponent}s that handles modifying what's on the map
+ *
+ * @see MapComponent
+ * @author Ofek Gila
+ * @author Kesav Viswanadha
+ */
 public class Map {
 
 	/**

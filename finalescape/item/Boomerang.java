@@ -1,13 +1,14 @@
 package finalescape.item;
 
-/**
- * A {@link ProjectileItem} with a specific number of uses.
- * @see BoomerangProjectile
- */
-
 import finalescape.mapcomponent.MapComponent;
 import finalescape.mapcomponent.BoomerangProjectile;
 
+/**
+ * A {@link ProjectileItem} with a specific number of uses.
+ *
+ * @author Ofek Gila
+ * @see BoomerangProjectile
+ */
 public class Boomerang extends ProjectileItem {
 
 	/**
