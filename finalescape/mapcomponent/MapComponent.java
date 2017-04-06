@@ -26,6 +26,14 @@ public abstract class MapComponent {
 	private int delayInterval;
 	private int preventUpdate;
 
+	/**
+	 * Call this constructor when creating a new {@code MapComponent} to place
+	 * in a {@link Map}.
+	 * @param  map  the {@link Map} to place in
+	 * @param  x    x coordinate
+	 * @param  y    y coordinate
+	 * @param  name name of the coordinate (should have image file in images/[name].png)
+	 */
 	public MapComponent(Map map, int x, int y, String name) {
 		this.map = map;
 		this.x = x;
@@ -35,11 +43,19 @@ public abstract class MapComponent {
 		setDefaults();
 	}
 
+	/**
+	 * Call this constructor when creating a new {@code MapComponent} to not
+	 * immediately place in a map.
+	 * @param  name name of the coordinate (should have image file in images/[name].png)
+	 */
 	public MapComponent(String name) {
 		this.name = name;
 		setDefaults();
 	}
 
+	/**
+	 * Sets some defaults for {@code MapComponent}s
+	 */
 	private void setDefaults() {
 		direction = Direction.NORTH;
 		solid = opaque = false;
@@ -49,12 +65,25 @@ public abstract class MapComponent {
 		preventUpdate = 0;
 	}
 
+	/**
+	 * Move this {@code MapComponent} to a specific location in the {@link Map}.
+	 * If you think you should modify this, you're probably doing something wrong.
+	 * @param x x coordinate to move to
+	 * @param y y coordinate to move to
+	 */
 	public final void moveTo(int x, int y) {
 		map.moveComponent(this.x, this.y, x, y);
 		this.x = x;
 		this.y = y;
 	}
 
+	/**
+	 * Gets an image at a specific dimension (size x size) corresponding to this
+	 * {@code MapComponent}s name (located at images/[name].png).
+	 * @param  name name of the {@code MapComponent}
+	 * @param  size size of the dimension
+	 * @return      {@link BufferedImage} the image generated
+	 */
 	public static BufferedImage getImageByName(String name, int size) {
 		try {
 			Image img = ImageIO.read(new File("images/" + name + ".png"))
@@ -72,6 +101,11 @@ public abstract class MapComponent {
 		}
 	}
 
+	/**
+	 * Tries getting (or generating) an image for this {@code MapComponent}
+	 * @param  size size of image
+	 * @return      {@link BufferedImage} the image of this {@code MapComponent}
+	 */
 	public BufferedImage getImage(int size) {
 		if (img == null)
 			img = getImageByName(name, size);
@@ -85,6 +119,11 @@ public abstract class MapComponent {
 	public Color getColor() { return color; }
 	public String getName() { return name; }
 	public int getPrecedence() { return precedence; }
+
+	/**
+	 * If you want to stun, call {@link #preventUpdate(int)}, not this.
+	 * @return true if  update prevented, false otherwise
+	 */
 	public boolean preventUpdate() {
 		if (preventUpdate > 0) {
 			preventUpdate--;
@@ -106,13 +145,28 @@ public abstract class MapComponent {
 	public void setPrecedence(int precedence) { this.precedence = precedence; }
 	public void setDelayInterval(int interval) { delayInterval = interval; }
 
+	/**
+	 * Prevents updating this {@code MapComponent} a specific number of times
+	 * (used for 'stunning' components).
+	 * @param numMoves how many moves to prevent updating
+	 */
 	public void preventUpdate(int numMoves) {
 		if (preventUpdate < numMoves)
 			preventUpdate = numMoves;
 	}
 
+	/**
+	 * Called whenever this {@code MapComponent} should update. Override (like
+	 * the 'act' method in GridWorld, but infinitely better).
+	 */
 	public void tick() {}
 
+	/**
+	 * A sweet pseudo-instanceof except dynamic.
+	 * @param  obj1 one of the {@link Object}s to use
+	 * @param  obj2 the other
+	 * @return      true if is an instanceof, false otherwise
+	 */
 	public final boolean instof(Object obj1, Object obj2) {
 		if (obj1 == null || obj2 == null)
 			return false;
@@ -126,14 +180,30 @@ public abstract class MapComponent {
 		else return String.format("[MapComponent %s out of map]", name);
 	}
 
+	/**
+	 * Destroys this {@code MapComponent} (by default removes from map), but can
+	 * be overridden.
+	 * @see finalescape.mapcomponent.Failure#destroy
+	 */
 	public void destroy() {
 		map.removeComponent(this);
 	}
 
+	/**
+	 * Distance between this {@code MapComponent} to another
+	 * @param  that the other {@code MapComponent}
+	 * @return      the 'as the crow flies' distance between them
+	 */
 	public double distance(MapComponent that) {
 		return Math.sqrt(Math.pow(this.x - that.x, 2) + Math.pow(this.y - that.y, 2));
 	}
 
+	/**
+	 * Finds the {@link Direction} to face to get to the target {@code MapComponent}.
+	 * @param  componentTo the target {@code MapComponent}
+	 * @return             the {@link Direction} to face
+	 * @see finalescape.map.Map#solveMazeDirection
+	 */
 	public Direction solveMazeDirection(MapComponent componentTo) {
 		return map.solveMazeDirection(this, componentTo);
 	}
