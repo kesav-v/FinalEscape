@@ -1,5 +1,14 @@
 package finalescape.mapcomponent;
 
+/**
+ * A genetic {@link ProjectileComponent}, corresponding to the {@link finalescape.item.Frisbee}
+ * {@link Item}.
+ *
+ * @author Ofek Gila
+ * @see ProjectileComponent
+ * @see finalescape.item.Frisbee
+ */
+
 import finalescape.map.Map;
 import finalescape.util.Direction;
 import finalescape.item.Item;

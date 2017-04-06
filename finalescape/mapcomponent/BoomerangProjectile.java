@@ -1,5 +1,15 @@
 package finalescape.mapcomponent;
 
+/**
+ * A {@link ProjectileComponent} for the {@link finalescape.item.Boomerang}. This
+ * component has 10 uses, and instead of breaking on collision, it bounces back,
+ * and can be picked up by a {@link Character} on the bounce back.
+ *
+ * @author Ofek Gila
+ * @see ProjectileComponent
+ * @see finalescape.item.Boomerang
+ */
+
 import finalescape.map.Map;
 import finalescape.util.Direction;
 import finalescape.item.Item;
@@ -20,6 +30,10 @@ public class BoomerangProjectile extends ProjectileComponent {
 		setPrecedence(6);
 	}
 
+	/**
+	 * Changes {@link Direction} of this {@link ProjectileComponent}, bouncing
+	 * back.
+	 */
 	private void bounceBack() {
 		setDirection(Direction.getDir(getDirection().compassDirection + 180));
 		bounced = true;

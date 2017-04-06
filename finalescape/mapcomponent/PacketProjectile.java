@@ -1,5 +1,15 @@
 package finalescape.mapcomponent;
 
+/**
+ * A {@link ProjectileComponent} corresponding to a homework packet (the
+ * {@link finalescape.item.Packet} {@link Item}). This projectile can only kill
+ * the main {@link Character} (the {@link Coder}).
+ *
+ * This also doesn't destroy solid objects when colliding with them (other than
+ * other {@link ProjectileComponent}s, but can be used to delay the {@link Failure}
+ * {@link Character}.
+ */
+
 import finalescape.map.Map;
 import finalescape.util.Direction;
 import finalescape.item.Item;
