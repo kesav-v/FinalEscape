@@ -4,24 +4,16 @@ minisize 5
 removedeadendprobability 0.95
 removewallradius 8
 visibilityradius 4.2
+name Annoying Teachers
 
 Initialize Map
 
 MapComponents
 
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Kavita
+Teacher 5
+Kavita 1
 
 Items
 
-Laptop
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
+Laptop 1
+Frisbee 6

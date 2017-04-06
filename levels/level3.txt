@@ -4,28 +4,17 @@ minisize 10
 removedeadendprobability 0.9
 removewallradius 20
 visibilityradius 5.3
+name Someone Help
 
 Initialize Map
 
 MapComponents
 
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Kavita
-Kavita
-Kavita
-David
+Teacher 6
+Kavita 3
+David 1
 
 Items
 
-Laptop
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
+Laptop 1
+Frisbee 6

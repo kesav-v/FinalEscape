@@ -1,0 +1,25 @@
+Variables
+
+minisize 12
+removedeadendprobability 0.95
+removewallradius 0
+visibilityradius 3.2
+name The Maze
+mazestyle INWARDS_CIRCLE
+mazestyleintensity 0.8
+
+Initialize Map
+
+MapComponents
+
+Teacher 59
+Kavita 18
+David 2
+Failure 3
+
+Items
+
+Laptop 1
+Frisbee 44
+Boomerang 5
+Piston 7

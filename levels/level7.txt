@@ -1,0 +1,22 @@
+Variables
+
+minisize 10
+removedeadendprobability 0.7
+removewallradius 25
+visibilityradius 2.5
+name Chased
+
+Initialize Map
+
+MapComponents
+
+Teacher 10
+Kavita 6
+David 1
+Failure 1
+
+Items
+
+Laptop 1
+Frisbee 6
+Boomerang 2

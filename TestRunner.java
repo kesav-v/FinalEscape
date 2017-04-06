@@ -1,5 +1,7 @@
+import finalescape.gui.FinalEscapeFrame;
+
 public class TestRunner {
 	public static void main(String... pumpkins) {
-		FinalEscape gui = new FinalEscape(FinalEscape.SCREEN_WIDTH, FinalEscape.SCREEN_HEIGHT);
+		FinalEscapeFrame gui = new FinalEscapeFrame(FinalEscapeFrame.SCREEN_WIDTH, FinalEscapeFrame.SCREEN_HEIGHT);
 	}
 }

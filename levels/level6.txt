@@ -4,36 +4,17 @@ minisize 10
 removedeadendprobability 0.75
 removewallradius 25
 visibilityradius 2.5
+name Can't See Them Coming
 
 Initialize Map
 
 MapComponents
 
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Kavita
-Kavita
-Kavita
-Kavita
-Kavita
-Kavita
-David
+Teacher 10
+Kavita 6
+David 1
 
 Items
 
-Laptop
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Boomerang
+Laptop 1
+Frisbee 6

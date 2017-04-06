@@ -1,0 +1,22 @@
+Variables
+
+minisize 15
+removedeadendprobability 0.7
+removewallradius 45
+visibilityradius 2.5
+name The Arena
+
+Initialize Map
+
+MapComponents
+
+Teacher 19
+Kavita 12
+David 1
+Failure 1
+
+Items
+
+Laptop 1
+Frisbee 12
+Boomerang 3

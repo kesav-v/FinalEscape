@@ -3,36 +3,18 @@ Variables
 minisize 13
 removedeadendprobability 0.9
 removewallradius 28
+name Finding My Way
 
 Initialize Map
 
 MapComponents
 
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Teacher
-Kavita
-Kavita
-Kavita
-Kavita
-Kavita
-Kavita
-David
+Teacher 10
+Kavita 6
+David 1
 
 Items
 
-Laptop
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Frisbee
-Boomerang
+Laptop 1
+Frisbee 6
+Boomerang 1
