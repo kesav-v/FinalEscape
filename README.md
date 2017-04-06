@@ -1,3 +1,9 @@
+# FinalEscape
+
+## Documentation
+
+You can find the API online [here](https://ofekih.github.io/FinalEscape/javadoc/index.html "documentation")!
+
 ## Running
 
 ### On *nix
