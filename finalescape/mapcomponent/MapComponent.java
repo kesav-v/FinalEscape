@@ -146,14 +146,48 @@ public abstract class MapComponent {
 	public boolean isOpaque() { return opaque; }
 	public int getDelayInterval() { return delayInterval; }
 
+	/**
+	 * Sets whether or not this {@code MapComponent} is solid
+	 * @param solid true if solid, false otherwise
+	 */
 	public void setSolid(boolean solid) { this.solid = solid; }
+
+	/**
+	 * Sets whether or not this {@code MapComponent} is opaque
+	 * @param opaque true if opaque, false otherwise
+	 */
 	public void setOpaque(boolean opaque) { this.opaque = opaque; }
+
+	/**
+	 * Sets the {@link Direction} this {@code MapComponent} is facing
+	 * @param dir the {@link Direction} to face
+	 */
 	public void setDirection(Direction dir) { direction = dir; }
+
+	/**
+	 * Sets the {@link Color} for the {@link finalescape.gui.MinimapPanel} to
+	 * display.
+	 * @param color the {@link Color} to display
+	 * @see finalescape.gui.MinimapPanel
+	 */
 	public void setColor(Color color) { this.color = color; }
+
 	public void setX(int x) { this.x = x; }
 	public void setY(int y) { this.y = y; }
 	public void setMap(Map map) { this.map = map; }
+
+	/**
+	 * Sets precedence of this {@code MapComponent}. For example, a component
+	 * with a precedence of 5 will tick before one with a precedence of 3.
+	 * @param precedence the precedence value to set
+	 */
 	public void setPrecedence(int precedence) { this.precedence = precedence; }
+
+	/**
+	 * Sets the delay interval (an interval of 20 means that it ticks once every
+	 * 20 game ticks (like {@link Teacher}s)). There is a tick every 50 ms.
+	 * @param interval the length of the interval
+	 */
 	public void setDelayInterval(int interval) { delayInterval = interval; }
 
 	/**

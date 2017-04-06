@@ -121,8 +121,18 @@ public abstract class Item {
 	public Color getColor() { return color; }
 	public void setColor(Color color) { this.color = color; }
 	public int getPrecedence() { return precedence; }
+
+	/**
+	 * Sets the precedence of this {@code Item} (basically how important it is)
+	 * @param precedence the precedence to set
+	 */
 	public void setPrecedence(int precedence) { this.precedence = precedence; }
 
+	/**
+	 * Returns the opacity of this {@code Item} for display in the {@link finalescape.gui.ItemPanel}.
+	 * 1 is opaque, 0 is transparent
+	 * @return the opacity of this item
+	 */
 	public float getOpacity() {
 		return 1f - uses * 1f / maxUses;
 	}
@@ -136,7 +146,21 @@ public abstract class Item {
 
 	public int maxUses() { return maxUses; }
 	public int getUses() { return uses; }
+
+	/**
+	 * Sets the number of uses that this item currently has
+	 * @param uses number of times this item was used
+	 */
 	public void setUses(int uses) { this.uses = uses; }
+
+	/**
+	 * Sets the max number of times this {@code Item} can be used.
+	 * @param maxUses the number of times the item can be used
+	 */
 	public void setMaxUses(int maxUses) { this.maxUses = maxUses; }
+
+	/**
+	 * Increments the number of times this {@code Item} was used.
+	 */
 	public void incrementUses() { uses++; }
 }
