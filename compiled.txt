@@ -36,6 +36,7 @@
 ./finalescape/item/Boomerang.class
 ./finalescape/item/Item.class
 ./finalescape/item/Frisbee.class
+./finalescape/item/Piston.class
 ./finalescape/item/Textbook.class
 ./finalescape/item/Laptop.class
 ./finalescape/item/Packet.class

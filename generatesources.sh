@@ -1,4 +1,4 @@
 #!/bin/sh
 
-find -name "*.java" > sources.txt
+find finalescape/ -name "*.java" > sources.txt
 find -name "*.class" > compiled.txt
