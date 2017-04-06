@@ -3,10 +3,13 @@ package finalescape.item;
 import finalescape.mapcomponent.Character;
 
 /**
- * An {@link Item} that can reset the uses of a specific {@code finalescape.item.Item} in a
- * {@link Character}'s {@link finalescape.mapcomponent.Inventory}.
+ * An {@link Item} that can reset the uses of a specific {@code Item}
+ * in a {@link Character}'s {@link finalescape.mapcomponent.Inventory}. The main
+ * {@code Item} of a {@link finalescape.mapcomponent.Teacher}.
  *
  * @author Ofek Gila
+ * @see Item
+ * @see finalescape.mapcomponent.Teacher
  */
 public class Textbook extends Item {
 

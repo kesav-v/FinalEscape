@@ -1,3 +1,3 @@
 #!/bin/sh
 
-javadoc -d javadoc/ @sources.txt
+javadoc -d javadoc/ -author @sources.txt

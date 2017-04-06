@@ -5,10 +5,12 @@ import finalescape.mapcomponent.PacketProjectile;
 import finalescape.mapcomponent.Failure;
 
 /**
- * A {@link finalescape.mapcomponent.ProjectileComponent} that cannot be placed on anything.
+ * A {@link finalescape.mapcomponent.ProjectileComponent} that cannot be placed
+ * on anything. The main {@link Item} of {@link finalescape.mapcomponent.Kavita}.
  *
  * @author Ofek Gila
  * @see PacketProjectile
+ * @see finalescape.mapcomponent.Kavita
  */
 public class Packet extends ProjectileItem {
 

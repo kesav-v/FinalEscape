@@ -1,18 +1,20 @@
 package finalescape.item;
 
-/**
- * The main objective in the game. The {@link Coder} needs to get this laptop
- * to the {@link Desk}.
- *
- * @author Ofek Gila
- */
-
 import finalescape.mapcomponent.MapComponent;
 import finalescape.mapcomponent.Character;
 import finalescape.mapcomponent.Desk;
 
 import java.awt.Color;
 
+/**
+ * The main objective in the game. The {@link finalescape.mapcomponent.Coder}
+ * needs to get this laptop to the {@link Desk}. The main {@link Item} of
+ * {@link finalescape.mapcomponent.David}.
+ *
+ * @author Ofek Gila
+ * @see finalescape.mapcomponent.David
+ * @see finalescape.mapcomponent.Coder
+ */
 public class Laptop extends Item {
 
 	private Character character;
