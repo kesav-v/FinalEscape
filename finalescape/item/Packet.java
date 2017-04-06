@@ -1,11 +1,20 @@
 package finalescape.item;
 
+/**
+ * A {@link ProjectileComponent} that cannot be placed on anything.
+ *
+ * @author Ofek Gila
+ */
+
 import finalescape.mapcomponent.MapComponent;
 import finalescape.mapcomponent.PacketProjectile;
 import finalescape.mapcomponent.Failure;
 
 public class Packet extends ProjectileItem {
 
+	/**
+	 * Initializes this {@code Packet}.
+	 */
 	public Packet() {
 		super("Packet");
 		setProjectile(new PacketProjectile(this));

@@ -4,6 +4,8 @@ package finalescape.map;
  * The map of {@link MapComponent}s that handles modifying what's on the map
  *
  * @see MapComponent
+ * @author Ofek Gila
+ * @author Kesav Viswanadha
  */
 
 import finalescape.gui.MapGui;

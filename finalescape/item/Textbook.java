@@ -1,8 +1,17 @@
 package finalescape.item;
 
+/**
+ * An {@link Item} that can reset the uses of a specific {@code Item} in a
+ * {@link Character}'s {@link Inventory}.
+ */
+
 import finalescape.mapcomponent.Character;
 
 public class Textbook extends Item {
+
+	/**
+	 * Initializes this {@code TextBook}.
+	 */
 	public Textbook() {
 		super("Textbook");
 	}

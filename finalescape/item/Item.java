@@ -5,6 +5,7 @@ package finalescape.item;
  * in the {@link Map} using a {@link ItemComponent}. Can be picked up by
  * {@link Character}s.
  *
+ * @author Ofek Gila
  * @see Inventory
  * @see ItemComponent
  * @see Character
