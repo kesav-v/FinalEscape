@@ -1,5 +1,11 @@
 package finalescape.map;
 
+/**
+ * The map of {@link MapComponent}s that handles modifying what's on the map
+ *
+ * @see MapComponent
+ */
+
 import finalescape.gui.MapGui;
 import finalescape.util.Levels;
 import finalescape.util.Direction;

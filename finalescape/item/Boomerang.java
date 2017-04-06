@@ -1,5 +1,10 @@
 package finalescape.item;
 
+/**
+ * A {@link ProjectileItem} with a specific number of uses.
+ * @see BoomerangProjectile
+ */
+
 import finalescape.mapcomponent.MapComponent;
 import finalescape.mapcomponent.BoomerangProjectile;
 

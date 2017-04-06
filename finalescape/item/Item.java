@@ -1,5 +1,15 @@
 package finalescape.item;
 
+/**
+ * Items to be held in a {@link Character}'s {@link Inventory}. Can be displayed
+ * in the {@link Map} using a {@link ItemComponent}. Can be picked up by
+ * {@link Character}s.
+ *
+ * @see Inventory
+ * @see ItemComponent
+ * @see Character
+ */
+
 import finalescape.map.Map;
 import finalescape.mapcomponent.MapComponent;
 import finalescape.mapcomponent.Character;
@@ -18,6 +28,13 @@ public abstract class Item {
 	private int maxUses;
 	private int uses;
 
+	/**
+	 * Creates an {@code Item} with a specific name and item. The name should
+	 * correspond to an image file at images/[name].png
+	 * @param  name  the name of this {@code Item}
+	 * @param  color the {@link Color} of this {@code Item} to display in the
+	 * minimap
+	 */
 	public Item(String name, Color color) {
 		this.name = name;
 		this.color = color;
@@ -31,20 +48,35 @@ public abstract class Item {
 		this(name, new Color(100, 216, 105));
 	}
 
+	/**
+	 * Gets or creates an image of this item with specific dimensions (size x size)
+	 * @param  size size of image to create
+	 * @return      the {@link BufferedImage} generated
+	 */
 	public BufferedImage getImage(int size) {
 		if (image == null)
 			image = MapComponent.getImageByName(name, size);
 		return image;
 	}
 
+	/**
+	 * Tries placing this item if possible
+	 * @param  character the {@link Character} that is placing the item
+	 * @return           true of placed, false otherwise
+	 */
 	public boolean placeIfPossible(Character character) {
 		if (canPlace(character)) {
 			place(character);
 			return true;
-		}
-		return false;
+		} else return false;
 	}
 
+	/**
+	 * Returns true if the {@link Character} can place this {@code Item}, false
+	 * otherwise.
+	 * @param  character the {@link Character} to place the item
+	 * @return           true of can place, false otherwise
+	 */
 	public boolean canPlace(Character character) {
 		Direction dir = character.getDirection();
 		int spawnx = character.getX() + dir.dX;
@@ -52,10 +84,19 @@ public abstract class Item {
 		return canPlaceOn(character.getMap().get(spawnx, spawny));
 	}
 
+	/**
+	 * Returns true if can place on a specific {@link MapComponent}, false otherwise
+	 * @param  component {@link MapComponent} to place on
+	 * @return           true if can place, false otherwise
+	 */
 	public boolean canPlaceOn(MapComponent component) {
 		return component == null;
 	}
 
+	/**
+	 * Places this {@code Item}.
+	 * @param character the {@link Character} that places the item.
+	 */
 	public void place(Character character) {
 		Direction dir = character.getDirection();
 		int spawnx = character.getX() + dir.dX;
@@ -63,6 +104,14 @@ public abstract class Item {
 		place(character.getMap(), spawnx, spawny, character.getDirection());
 	}
 
+	/**
+	 * Places this {@code Item} in a specific {@link Map}, with specific
+	 * coordinates, and with a specific {@link Direction}
+	 * @param map the {@link Map} to place in
+	 * @param x   x coordinate
+	 * @param y   y coordinate
+	 * @param dir the {@link Direction} to place in
+	 */
 	public void place(Map map, int x, int y, Direction dir) {
 		new ItemComponent(map, x, y, this);
 	}
