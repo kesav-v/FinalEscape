@@ -3,6 +3,7 @@ package finalescape.mapcomponent;
 /**
  * The main class for items going in the {@link Map}. Somewhat similar to the
  * {@code Actor} class in GridWorld (kinda).
+ *
  * @author Ofek Gila
  * @see Wall
  * @see Teacher

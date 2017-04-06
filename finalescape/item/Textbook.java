@@ -3,6 +3,8 @@ package finalescape.item;
 /**
  * An {@link Item} that can reset the uses of a specific {@code Item} in a
  * {@link Character}'s {@link Inventory}.
+ *
+ * @author Ofek Gila,
  */
 
 import finalescape.mapcomponent.Character;
