@@ -20,6 +20,9 @@ import java.util.Comparator;
 
 public class Map {
 
+	/**
+	 * Sorts list of MapComponents for order with which to tick
+	 */
 	private final Comparator<MapComponent> componentTickComparator = new Comparator<MapComponent>() {
 		@Override
 		public int compare(MapComponent obj1, MapComponent obj2) {
@@ -48,6 +51,12 @@ public class Map {
 		this(1);
 	}
 
+	/**
+	 * Loads level from level file using Levels.java.
+	 * Beforehand, sets up defaults for parameters that can be overridden by
+	 * Levels.java (minisize, name, etc).
+	 * @param  levelOn level to load (located in levels/level[levelOn].txt)
+	 */
 	public Map(int levelOn) {
 		this.levelOn = levelOn;
 		minisize = 13;
@@ -60,6 +69,10 @@ public class Map {
 		Levels.loadLevel(this, levelOn);
 	}
 
+	/**
+	 * Initializes the map (called by Levels.txt when it says "Initialize Map"),
+	 * after the settings of the map (such as dimensions are decided).
+	 */
 	public void initMap() {
 		size = 4 * minisize - 1;
 		gameTicks = 0;
@@ -74,6 +87,11 @@ public class Map {
 		placeDesk();
 	}
 
+	/**
+	 * Places walls in the array based off of boolean array (false values)
+	 * contain walls.
+	 * @param walls boolean array
+	 */
 	private void initOccupantArray(boolean[][] walls) {
 		occupantArray = new MapComponent[size][size];
 		for (int i = 0; i < occupantArray.length; i++)
@@ -82,16 +100,34 @@ public class Map {
 					occupantArray[i][a] = new Wall(this, i, a);
 	}
 
+	/**
+	 * Get {@link MapComponent} at specific coordinates
+	 * @param  x x coordinate
+	 * @param  y y coordinate
+	 * @return   {@link MapComponent} at location
+	 */
 	public MapComponent get(int x, int y) {
 		return occupantArray[x][y];
 	}
 
+	/**
+	 * Returns true if the location at (x, y) is in bounds and empty, false
+	 * otherwise.
+	 * @param  x x coordinate
+	 * @param  y y coordinate
+	 * @return   {@link MapComponent} at location
+	 */
 	public boolean isEmpty(int x, int y) {
 		if (x < 0 || x >= size || y < 0 || y >= size)
 			return false;
 		return get(x, y) == null;
 	}
 
+	/**
+	 * Remove walls from the middle at a specific radius, used for the 'arena'
+	 * in the center. Removes in square shape.
+	 * @param radius Radius with which to remove.
+	 */
 	private void removeWalls(int radius) {
 		int middle = size / 2;
 		for (int i = middle - radius / 2; i <= middle + radius / 2; i++)
@@ -101,6 +137,9 @@ public class Map {
 					removeComponent(i, j);
 	}
 
+	/**
+	 * Places a desk in the map (along edge of board)
+	 */
 	private void placeDesk() {
 		int randValue = 2 * (int)(Math.random() * (size / 2 - 3)) + 1;
 		Desk desk = null;
@@ -122,6 +161,10 @@ public class Map {
 		destinationComponent = desk;
 	}
 
+	/**
+	 * Randomly spawns a specific {@link MapComponent} in the map.
+	 * @param component the {@link MapComponent} to spawn
+	 */
 	public synchronized void randomlySpawnComponent(MapComponent component) {
 		int x, y;
 		do {
@@ -131,6 +174,13 @@ public class Map {
 		addComponent(component, x, y);
 	}
 
+	/**
+	 * Returns true if {@link MapComponent} should be able t spawn there,
+	 * false otherwise.
+	 * @param  x x coordinate
+	 * @param  y y coordinate
+	 * @return   true if valid, false otherwise
+	 */
 	private boolean validSpawn(int x, int y) {
 		if (occupantArray[x][y] != null)
 			return false;
@@ -152,6 +202,14 @@ public class Map {
 			return true;
 	}
 
+	/**
+	 * Tries adding a {@link MapComponent} at a specific location. You should
+	 * probably call the one without the boolean unless you know what you're doing.
+	 * @param occupant {@link MapComponent} to add
+	 * @param x        x coordinate
+	 * @param y        y coordinate
+	 * @param force    true if can be forced into the edge, false otherwise
+	 */
 	public synchronized void addComponent(MapComponent occupant, int x, int y, boolean force) {
 		if (!removeComponent(x, y, force))
 			return;
@@ -161,18 +219,43 @@ public class Map {
 		occupant.setMap(this);
 	}
 
+	/**
+	 * Tries adding a {@link MapComponent} at a specific location. This is the
+	 * one that should be used.
+	 * @param occupant {@link MapComponent} to add
+	 * @param x        x coordinate
+	 * @param y        y coordinate
+	 */
 	public synchronized void addComponent(MapComponent occupant, int x, int y) {
 		addComponent(occupant, x, y, false);
 	}
 
+	/**
+	 * Adds a {@link MapComponent} to the map at its current location. Don't use
+	 * this one with the boolean unless you know what you're doing
+	 * @param occupant {@link MapComponent} to add
+	 * @param force    whether or not to force into edge
+	 */
 	public synchronized void addComponent(MapComponent occupant, boolean force) {
 		addComponent(occupant, occupant.getX(), occupant.getY(), force);
 	}
 
+	/**
+	 * Adds a {@link MapComponent} to the map at its current location.
+	 * @param occupant {@link MapComponent} to add
+	 */
 	public synchronized void addComponent(MapComponent occupant) {
 		addComponent(occupant, false);
 	}
 
+	/**
+	 * Removes a {@link MapComponent} at a specific x, y location. Don't use this
+	 * one with the boolean if you don't know what you're doing.
+	 * @param  x     x coordinate
+	 * @param  y     y coordinate
+	 * @param  force whether or not to force remove from the edge
+	 * @return       true if removed, false if failed (e.g., tried from edge)
+	 */
 	public synchronized boolean removeComponent(int x, int y, boolean force) {
 		if (force);
 		else if (x == 0 || y == 0 || x == size - 1 || y == size - 1)
@@ -184,37 +267,73 @@ public class Map {
 		return true;
 	}
 
+	/**
+	 * Removes a {@link MapComponent} at a specific x, y location. Use this one.
+	 * @param  x x coordinate
+	 * @param  y y coordinate
+	 * @return   true if removed, false if failed (e.g., tried from edge)
+	 */
 	public synchronized boolean removeComponent(int x, int y) {
 		return removeComponent(x, y, false);
 	}
 
+	/**
+	 * Removes a {@link MapComponent} from map. Use this one too.
+	 * @param  component the {@link MapComponent} to remove
+	 * @return           true if removed, false if failed (e.g., tried from edge)
+	 */
 	public synchronized boolean removeComponent(MapComponent component) {
 		if (component.getMap() != null)
 			return removeComponent(component.getX(), component.getY());
 		return true;
 	}
 
+	/**
+	 * Move {@link MapComponent} from an x, y coordinate to another
+	 * @param fromx x to move from
+	 * @param fromy y to move from
+	 * @param tox   x to move to
+	 * @param toy   y to move to
+	 */
 	public synchronized void moveComponent(int fromx, int fromy, int tox, int toy) {
 		if (removeComponent(tox, toy))
 			occupantArray[tox][toy] = occupantArray[fromx][fromy];
 		occupantArray[fromx][fromy] = null;
 	}
 
+	/**
+	 * Moves the main character by a delta x and delta y (don't call this). This
+	 * is used for arrow keys in the GUI, and nothing else.
+	 * @param dx delta x to move by
+	 * @param dy delta y to move by
+	 */
 	public synchronized void moveMainCharacter(int dx, int dy) {
 		mainCharacter.moveCharacterDelta(dx, dy);
 		updateGui();
 	}
 
+	/**
+	 * Shifts the selected {@link Item} in the main {@link Character}'s {@link finalescape.mapcomponent.Inventory}.
+	 * Don't call this (only used in GUI, when shift is clicked).
+	 */
 	public void shiftSelectedItem() {
 		mainCharacter.getInventory().switchSelectedItem();
 		updateGui();
 	}
 
+	/**
+	 * Uses the main {@link Character}'s selected {@link Item}. Only GUI should
+	 * call this.
+	 */
 	public void useSelectedItem() {
 		mainCharacter.useSelectedItem();
 		updateGui();
 	}
 
+	/**
+	 * Tries finding the {@link Laptop} in the map
+	 * @return {@link MapComponent} the {@link finalescape.mapcomponent.ItemComponent} holding the laptop, or the {@link Character} who has the laptop in their {@link finalescape.mapcomponent.Inventory}.
+	 */
 	public MapComponent findLaptop() {
 		for (MapComponent[] row : occupantArray)
 			for (MapComponent component : row)
@@ -228,15 +347,13 @@ public class Map {
 		return null;
 	}
 
-	public ArrayList<Character> getMapCharacters() {
-		ArrayList<Character> characters = new ArrayList<Character>();
-		for (MapComponent[] row : occupantArray)
-			for (MapComponent component : row)
-				if (component != null && component instanceof Character)
-					characters.add((Character)component);
-		return characters;
-	}
-
+	/**
+	 * Generates a sorted {@code ArrayList} of {@link MapComponent}s to tick,
+	 * sorted by component precedence (defined by the components). Note that
+	 * does not update components with update prevented, or when their delay
+	 * interval isn't up.
+	 * @return the ArrayList of MapComponents
+	 */
 	public ArrayList<MapComponent> getComponentsToTick() {
 		ArrayList<MapComponent> components = new ArrayList<MapComponent>();
 		for (MapComponent[] row : occupantArray)
@@ -254,6 +371,10 @@ public class Map {
 		return components;
 	}
 
+	/**
+	 * Calls the {@link finalescape.mapcomponent.MapComponent#tick() tick} method
+	 * in all the {@link MapComponent}s to update.
+	 */
 	public synchronized void gameTick() {
 		ArrayList<MapComponent> componentsToTick = getComponentsToTick();
 		for (MapComponent component : componentsToTick)
@@ -268,24 +389,47 @@ public class Map {
 			updateGui();
 	}
 
+	/**
+	 * Updates the GUI (probably shouldn't be called, the GUI is updated)
+	 * automatically after all {@link Character}s tick. Only call if something
+	 * happens between ticks (like the main character doing something).
+	 */
 	private synchronized void updateGui() {
 		gui.updateMap();
 	}
 
+	/**
+	 * Loses the game
+	 */
 	public void loseGame() {
 		gui.loseGame();
 	}
 
+	/**
+	 * Wins the game
+	 */
 	public void winGame() {
 		gui.winGame();
 	}
 
+	/**
+	 * Sets the {@link MapGui} for this {@code Map} (for updating when things
+	 * change). Probably shouldn't need to be called.
+	 * @param gui [description]
+	 */
 	public void setGui(MapGui gui) {
 		this.gui = gui;
 	}
 
 	private int[] ranDs = MazeGenerator.getRanDs(4);
 
+	/**
+	 * Finds the shortest path to a given location, and returns the {@link Direction}
+	 * to face in order to get to that location.
+	 * @param  from {@link MapComponent} trying to get to location
+	 * @param  to   {@link MapComponent} trying to get to
+	 * @return      {@link Direction} to face to get to second {@code MapComponent}
+	 */
 	public Direction solveMazeDirection(MapComponent from, MapComponent to) {
 		if (to == null)
 			return Direction.IN_PLACE;
@@ -351,6 +495,9 @@ public class Map {
 		return Direction.IN_PLACE;
 	}
 
+	/**
+	 * Helper method for {@link #solveMazeDirection}
+	 */
 	private boolean mazeSolveValid(Location loc, boolean[][] locsVisited) {
 		if (loc.getX() < 0 || loc.getX() > size - 1 || loc.getY() < 0 ||
 			loc.getY() > size - 1)
