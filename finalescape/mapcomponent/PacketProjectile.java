@@ -26,6 +26,14 @@ public class PacketProjectile extends ProjectileComponent {
 		super(item);
 	}
 
+	/**
+	 * Checks if {@code Packet} can move to a specific coordinate, stunning
+	 * {@link Failure} components, killing the main {@link Character}, or destroying
+	 * other {@link ProjectileComponent}s.
+	 * @param  x x coordinate
+	 * @param  y y coordinate
+	 * @return   true if can move here, false otherwise
+	 */
 	@Override
 	public boolean canMoveHere(int x, int y) {
 		MapComponent componentThere = getMap().get(x, y);

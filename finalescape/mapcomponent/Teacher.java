@@ -5,10 +5,31 @@ import finalescape.item.Textbook;
 
 import java.awt.Color;
 
+/**
+ * A {@link Character} that has a specific {@link Item} of choice, typically not
+ * attacking nor chasing the {@link Coder} if they have said {@code Item} selected.
+ *
+ * Teachers chase the {@link Coder} if within their direct line of sight in
+ * the 4 {@link finalescape.util.Direction}s, and can destroy the {@link Coder},
+ * but this can be overridden.
+ *
+ * @author Ofek Gila
+ * @see Character
+ * @see Kavita
+ * @see David
+ * @see Failure
+ */
 public class Teacher extends Character {
 
 	private Item itemOfChoice;
 
+	/**
+	 * Creates a {@code Teacher} with a specific {@link Item} of choice, and chance
+	 * of initially spawning with said {@code Item} in their {@link Inventory}.
+	 * @param  name                    name of {@code Teacher}
+	 * @param  itemOfChoice            {@link Item} of choice
+	 * @param  itemOfChoiceProbability chance of spawning with said {@link Item}
+	 */
 	public Teacher(String name, Item itemOfChoice, double itemOfChoiceProbability) {
 		super(name, 2);
 		this.itemOfChoice = itemOfChoice;
@@ -21,6 +42,10 @@ public class Teacher extends Character {
 		this("Teacher", new Textbook(), 0.25);
 	}
 
+	/**
+	 * By default, {@code Teacher}s chase the main {@link Character} if he is
+	 * within their direct line of sight.
+	 */
 	@Override
 	public void tick() {
 		Character target = getTarget();
@@ -39,6 +64,11 @@ public class Teacher extends Character {
 		else moveRandomly();
 	}
 
+	/**
+	 * Returns the {@link Character} that this {@code Teacher} is targeting,
+	 * typically the {@link Coder}, the main {@code Character}.
+	 * @return the targeted {@link Character}
+	 */
 	public Character getTarget() {
 		Character target = getMap().getMainCharacter();
 		if (instof(target.getInventory().getSelectedItem(), itemOfChoice))
@@ -46,6 +76,14 @@ public class Teacher extends Character {
 		return target;
 	}
 
+	/**
+	 * Returns true if {@code Teacher} can move to specific coordinate, false otherwise.
+	 * Teachers move normally, but can kill the main {@link Character} if they don't
+	 * have this {@code Teacher}'s {@link Item} of choice selected.
+	 * @param  x x coordinate
+	 * @param  y y coordinate
+	 * @return   true if can move here, false otherwise
+	 */
 	@Override
 	public boolean canMoveHere(int x, int y) {
 		MapComponent componentThere = getMap().get(x, y);
@@ -59,5 +97,9 @@ public class Teacher extends Character {
 		return false;
 	}
 
+	/**
+	 * Returns this {@code Teacher}'s {@link Item} of choice.
+	 * @return this {@code Teacher}'s {@link Item} of choice
+	 */
 	public Item getItemOfChoice() { return itemOfChoice; }
 }

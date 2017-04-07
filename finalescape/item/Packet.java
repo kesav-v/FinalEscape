@@ -22,6 +22,12 @@ public class Packet extends ProjectileItem {
 		setProjectile(new PacketProjectile(this));
 	}
 
+	/**
+	 * Checks if a {@code Packet} can be placed at a specific coordinate, or stuns
+	 * {@link Failure} for a while.
+	 * @param  component {@link MapComponent} to place on
+	 * @return           true if can be placed on, false otherwise
+	 */
 	@Override
 	public boolean canPlaceOn(MapComponent component) {
 		if (component == null || !component.isSolid())

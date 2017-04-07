@@ -3,6 +3,13 @@ package finalescape.mapcomponent;
 import finalescape.util.Direction;
 import finalescape.item.Packet;
 
+/**
+ * A {@link Teacher} that instead of destroying the main {@link Character} by
+ * walking into him, it shoots homework {@link Packet}s at him.
+ *
+ * @author Ofek Gila
+ * @see Packet
+ */
 public class Kavita extends Teacher {
 
 	private int tickCount;
@@ -12,6 +19,10 @@ public class Kavita extends Teacher {
 		tickCount = 0;
 	}
 
+	/**
+	 * If the main {@link Character} is within the line of sight, shoot a {@link Packet}
+	 * at them. If not, move randomly. Also gain a {@link Packet} every 10 ticks.
+	 */
 	@Override
 	public void tick() {
 		Character target = getTarget();

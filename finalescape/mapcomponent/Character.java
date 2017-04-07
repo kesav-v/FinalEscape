@@ -195,11 +195,11 @@ public abstract class Character extends MapComponent {
 			inventory.useSelectedItem(this);
 	}
 
-	@Override
 	/**
 	 * Tries spawning an {@link ItemComponent} in this character's place with the
 	 * most precedented {@link finalescape.item.Item} in this {@link Inventory}.
 	 */
+	@Override
 	public void destroy() {
 		if (inventory.getMostPrecedentedItem() != null)
 			getMap().addComponent(new ItemComponent(getMap(), getX(), getY(),

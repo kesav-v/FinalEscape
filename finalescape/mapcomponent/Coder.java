@@ -21,7 +21,6 @@ public class Coder extends Character {
 		setColor(Color.BLUE);
 	}
 
-	@Override
 	/**
 	 * Checks if can move to coordinate, picking up any {@link finalescape.item.Item}s
 	 * from any {@link ItemComponent}s it steps on.
@@ -29,6 +28,7 @@ public class Coder extends Character {
 	 * @param  y y coordinate
 	 * @return   true if can move here, false otherwise
 	 */
+	@Override
 	public boolean canMoveHere(int x, int y) {
 		MapComponent componentThere = getMap().get(x, y);
 		Inventory inventory = getInventory();
@@ -43,10 +43,10 @@ public class Coder extends Character {
 		} else return !componentThere.isSolid();
 	}
 
-	@Override
 	/**
 	 * When the {@code Coder} is destroyed, the game is lost.
 	 */
+	@Override
 	public void destroy() {
 		getMap().loseGame();
 	}
