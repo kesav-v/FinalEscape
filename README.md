@@ -50,5 +50,4 @@ java TestRunner
 
 ## For a simple hierarchy flowchart
 
-!(/images/HierarchyFlowchart.png)
-
+![hierarchy flowchart](/images/HierarchyFlowchart.png)
