@@ -31,9 +31,9 @@ public class Textbook extends Item {
 		int maxUses = 0;
 		Item mostUsedItem = null;
 		for (Item item : character.getInventory())
-			if (item.maxUses() > maxUses) {
+			if (item.getUses() > maxUses) {
 				mostUsedItem = item;
-				maxUses = mostUsedItem.maxUses();
+				maxUses = mostUsedItem.getUses();
 			}
 		if (mostUsedItem != null)
 			mostUsedItem.setUses(0);

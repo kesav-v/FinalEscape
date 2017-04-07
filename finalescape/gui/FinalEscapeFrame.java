@@ -50,6 +50,7 @@ public class FinalEscapeFrame extends JFrame implements ActionListener {
 		cards.setSize(getWidth(), getHeight());
 		cards.setLocation(0, 0);
 		add(cards);
+		mapGui.requestFocus();
 	}
 
 	private void addMapGui(int levelOn) {
