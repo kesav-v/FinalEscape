@@ -1,0 +1,26 @@
+Variables
+
+minisize 15
+removedeadendprobability 1
+removewallradius 45
+visibilityradius 5.4
+name Testing Day
+mazestyle INWARDS_CIRCLE
+mazestyleintensity 0.9
+
+Initialize Map
+
+MapComponents
+
+BossTeachers
+
+Teacher 50
+Kavita 20
+Failure 3
+
+Items
+
+Laptop 1
+Frisbee 44
+Boomerang 5
+Piston 4

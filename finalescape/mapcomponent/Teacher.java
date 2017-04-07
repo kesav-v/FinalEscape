@@ -22,6 +22,26 @@ import java.awt.Color;
 public class Teacher extends Character {
 
 	private Item itemOfChoice;
+	private boolean boss;
+
+	/**
+	 * Creates a {@code Teacher} with a specific {@link Item} of choice, and chance
+	 * of initially spawning with said {@code Item} in their {@link Inventory} of
+	 * a specific size.
+	 * @param  name                    name of {@code Teacher}
+	 * @param  itemOfChoice            {@link Item} of choice
+	 * @param  itemOfChoiceProbability chance of spawning with said {@link Item}
+	 * @param  inventorySize           {@link Inventory} capacity
+	 */
+	public Teacher(String name, Item itemOfChoice, double itemOfChoiceProbability,
+		int inventorySize) {
+		super(name, inventorySize);
+		this.itemOfChoice = itemOfChoice;
+		if (Math.random() < itemOfChoiceProbability)
+			getInventory().add(itemOfChoice);
+		setColor(Color.RED);
+		boss = false;
+	}
 
 	/**
 	 * Creates a {@code Teacher} with a specific {@link Item} of choice, and chance
@@ -31,11 +51,7 @@ public class Teacher extends Character {
 	 * @param  itemOfChoiceProbability chance of spawning with said {@link Item}
 	 */
 	public Teacher(String name, Item itemOfChoice, double itemOfChoiceProbability) {
-		super(name, 2);
-		this.itemOfChoice = itemOfChoice;
-		if (Math.random() < itemOfChoiceProbability)
-			getInventory().add(itemOfChoice);
-		setColor(Color.RED);
+		this(name, itemOfChoice, itemOfChoiceProbability, 2);
 	}
 
 	public Teacher() {
@@ -102,4 +118,14 @@ public class Teacher extends Character {
 	 * @return this {@code Teacher}'s {@link Item} of choice
 	 */
 	public Item getItemOfChoice() { return itemOfChoice; }
+
+	/**
+	 * Makes this {@code Teacher} become a boss. By default, makes it tick 3 times
+	 * as often, but can be overridden.
+	 */
+	public void becomeBoss() {
+		if (boss) return;
+		boss = true;
+		setDelayInterval(getDelayInterval() / 3);
+	}
 }

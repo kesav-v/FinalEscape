@@ -23,7 +23,7 @@ public class Failure extends Teacher {
 	private int elapsedTicks;
 
 	public Failure() {
-		super("Failure", null, 0);
+		super("Failure", null, 0, 0);
 		setDelayInterval(15);
 		elapsedTicks = 0;
 	}
@@ -36,7 +36,7 @@ public class Failure extends Teacher {
 	public void tick() {
 		tryMovingInDir(solveMazeDirection(getTarget()));
 		elapsedTicks++;
-		if (elapsedTicks % 750 == 0 && getDelayInterval() > 5)
+		if (elapsedTicks % 750 == 0 && getDelayInterval() > 3)
 			setDelayInterval(getDelayInterval() - 1);
 	}
 

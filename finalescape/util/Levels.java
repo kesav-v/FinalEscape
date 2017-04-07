@@ -3,6 +3,7 @@ package finalescape.util;
 import finalescape.map.Map;
 import finalescape.util.MazeGenerator;
 import finalescape.mapcomponent.MapComponent;
+import finalescape.mapcomponent.Teacher;
 import finalescape.mapcomponent.ItemComponent;
 import finalescape.item.Item;
 
@@ -47,6 +48,7 @@ public class Levels {
 	private static String[] HEADERS = {
 		"Variables",
 		"MapComponents",
+		"BossTeachers",
 		"Items",
 	};
 	private static String[] COMMANDS = {
@@ -104,6 +106,10 @@ public class Levels {
 				for (int i = 0; i < Integer.parseInt(val); i++)
 					map.randomlySpawnComponent(getMapComponent(name));
 				break;
+			case "BossTeachers":
+				for (int i = 0; i < Integer.parseInt(val); i++)
+					map.randomlySpawnComponent(getBossTeacher(name));
+				break;
 			case "Items":
 				for (int i = 0; i < Integer.parseInt(val); i++)
 					map.randomlySpawnComponent(getItemComponent(name));
@@ -157,6 +163,19 @@ public class Levels {
 			Class<?> clazz = Class.forName("finalescape.mapcomponent." + className);
 			Constructor<?> constructor = clazz.getConstructor();
 			return (MapComponent)constructor.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private static MapComponent getBossTeacher(String className) {
+		try {
+			Class<?> clazz = Class.forName("finalescape.mapcomponent." + className);
+			Constructor<?> constructor = clazz.getConstructor();
+			Teacher teacher = (Teacher)constructor.newInstance();
+			teacher.becomeBoss();
+			return teacher;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
