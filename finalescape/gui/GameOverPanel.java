@@ -43,7 +43,12 @@ public abstract class GameOverPanel extends JPanel {
 		buttonFocus = true;
 	}
 
+	public void disableButton() {
+		mainButton.setEnabled(false);
+	}
+
 	private void focusButton() {
+		mainButton.setEnabled(true);
 		getRootPane().setDefaultButton(mainButton);
 		mainButton.requestFocus();
 	}

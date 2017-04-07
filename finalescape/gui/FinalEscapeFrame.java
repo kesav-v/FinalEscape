@@ -40,10 +40,10 @@ public class FinalEscapeFrame extends JFrame implements ActionListener {
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
-		addCards();
-		addMapGui(levelOn);
 		addGameLostPanel();
 		addGameWonPanel();
+		addMapGui(levelOn);
+		addCards();
 	}
 
 	private void addCards() {
@@ -58,6 +58,7 @@ public class FinalEscapeFrame extends JFrame implements ActionListener {
 		mapGui.setFocusable(true);
 		mapGui.grabFocus();
 		DataManager.saveLevelOn(levelOn);
+		showCard("Map");
 	}
 
 	private void addGameLostPanel() {
@@ -107,9 +108,11 @@ public class FinalEscapeFrame extends JFrame implements ActionListener {
 			case "continue":
 				levelOn++;
 				newGame();
+				gameWonPanel.disableButton();
 				break;
 			case "retry":
 				newGame();
+				gameLostPanel.disableButton();
 				break;
 		}
 	}

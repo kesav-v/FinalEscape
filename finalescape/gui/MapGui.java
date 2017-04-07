@@ -52,6 +52,7 @@ public class MapGui extends JPanel implements KeyListener, MouseListener {
 
 		addKeyListener(this);
 		addMouseListener(this);
+		requestFocus();
 	}
 
 	public MapGui(FinalEscapeFrame mainFrame) {
