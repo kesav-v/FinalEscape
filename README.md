@@ -19,9 +19,26 @@ java -cp [customclassfiles]:FinalEscape.jar [yourrunner]
 # e.g. java -cp .:FinalEscape.jar TestRunner
 ```
 
+### On Windows
+
+```sh
+javac -d . @sources.txt
+
+# For jar:
+jar cvfm FinalEscape.jar Manifest.txt @compiled.txt images/ levels/
+java -jar FinalEscape.jar
+
+# Otherwise
+java TestRunner
+```
+
 ## Modifying
 
-Whenever adding new files, be sure to rerun generatesources.sh (e.g. ./generatesources.sh).
+Whenever adding new files, be sure to rerun generatesources.sh (e.g. ./generatesources.sh). For windows, run
+
+```sh
+dir /s /B *.java > sources.txt
+```
 
 For faster compilation (skip .jar generation), run:
 
