@@ -48,3 +48,7 @@ javac -d . @sources.txt
 java TestRunner
 ```
 
+## For a simple hierarchy flowchart
+
+!(/images/HierarchyFlowchart.png)
+
