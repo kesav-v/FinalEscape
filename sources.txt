@@ -6,7 +6,6 @@ finalescape/mapcomponent/Kavita.java
 finalescape/mapcomponent/FrisbeeProjectile.java
 finalescape/mapcomponent/MapComponent.java
 finalescape/mapcomponent/ItemComponent.java
-finalescape/mapcomponent/DeskWithLaptop.java
 finalescape/mapcomponent/Failure.java
 finalescape/mapcomponent/Wall.java
 finalescape/mapcomponent/Coder.java

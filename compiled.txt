@@ -13,7 +13,6 @@
 ./finalescape/mapcomponent/BoomerangProjectile.class
 ./finalescape/mapcomponent/David.class
 ./finalescape/mapcomponent/ProjectileComponent.class
-./finalescape/mapcomponent/DeskWithLaptop.class
 ./finalescape/mapcomponent/PacketProjectile.class
 ./finalescape/util/DataManager.class
 ./finalescape/util/Levels.class

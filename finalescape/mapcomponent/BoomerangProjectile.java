@@ -38,6 +38,9 @@ public class BoomerangProjectile extends ProjectileComponent {
 		bounced = true;
 	}
 
+	/**
+	 * If the {@code BoomerangProjectile} has not bounced yet, bounce back. Else, destroy it.
+	 */
 	@Override
 	public void destroy() {
 		if (bounced) {
@@ -46,6 +49,15 @@ public class BoomerangProjectile extends ProjectileComponent {
 		} else bounceBack();
 	}
 
+	/**
+	 * Returns true if the {@code BoomerangProjectile} can move to a specific
+	 * coordinate, false otherwise. If on the bounce back, try placing a
+	 * {@link finalescape.item.Boomerang} in the {@link Character}'s {@link finalescape.mapcomponent.Inventory},
+	 * if they have one.
+	 * @param  x x coordinate
+	 * @param  y y coordinate
+	 * @return   true if can move there, false otherwise
+	 */
 	@Override
 	public boolean canMoveHere(int x, int y) {
 		MapComponent componentThere = getMap().get(x, y);

@@ -29,6 +29,13 @@ public class Boomerang extends ProjectileItem {
 		this(0);
 	}
 
+	/**
+	 * Returns true if the {@code Boomerang} can be placed on a specific
+	 * {@link MapComponent}, false otherwise. If the component is solid,
+	 * don't destroy the {@code Boomerang} unless it has no uses left.
+	 * @param  component the {@link MapComponent} to place on
+	 * @return           true if can place, false otherwise
+	 */
 	@Override
 	public boolean canPlaceOn(MapComponent component) {
 		if (component == null || !component.isSolid())
