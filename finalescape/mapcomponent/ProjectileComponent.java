@@ -70,6 +70,10 @@ public abstract class ProjectileComponent extends MapComponent {
 	 */
 	public void setDirection(Direction dir) { this.dir = dir; }
 
+	/**
+	 * Tries moving towards faced {@link Direction} if possible.
+	 * If not, destroy. Can be overridden.
+	 */
 	@Override
 	public void tick() {
 		int newx = getX() + dir.dX;

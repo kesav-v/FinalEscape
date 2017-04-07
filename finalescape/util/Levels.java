@@ -13,6 +13,34 @@ import java.io.IOException;
 
 import java.lang.reflect.Constructor;
 
+/**
+ * Utility class for loading levels from level txt files (e.g. levels/level1.txt)
+ * into {@link Map} using reflection.
+ * Example format for such files is:
+ *
+ * <pre>
+	Variables
+
+	minisize 5
+	removedeadendprobability 1
+	removewallradius 10
+	visibilityradius 5.3
+	name Starting Fresh
+
+	Initialize Map
+
+	MapComponents
+
+	Teacher 5
+
+	Items
+
+	Laptop 1
+	Frisbee 5
+	</pre>
+
+	@author Ofek Gila
+ */
 public class Levels {
 
 	public static final String LEVELS_PATH = "levels/";
@@ -25,16 +53,34 @@ public class Levels {
 		"Initialize Map",
 	};
 
+	/**
+	 * Loads a level given a level number. Level file is found at
+	 * levels/level[level number].txt
+	 * @param map      the {@link Map} to load the level into
+	 * @param levelNum the number of the level
+	 */
 	public static void loadLevel(Map map, int levelNum) {
 		parseLevel(map, loadScanner(LEVELS_PATH + "level" + levelNum + ".txt"));
 	}
 
+	/**
+	 * Parse a level given a {@link Scanner} representation of that level file.
+	 * @param map   the {@link Map} to load the level into
+	 * @param level a {@link Scanner} representation of the level file
+	 */
 	public static void parseLevel(Map map, Scanner level) {
 		String headerOn = "";
 		while (level.hasNextLine())
 			headerOn = parseLine(map, level.nextLine(), headerOn);
 	}
 
+	/**
+	 * Parse a single line in the level file as {@code String}.
+	 * @param  map      the {@link Map} to parse the line into
+	 * @param  line     the {@code String} line
+	 * @param  headerOn the current header (e.g. MapComponents, Items, etc.)
+	 * @return          the current header
+	 */
 	private static String parseLine(Map map, String line, String headerOn) {
 		if (line.length() == 0)
 			return headerOn;
@@ -66,6 +112,12 @@ public class Levels {
 		return headerOn;
 	}
 
+	/**
+	 * Parse a variable, given when the {@code Variables} header is active.
+	 * @param map      the {@link Map} to parse the variable into
+	 * @param varName  the name of the variable
+	 * @param varValue the value of the variable
+	 */
 	private static void parseVariable(Map map, String varName, String varValue) {
 		switch (varName) {
 			case "minisize":
@@ -136,6 +188,11 @@ public class Levels {
 		return false;
 	}
 
+	/**
+	 * Loads a {@link Scanner} for a file given a file path.
+	 * @param  path the path to the file
+	 * @return      a {@link Scanner} representation of that file.
+	 */
 	public static Scanner loadScanner(String path) {
 		try {
 			return new Scanner(new File(path));

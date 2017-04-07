@@ -6,6 +6,12 @@ import finalescape.mapcomponent.Character;
 import finalescape.mapcomponent.Wall;
 import finalescape.mapcomponent.MapComponent;
 
+/**
+ * An {@link Item} with 10 uses that can be used to push {@link Wall}s.
+ *
+ * @author Ofek Gila
+ * @see Wall
+ */
 public class Piston extends Item {
 	public Piston() {
 		super("Piston");
@@ -13,6 +19,13 @@ public class Piston extends Item {
 		setMaxUses(10);
 	}
 
+	/**
+	 * When used, if facing a {@link Wall}, try pushing it. Can be pushed into objects,
+	 * to try to destroy them. If the objects are not removed from the {@link Map}
+	 * when destroyed, remove the pushed {@code Wall} from the {@code Map}.
+	 * @param  character the {@link Character} using this {@code Piston}
+	 * @return           true if used up (all 10 uses), false if not
+	 */
 	@Override
 	public boolean onUse(Character character) {
 		Direction dir = character.getDirection();

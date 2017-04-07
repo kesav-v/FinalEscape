@@ -20,13 +20,23 @@ public class Textbook extends Item {
 		super("Textbook");
 	}
 
+	/**
+	 * Finds the most used {@link Item} in the {@link Character}'s {@link finalescape.mapcomponent.Inventory},
+	 * and resets its uses.
+	 * @param  character the {@link Character} holding this {@code Textbook}
+	 * @return           true since used up
+	 */
 	@Override
 	public boolean onUse(Character character) {
+		int maxUses = 0;
+		Item mostUsedItem = null;
 		for (Item item : character.getInventory())
-			if (item.maxUses() > 1 && item.getUses() > 0) {
-				item.setUses(0);
-				break;
+			if (item.maxUses() > maxUses) {
+				mostUsedItem = item;
+				maxUses = mostUsedItem.maxUses();
 			}
+		if (mostUsedItem != null)
+			mostUsedItem.setUses(0);
 		return true;
 	}
 }

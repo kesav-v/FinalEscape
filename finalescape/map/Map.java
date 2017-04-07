@@ -517,15 +517,58 @@ public class Map {
 		return true;
 	}
 
+	/**
+	 * Gets the X coordinate of the main {@link Character}
+	 * @return main {@link Character} x coordinate
+	 */
 	public int getCenterX() { return mainCharacter.getX(); }
-	public int getCenterY() { return mainCharacter.getY(); }
-	public Character getMainCharacter() { return mainCharacter; }
-	public MapComponent getDestinationComponent() { return destinationComponent; }
-	public int size() { return size; }
-	public double getVisibilityRadius() { return visibilityradius; }
-	public int getLevelOn() { return levelOn; }
-	public int getGameTicks() { return gameTicks; }
-	public String getName() { return name; }
 
-	public void setLevelOn(int level) { levelOn = level; }
+	/**
+	 * Gets the Y coordinate of the main {@link Character}
+	 * @return main {@link Character} y coordinate
+	 */
+	public int getCenterY() { return mainCharacter.getY(); }
+
+	/**
+	 * Gets the main {@link Character} of this {@code Map} (the {@link Coder}).
+	 * @return the {@code Map}'s main {@link Character}
+	 */
+	public Character getMainCharacter() { return mainCharacter; }
+
+	/**
+	 * Gets the {@link MapComponent} holding the final destination of this {@code Map}
+	 * (the {@link Desk}).
+	 * @return the final {@link MapComponent} destination
+	 */
+	public MapComponent getDestinationComponent() { return destinationComponent; }
+
+	/**
+	 * Returns the size of this {@code Map}
+	 * @return the {@code Map} size
+	 */
+	public int size() { return size; }
+
+	/**
+	 * Gets the visibility radius of the main {@link Character} for this {@code Map}
+	 * @return the visibility radius
+	 */
+	public double getVisibilityRadius() { return visibilityradius; }
+
+	/**
+	 * Gets the level this {@code Map} is on
+	 * @return the current level
+	 */
+	public int getLevelOn() { return levelOn; }
+
+	/**
+	 * Gets how many ticks have elapsed for this {@code Map}
+	 * @return elapsed ticks
+	 */
+	public int getGameTicks() { return gameTicks; }
+
+	/**
+	 * Gets the name of this {@code Map}
+	 * @return the name of this {@code Map}
+	 */
+	public String getName() { return name; }
 }
