@@ -41,6 +41,12 @@ public class Inventory extends ArrayList<Item> {
 	 */
 	public int capacity() { return inventoryCapacity; }
 
+	/**
+	 * Adds an {@link Item} to the {@code Inventory}, not adding if full. Updates
+	 * mostPrecedentedItem if necessary.
+	 * @param  item the {@link Item} to add
+	 * @return      true if added, false otherwise
+	 */
 	@Override
 	public boolean add(Item item) {
 		if (isFull())
@@ -55,6 +61,13 @@ public class Inventory extends ArrayList<Item> {
 		return super.add(item);
 	}
 
+	/**
+	 * Sets the {@link Item} to a specific index of the {@code Inventory}, updating
+	 * the most precedented item if necessary.
+	 * @param  index the index to add to
+	 * @param  item  the {@link Item} to add
+	 * @return       true if set, false otherwise
+	 */
 	@Override
 	public Item set(int index, Item item) {
 		if (mostPrecedented == null
@@ -63,6 +76,11 @@ public class Inventory extends ArrayList<Item> {
 		return super.set(index, item);
 	}
 
+	/**
+	 * Gets the {@link Item} at a specific index
+	 * @param  index the index to get from
+	 * @return       the {@link Item} at that index
+	 */
 	@Override
 	public Item get(int index) {
 		if (index >= size())
