@@ -1,4 +1,6 @@
 finalescape/mapcomponent/Inventory.java
+finalescape/mapcomponent/Helicopter.java
+finalescape/mapcomponent/Jon.java
 finalescape/mapcomponent/BoomerangProjectile.java
 finalescape/mapcomponent/David.java
 finalescape/mapcomponent/ProjectileComponent.java
@@ -9,6 +11,7 @@ finalescape/mapcomponent/ItemComponent.java
 finalescape/mapcomponent/Failure.java
 finalescape/mapcomponent/Wall.java
 finalescape/mapcomponent/Coder.java
+finalescape/mapcomponent/GavelProjectile.java
 finalescape/mapcomponent/Teacher.java
 finalescape/mapcomponent/Desk.java
 finalescape/mapcomponent/PacketProjectile.java
@@ -28,6 +31,7 @@ finalescape/gui/MinimapPanel.java
 finalescape/gui/GameLostPanel.java
 finalescape/gui/ItemPanel.java
 finalescape/item/Boomerang.java
+finalescape/item/Gavel.java
 finalescape/item/Packet.java
 finalescape/item/ProjectileItem.java
 finalescape/item/Piston.java

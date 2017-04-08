@@ -9,6 +9,7 @@ import finalescape.mapcomponent.MapComponent;
 import finalescape.mapcomponent.Character;
 import finalescape.mapcomponent.Coder;
 import finalescape.mapcomponent.Wall;
+import finalescape.mapcomponent.Helicopter;
 import finalescape.mapcomponent.Desk;
 import finalescape.mapcomponent.ItemComponent;
 import finalescape.item.Item;
@@ -128,6 +129,42 @@ public class Map {
 		if (x < 0 || x >= size || y < 0 || y >= size)
 			return false;
 		return get(x, y) == null;
+	}
+
+	public boolean isOccupied(int x, int y) {
+		if (x < 0 || x >= size || y < 0 || y >= size)
+			return false;
+		return get(x, y) != null;
+	}
+
+	public ArrayList<Location> getEmptyLocationsInRadius(int x, int y, double radius) {
+		int rad = (int)radius;
+		ArrayList<Location> emptyLocs = new ArrayList<Location>(rad * rad);
+		for (int i = x - rad; i <= x + rad; i++)
+			for (int a = y - rad; a <= y + rad; a++)
+				if (isEmpty(i, a) && distance(x, y, i, a) <= radius)
+					emptyLocs.add(new Location(i, a));
+		return emptyLocs;
+	}
+
+	public ArrayList<Location> getEmptyLocationsInRadius(MapComponent component,
+		double radius) {
+		return getEmptyLocationsInRadius(component.getX(), component.getY(), radius);
+	}
+
+	public ArrayList<Location> getOccupiedLocationsInRadius(int x, int y, double radius) {
+		int rad = (int)radius;
+		ArrayList<Location> emptyLocs = new ArrayList<Location>(rad * rad);
+		for (int i = x - rad; i <= x + rad; i++)
+			for (int a = y - rad; a <= y + rad; a++)
+				if (isOccupied(i, a) && distance(x, y, i, a) <= radius)
+					emptyLocs.add(new Location(i, a));
+		return emptyLocs;
+	}
+
+	public ArrayList<Location> getOccupiedLocationsInRadius(MapComponent component,
+		double radius) {
+		return getOccupiedLocationsInRadius(component.getX(), component.getY(), radius);
 	}
 
 	/**
@@ -512,7 +549,8 @@ public class Map {
 		if (locsVisited[loc.getX()][loc.getY()])
 			return false;
 		locsVisited[loc.getX()][loc.getY()] = true;
-		if (get(loc.getX(), loc.getY()) instanceof Wall)
+		if (get(loc.getX(), loc.getY()) instanceof Wall ||
+			get(loc.getX(), loc.getY()) instanceof Helicopter)
 			return false;
 		return true;
 	}
@@ -571,4 +609,8 @@ public class Map {
 	 * @return the name of this {@code Map}
 	 */
 	public String getName() { return name; }
+
+	public static double distance(int x1, int y1, int x2, int y2) {
+		return Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
+	}
 }
