@@ -83,7 +83,7 @@ public abstract class MapComponent {
 	 * @param x x coordinate to move to
 	 * @param y y coordinate to move to
 	 */
-	public final void moveTo(int x, int y) {
+	public void moveTo(int x, int y) {
 		map.moveComponent(this.x, this.y, x, y);
 		this.x = x;
 		this.y = y;
@@ -235,7 +235,8 @@ public abstract class MapComponent {
 	 * @see finalescape.mapcomponent.Failure#destroy
 	 */
 	public void destroy() {
-		map.removeComponent(this);
+		if (!invincible)
+			map.removeComponent(this);
 	}
 
 	/**

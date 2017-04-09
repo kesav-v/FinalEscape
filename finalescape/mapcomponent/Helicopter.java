@@ -2,6 +2,7 @@ package finalescape.mapcomponent;
 
 import finalescape.map.Map;
 import finalescape.util.Location;
+import finalescape.util.Direction;
 
 import java.awt.Color;
 
@@ -13,6 +14,7 @@ public class Helicopter extends MapComponent {
 		setInvincible(true);
 		setColor(Color.BLUE);
 		destroyInRadius(destroyRadius);
+		setDirection(Direction.EAST);
 	}
 
 	private void destroyInRadius(double radius) {
