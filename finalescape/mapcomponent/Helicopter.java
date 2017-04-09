@@ -10,6 +10,7 @@ public class Helicopter extends MapComponent {
 		super(map, x, y, "Helicopter");
 		setSolid(true);
 		setOpaque(false);
+		setInvincible(true);
 		setColor(Color.BLUE);
 		destroyInRadius(destroyRadius);
 	}

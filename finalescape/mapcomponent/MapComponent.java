@@ -29,6 +29,7 @@ public abstract class MapComponent {
 	private int x, y;
 	private Map map;
 	private boolean solid, opaque;
+	private boolean invincible;
 	private BufferedImage img;
 	private Direction direction;
 	private Color color;
@@ -73,6 +74,7 @@ public abstract class MapComponent {
 		precedence = 0;
 		delayInterval = 5;
 		preventUpdate = 0;
+		invincible = false;
 	}
 
 	/**
@@ -143,6 +145,7 @@ public abstract class MapComponent {
 
 	public boolean isSolid() { return solid; }
 	public boolean isOpaque() { return opaque; }
+	public boolean isInvincible() { return invincible; }
 	public int getDelayInterval() { return delayInterval; }
 
 	/**
@@ -188,6 +191,8 @@ public abstract class MapComponent {
 	 * @param interval the length of the interval
 	 */
 	public void setDelayInterval(int interval) { delayInterval = interval; }
+
+	public void setInvincible(boolean invin) { invincible = invin; }
 
 	/**
 	 * Prevents updating this {@code MapComponent} a specific number of times

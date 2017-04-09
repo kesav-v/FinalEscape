@@ -45,7 +45,7 @@ public class Jon extends Teacher {
 					tryMovingInDir(solveMazeDirection(helicopter));
 				else moveRandomly();
 			}
-			if (Math.random() < 0.5)
+			if (Math.random() < 0.25)
 				getInventory().add(new Gavel());
 			return;
 		}

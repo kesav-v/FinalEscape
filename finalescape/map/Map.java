@@ -104,8 +104,12 @@ public class Map {
 		occupantArray = new MapComponent[size][size];
 		for (int i = 0; i < occupantArray.length; i++)
 			for (int a = 0; a < occupantArray[i].length; a++)
-				if (!walls[i][a]) // wall
+				if (!walls[i][a]) { // wall
 					occupantArray[i][a] = new Wall(this, i, a);
+					if (i == 0 || a == 0 || i == occupantArray.length - 1 ||
+						a == occupantArray[i].length - 1)
+						occupantArray[i][a].setInvincible(true);
+				}
 	}
 
 	/**
@@ -203,6 +207,7 @@ public class Map {
 		}
 		addComponent(desk, true);
 		destinationComponent = desk;
+		desk.setInvincible(true);
 	}
 
 	/**
@@ -301,11 +306,10 @@ public class Map {
 	 * @return       true if removed, false if failed (e.g., tried from edge)
 	 */
 	public synchronized boolean removeComponent(int x, int y, boolean force) {
-		if (force);
-		else if (x == 0 || y == 0 || x == size - 1 || y == size - 1)
-			return false;
 		if (occupantArray[x][y] == null)
 			return true;
+		if (!force && occupantArray[x][y].isInvincible())
+			return false;
 		occupantArray[x][y].setMap(null);
 		occupantArray[x][y] = null;
 		return true;
