@@ -216,7 +216,7 @@ public abstract class MapComponent {
 	 * @param  obj2 the other
 	 * @return      true if is an instanceof, false otherwise
 	 */
-	public final boolean instof(Object obj1, Object obj2) {
+	public static final boolean instof(Object obj1, Object obj2) {
 		if (obj1 == null || obj2 == null)
 			return false;
 		return obj2.getClass().isAssignableFrom(obj1.getClass());

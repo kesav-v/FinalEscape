@@ -25,9 +25,10 @@ public class Jon extends Teacher {
 		boolean hasGavel = getInventory().getSelectedItem() instanceof Gavel;
 		if (!helicopterSpawned)
 			trySpawningHelicopter();
-		if (!helicopterSpawned || target == null)
+		if (!helicopterSpawned || target == null) {
 			moveRandomly();
-		else if (target.getX() == getX() && hasGavel)
+			return;
+		} else if (target.getX() == getX() && hasGavel)
 				if (target.getY() > getY())
 					setDirection(Direction.getDir(0, 1));
 				else setDirection(Direction.getDir(0, -1));

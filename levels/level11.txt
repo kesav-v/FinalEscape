@@ -1,0 +1,25 @@
+Variables
+
+minisize 15
+removedeadendprobability 0.9
+removewallradius 45
+visibilityradius 4.3
+name Placeholder
+
+Initialize Map
+
+MapComponents
+
+Teacher 50
+Kavita 20
+David 3
+Jon 5
+Failure 3
+
+
+Items
+
+Laptop 1
+Frisbee 44
+Boomerang 5
+Piston 4

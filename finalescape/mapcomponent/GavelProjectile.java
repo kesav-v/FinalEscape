@@ -23,6 +23,15 @@ public class GavelProjectile extends ProjectileComponent {
 		if (componentThere == getMap().getMainCharacter()
 			|| componentThere instanceof ProjectileComponent)
 			componentThere.destroy();
+		else if (componentThere instanceof Teacher)
+			stunAllOfType(getMap(), componentThere);
 		return false;
+	}
+
+	public static void stunAllOfType(Map map, Object type) {
+		for (int i = 0; i < map.size(); i++)
+			for (int a = 0; a < map.size(); a++)
+				if (instof(type, map.get(i, a)) && instof(map.get(i, a), type))
+					map.get(i, a).preventUpdate(10);
 	}
 }

@@ -29,6 +29,7 @@ public class Coder extends Character {
 		helicopterMoves = -2;
 		helicopterImage = null;
 		tempComponent1 = null;
+		getInventory().add(new finalescape.item.Gavel());
 	}
 
 	@Override
