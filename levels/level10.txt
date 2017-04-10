@@ -4,9 +4,10 @@ minisize 15
 removedeadendprobability 1
 removewallradius 45
 visibilityradius 5.4
-name Testing Day
+name Testing Day (Boss Fight)
 mazestyle INWARDS_CIRCLE
 mazestyleintensity 0.9
+bossboost 2
 
 Initialize Map
 

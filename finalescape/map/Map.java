@@ -52,6 +52,7 @@ public class Map {
 	public String name;
 	public MazeGenerator.GENERATION_STYLE mazestyle;
 	public double mazestyleintensity;
+	public double bossboost;
 
 	private int levelOn;
 
@@ -74,6 +75,7 @@ public class Map {
 		name = "";
 		mazestyle = MazeGenerator.GENERATION_STYLE.NORMAL;
 		mazestyleintensity = 0.8;
+		bossboost = 2;
 		Levels.loadLevel(this, levelOn);
 	}
 

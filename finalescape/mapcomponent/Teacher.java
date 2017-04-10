@@ -123,9 +123,9 @@ public class Teacher extends Character {
 	 * Makes this {@code Teacher} become a boss. By default, makes it tick 3 times
 	 * as often, but can be overridden.
 	 */
-	public void becomeBoss() {
+	public void becomeBoss(double bossboost) {
 		if (boss) return;
 		boss = true;
-		setDelayInterval(getDelayInterval() / 3);
+		setDelayInterval((int)(getDelayInterval() / bossboost + 0.5));
 	}
 }

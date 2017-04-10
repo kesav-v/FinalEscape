@@ -108,7 +108,7 @@ public class Levels {
 				break;
 			case "BossTeachers":
 				for (int i = 0; i < Integer.parseInt(val); i++)
-					map.randomlySpawnComponent(getBossTeacher(name));
+					map.randomlySpawnComponent(getBossTeacher(name, map.bossboost));
 				break;
 			case "Items":
 				for (int i = 0; i < Integer.parseInt(val); i++)
@@ -147,6 +147,9 @@ public class Levels {
 			case "mazestyleintensity":
 				map.mazestyleintensity = Double.parseDouble(varValue);
 				break;
+			case "bossboost":
+				map.bossboost = Double.parseDouble(varValue);
+				break;
 		}
 	}
 
@@ -169,12 +172,12 @@ public class Levels {
 		}
 	}
 
-	private static MapComponent getBossTeacher(String className) {
+	private static MapComponent getBossTeacher(String className, double boost) {
 		try {
 			Class<?> clazz = Class.forName("finalescape.mapcomponent." + className);
 			Constructor<?> constructor = clazz.getConstructor();
 			Teacher teacher = (Teacher)constructor.newInstance();
-			teacher.becomeBoss();
+			teacher.becomeBoss(boost);
 			return teacher;
 		} catch (Exception e) {
 			e.printStackTrace();
