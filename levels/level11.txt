@@ -13,7 +13,7 @@ MapComponents
 Teacher 50
 Kavita 20
 David 3
-Jon 5
+Jon 3
 Failure 3
 
 

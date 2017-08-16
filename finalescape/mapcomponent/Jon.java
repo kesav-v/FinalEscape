@@ -29,9 +29,9 @@ public class Jon extends Teacher {
 			moveRandomly();
 			return;
 		} else if (target.getX() == getX() && hasGavel)
-				if (target.getY() > getY())
-					setDirection(Direction.getDir(0, 1));
-				else setDirection(Direction.getDir(0, -1));
+			if (target.getY() > getY())
+				setDirection(Direction.getDir(0, 1));
+			else setDirection(Direction.getDir(0, -1));
 		else if (target.getY() == getY() && hasGavel)
 			if (target.getX() > getX())
 				setDirection(Direction.getDir(1, 0));
